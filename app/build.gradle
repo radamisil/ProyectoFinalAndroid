@@ -91,4 +91,9 @@ dependencies {
 
     //endregion
 
+    //region Lottie
+    implementation 'com.airbnb.android:lottie:3.0.2'
+
+    //endregion
+
 }
