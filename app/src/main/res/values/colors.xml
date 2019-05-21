@@ -29,8 +29,12 @@
     <color name="colorPrimaryDark">#00796B</color>
     <color name="colorAccent">#FFF8E1</color>-->
 
-    <color name="colorPrimary">#D32F2F</color>
+    <!--<color name="colorPrimary">#D32F2F</color>
     <color name="colorPrimaryDark">#B71C1C</color>
-    <color name="colorAccent">#FFF8E1</color>
+    <color name="colorAccent">#FFF8E1</color>-->
+
+    <color name="colorPrimary">#C2185B</color>
+    <color name="colorPrimaryDark">#880E4F</color>
+    <color name="colorAccent">#FFAB00</color>
 
 </resources>

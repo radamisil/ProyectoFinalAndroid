@@ -1,10 +1,13 @@
 package com.visight.adondevamos.ui.start
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.visight.adondevamos.R
+import java.util.*
+import kotlin.concurrent.schedule
 
 class StartActivity : AppCompatActivity(){
 
@@ -20,5 +23,8 @@ class StartActivity : AppCompatActivity(){
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
+
+        window.enterTransition = null
+        window.exitTransition = null
     }
 }
