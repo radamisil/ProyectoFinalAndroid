@@ -37,4 +37,9 @@
     <color name="colorPrimaryDark">#880E4F</color>
     <color name="colorAccent">#FFAB00</color>
 
+    <color name="colorLightGrey">#F5F5F5</color>
+    <color name="colorDarkerLightGrey">#E0E0E0</color>
+    <color name="colorGrey">#616161</color>
+    <color name="colorDarkSemiTransparent">#99000000</color>
+
 </resources>

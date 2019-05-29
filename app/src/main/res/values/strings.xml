@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">¿A dónde vamos?</string>
+    <string name="text_subtitle">¡Ingresá a nuestra app y disfrutá de todo lo que tenemos para brindarte!\n¡Te esperamos!</string>
+
+    <!-- Services -->
+    <string name="maps_debug_api_key">AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o</string>
 </resources>

@@ -15,6 +15,7 @@ import java.util.*
 import kotlin.concurrent.schedule
 import android.os.Handler
 import com.visight.adondevamos.R
+import com.visight.adondevamos.ui.main.MainActivity
 
 
 class SplashActivity : AppCompatActivity() {
@@ -30,8 +31,11 @@ class SplashActivity : AppCompatActivity() {
         )
 
         val animatorLogo = AnimatorInflater.loadAnimator(this@SplashActivity, R.animator.animator_fade_in)
+        animatorLogo.duration = 650
         animatorLogo.setTarget(ivLogo)
         animatorLogo.start()
+
+        //TODO PREGUNTAR OTRA VEZ POR QUÉ USA OBJECT Y NO UNA VARIABLE CUALQUIERA
         animatorLogo.addListener(object : Animator.AnimatorListener{
             override fun onAnimationRepeat(animation: Animator?) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -39,14 +43,13 @@ class SplashActivity : AppCompatActivity() {
 
             override fun onAnimationEnd(animation: Animator?) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                val intent = Intent(this@SplashActivity, StartActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                    this@SplashActivity, ivLogo, "ivLogo")
-                startActivity(intent, options.toBundle())
-                finish()
-                window.exitTransition = null
+                Handler().postDelayed({
+                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                    finish()
+                }, 150)
             }
 
             override fun onAnimationCancel(animation: Animator?) {
@@ -59,16 +62,5 @@ class SplashActivity : AppCompatActivity() {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
         })
-
-        /*Handler().postDelayed({
-            val intent = Intent(this@SplashActivity, StartActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                this@SplashActivity, ivLogo, "ivLogo")
-            startActivity(intent, options.toBundle())
-            finish()
-            window.exitTransition = null
-        }, 500)*/
     }
 }

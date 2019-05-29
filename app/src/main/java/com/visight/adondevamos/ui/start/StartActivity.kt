@@ -1,13 +1,13 @@
 package com.visight.adondevamos.ui.start
 
-import android.content.Intent
+import android.animation.Animator
+import android.animation.AnimatorInflater
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.visight.adondevamos.R
-import java.util.*
-import kotlin.concurrent.schedule
+import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity(){
 
@@ -24,8 +24,54 @@ class StartActivity : AppCompatActivity(){
             )
         }
 
-        window.enterTransition = null
-        window.exitTransition = null
+        val animatorSubtitle = AnimatorInflater.loadAnimator(this@StartActivity, R.animator.animator_fade_in)
+        animatorSubtitle.setTarget(tvSubtitle)
+        animatorSubtitle.startDelay = 100
+        animatorSubtitle.start()
+
+        animatorSubtitle.addListener(object: Animator.AnimatorListener{
+            override fun onAnimationRepeat(animation: Animator?) {
+                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                val animatorLogin = AnimatorInflater.loadAnimator(this@StartActivity, R.animator.animator_fade_in)
+                animatorLogin.setTarget(btnLogin)
+                animatorLogin.start()
+
+                animatorLogin.addListener(object: Animator.AnimatorListener{
+                    override fun onAnimationRepeat(animation: Animator?) {
+                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onAnimationEnd(animation: Animator?) {
+                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        val animatorRegister = AnimatorInflater.loadAnimator(this@StartActivity, R.animator.animator_fade_in)
+                        animatorRegister.setTarget(btnRegister)
+                        animatorRegister.start()
+                    }
+
+                    override fun onAnimationCancel(animation: Animator?) {
+                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                    override fun onAnimationStart(animation: Animator?) {
+                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                    }
+
+                })
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onAnimationStart(animation: Animator?) {
+                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+        })
     }
 
     //TODO PREGUNTAR --> POR QUE HACE FALTA OTRO FINISH() ACA?
