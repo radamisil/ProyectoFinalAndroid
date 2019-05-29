@@ -27,4 +27,10 @@ class StartActivity : AppCompatActivity(){
         window.enterTransition = null
         window.exitTransition = null
     }
+
+    //TODO PREGUNTAR --> POR QUE HACE FALTA OTRO FINISH() ACA?
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
+    }
 }
