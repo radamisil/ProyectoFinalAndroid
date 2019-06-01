@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.start.StartActivity" />
+        <activity android:name=".ui.start.login.LoginActivity"/>
+        <activity android:name=".ui.start.register.RegisterActivity"/>
         <activity android:name=".ui.main.MainActivity"
             android:launchMode="singleTask"/>
 

@@ -21,6 +21,7 @@
             app:headerLayout="@layout/layout_sidebar_header"
             app:menu="@menu/menu_sidebar"
             app:itemTextColor="@color/colorGrey"
+            app:itemTextAppearance="@style/NavigationTextAppearance"
             app:itemIconTint="@color/colorPrimaryDark"
             android:theme="@style/NavigationViewStyle"
             android:background="@color/colorLightGrey">
@@ -41,9 +42,10 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="¡Registrate o iniciá sesión \npara seguir aprovechando los \nbeneficios de nuestra app!"
+                    android:text="@string/text_registrate_o_inici_sesi_n_npara_seguir_aprovechando_los_nbeneficios_de_nuestra_app"
                     android:textColor="@android:color/white"
                     android:textSize="15sp"
+                    android:fontFamily="@font/opensans_regular"
                     android:gravity="bottom"
                     android:paddingHorizontal="20dp"/>
 
@@ -51,9 +53,10 @@
                     android:id="@+id/btnRegisterLogin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Registrarme ó\nIniciar sesión"
+                    android:text="@string/text_registrarme_niniciar_sesi_n"
                     android:textSize="12sp"
                     android:textColor="@android:color/white"
+                    android:fontFamily="@font/opensans_semibold"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginVertical="10dp"/>
         </LinearLayout>

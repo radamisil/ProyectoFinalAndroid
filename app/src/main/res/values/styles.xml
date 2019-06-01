@@ -15,4 +15,8 @@
         <item name="android:listDivider">@color/colorDarkerLightGrey</item>
     </style>
 
+    <style name="NavigationTextAppearance" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/opensans_regular</item>
+    </style>
+
 </resources>

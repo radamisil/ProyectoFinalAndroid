@@ -4,4 +4,12 @@
 
     <!-- Services -->
     <string name="maps_debug_api_key">AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o</string>
+    <string name="text_ingresar_con_mi_cuenta">Ingresar con mi cuenta</string>
+    <string name="text_registrarme">Registrarme</string>
+    <string name="text_registrate_o_inici_sesi_n_npara_seguir_aprovechando_los_nbeneficios_de_nuestra_app">¡Registrate o
+        iniciá sesión para seguir aprovechando los beneficios de nuestra app!
+    </string>
+    <string name="text_registrarme_niniciar_sesi_n">Registrarme ó Iniciar sesión</string>
+    <string name="text_ver_perfil">Ver perfil</string>
+    <string name="text_no_ten_s_cuenta_registrarme">¿No tenés cuenta? ¡Registrarme!</string>
 </resources>

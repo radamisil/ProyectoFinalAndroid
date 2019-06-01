@@ -2,11 +2,14 @@ package com.visight.adondevamos.ui.start
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.visight.adondevamos.R
+import com.visight.adondevamos.ui.start.login.LoginActivity
+import com.visight.adondevamos.ui.start.register.RegisterActivity
 import kotlinx.android.synthetic.main.activity_start.*
 
 class StartActivity : AppCompatActivity(){
@@ -72,11 +75,19 @@ class StartActivity : AppCompatActivity(){
             }
 
         })
+
+        btnLogin.setOnClickListener {
+            val intent = Intent(this@StartActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnRegister.setOnClickListener {
+            val intent = Intent(this@StartActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    //TODO PREGUNTAR --> POR QUE HACE FALTA OTRO FINISH() ACA?
     override fun onBackPressed() {
-        finish()
         super.onBackPressed()
     }
 }
