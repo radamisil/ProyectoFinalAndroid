@@ -13,12 +13,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        ivLogo.visibility = View.GONE
+
         setSupportActionBar(toolbar)
         supportActionBar!!.title = "Iniciar sesión"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_back)
-
-        tvTitle.visibility = View.GONE
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

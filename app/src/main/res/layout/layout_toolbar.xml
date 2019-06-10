@@ -14,14 +14,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize" />
 
-            <TextView
-                    android:id="@+id/tvTitle"
+            <ImageView
+                    android:id="@+id/ivLogo"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    android:fontFamily="@font/raleway_extra_bold"
-                    android:text="¿A dónde vamos?"
-                    android:textSize="20sp"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"/>
+                    android:src="@drawable/logo_horizontal"
+                    android:gravity="center"
+                    android:paddingVertical="10dp"/>
         </RelativeLayout>
     </com.google.android.material.appbar.AppBarLayout>
