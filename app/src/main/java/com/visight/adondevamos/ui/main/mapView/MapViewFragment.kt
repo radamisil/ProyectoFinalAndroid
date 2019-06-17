@@ -26,13 +26,13 @@ class MapViewFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var mClusterManager: ClusterManager<MapItem>
     private lateinit var mCurrentLocation: LatLng
-    private lateinit var mLocationDisposable: Disposable
+    private var mLocationDisposable: Disposable? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(com.visight.adondevamos.R.layout.fragment_map, container, false)
 
-        if(savedInstanceState != null){
-            mCurrentLocation = savedInstanceState.getParcelable(AppConstants.CURRENT_LOCATION_KEY)
+        if(arguments != null){
+            mCurrentLocation = arguments!!.getParcelable(AppConstants.CURRENT_LOCATION_KEY)
         }else {
             checkPermissions()
         }
@@ -104,10 +104,15 @@ class MapViewFragment : Fragment(), OnMapReadyCallback {
         mClusterManager.cluster()
     }
 
+    fun setCameraToCurrentPosition(newPosition: LatLng){
+        mCurrentLocation = newPosition
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, AppConstants.mapZoomIn))
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         if(mLocationDisposable != null){
-            mLocationDisposable.dispose()
+            mLocationDisposable!!.dispose()
         }
     }
 }

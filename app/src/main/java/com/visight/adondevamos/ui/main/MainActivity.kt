@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.material.button.MaterialButton
@@ -24,8 +25,9 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mCurrentLocation: LatLng
-    private lateinit var mLocationDisposable: Disposable
+    private var mLocationDisposable: Disposable? = null
     private var isMapShowing: Boolean = false  //default, when not added yet or changed later
+    private lateinit var mCurrentFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,12 @@ class MainActivity : AppCompatActivity() {
         getCurrentLocation()
 
         fabMyLocation.setOnClickListener {
-            
+            mCurrentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)!!
+            if(mCurrentFragment is MapViewFragment){
+                (mCurrentFragment as MapViewFragment).setCameraToCurrentPosition(mCurrentLocation)
+            }else{
+                //TODO implement change of current position to List view
+            }
         }
 
         btnRegisterLogin.setOnClickListener {
@@ -85,7 +92,8 @@ class MainActivity : AppCompatActivity() {
     private fun displayMapView() {
         val mapFragment = MapViewFragment()
 
-        val bundle = Bundle().putParcelable(AppConstants.CURRENT_LOCATION_KEY, mCurrentLocation) as Bundle
+        val bundle = Bundle()
+        bundle.putParcelable(AppConstants.CURRENT_LOCATION_KEY, mCurrentLocation)
         mapFragment.arguments = bundle
 
         val transaction = supportFragmentManager.beginTransaction()
@@ -103,7 +111,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         if(mLocationDisposable != null){
-            mLocationDisposable.dispose()
+            mLocationDisposable!!.dispose()
         }
     }
 }
