@@ -3,6 +3,7 @@ package com.visight.adondevamos.ui.main.mapView
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +23,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.utils.AppConstants
 import io.reactivex.disposables.Disposable
 
-class MapViewFragment : Fragment(), OnMapReadyCallback {
+class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.View {
+    private var mPresenter: MapViewFragmentContract.Presenter? = null
     private lateinit var mMap: GoogleMap
     private lateinit var mClusterManager: ClusterManager<MapItem>
     private lateinit var mCurrentLocation: LatLng
@@ -107,6 +109,16 @@ class MapViewFragment : Fragment(), OnMapReadyCallback {
     fun setCameraToCurrentPosition(newPosition: LatLng){
         mCurrentLocation = newPosition
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, AppConstants.mapZoomIn))
+    }
+
+    //TODO check implementation
+    override fun getContext(): Context {
+        return activity!!.baseContext
+    }
+
+    override fun startPresenter() {
+        mPresenter = MapViewFragmentPresenter()
+        mPresenter!!.startView(this)
     }
 
     override fun onDestroy() {

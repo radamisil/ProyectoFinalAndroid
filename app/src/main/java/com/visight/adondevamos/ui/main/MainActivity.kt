@@ -3,6 +3,7 @@ package com.visight.adondevamos.ui.main
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -15,6 +16,7 @@ import com.google.android.material.button.MaterialButton
 import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
+import com.visight.adondevamos.ui.base.BaseActivity
 import com.visight.adondevamos.ui.main.mapView.MapViewFragment
 import com.visight.adondevamos.ui.start.StartActivity
 import com.visight.adondevamos.utils.AppConstants
@@ -23,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_content_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     private lateinit var mCurrentLocation: LatLng
     private var mLocationDisposable: Disposable? = null
     private var isMapShowing: Boolean = false  //default, when not added yet or changed later
@@ -106,6 +108,10 @@ class MainActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.flFragmentContainer, mapFragment)
         transaction.commit()*/
+    }
+
+    override fun getContext(): Context {
+        return this
     }
 
     override fun onDestroy() {
