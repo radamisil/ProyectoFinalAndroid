@@ -10,12 +10,14 @@ import javax.xml.datatype.DatatypeConstants.SECONDS
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 class GooglePlacesService {
     lateinit var sRestAdapter: Retrofit
-    lateinit var sApiClientInterface: ApiClientInterface
+    var sApiClientInterface: ApiClientInterface? = null
     var sAPI_URL: String = "https://maps.googleapis.com/maps/api/place/"
 
     fun <S> createService(serviceClass: Class<S>): S {
@@ -37,11 +39,14 @@ class GooglePlacesService {
         if (sApiClientInterface == null) {
             sApiClientInterface = createService(GooglePlacesService.ApiClientInterface::class.java)
         }
-        return sApiClientInterface
+        return sApiClientInterface as ApiClientInterface
     }
 
     interface ApiClientInterface {
-        @POST("findplacefromtext")
-        fun getPublicPlaces(@Body getPublicPlacesRequest: GetPublicPlacesRequest): Single<GetPublicPlacesResponse>
+        @GET("search/json")
+        fun getPublicPlaces(@Query("location") location: String,
+                            @Query("radius") radius: Int,
+                            @Query("types") types: String,
+                            @Query("key") key: String): Single<GetPublicPlacesResponse>
     }
 }

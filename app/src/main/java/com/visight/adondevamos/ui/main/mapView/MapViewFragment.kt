@@ -32,6 +32,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(com.visight.adondevamos.R.layout.fragment_map, container, false)
+        startPresenter()
 
         if(arguments != null){
             mCurrentLocation = arguments!!.getParcelable(AppConstants.CURRENT_LOCATION_KEY)
@@ -97,13 +98,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         }
 
         // Add cluster items (markers) to the cluster manager.
-        addItems()
-    }
-
-    private fun addItems() {
-        val offsetItem = MapItem(mCurrentLocation)
-        mClusterManager.addItem(offsetItem)
-        mClusterManager.cluster()
+        mPresenter!!.getPublicPlaces(mCurrentLocation, "store")
     }
 
     fun setCameraToCurrentPosition(newPosition: LatLng){
@@ -119,6 +114,17 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     override fun startPresenter() {
         mPresenter = MapViewFragmentPresenter()
         mPresenter!!.startView(this)
+    }
+
+    override fun displayPlaces(placesList: List<MapItem>) {
+        for(mapItem: MapItem in placesList){
+            mClusterManager.addItem(mapItem)
+            mClusterManager.cluster()
+        }
+    }
+
+    override fun displayMessage(message: String) {
+
     }
 
     override fun onDestroy() {

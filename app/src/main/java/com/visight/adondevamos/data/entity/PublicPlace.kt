@@ -3,10 +3,11 @@ package com.visight.adondevamos.data.entity
 import com.google.gson.annotations.SerializedName
 
 class PublicPlace {
+    var id: String = ""
     var name: String = ""
     @SerializedName("formatted_address")
     var formattedAddress: String = ""
-    var geometry: Geometry?= null
+    var geometry: Geometry? = null
     @SerializedName("opening_hours")
     var openingHours: OpeningHours? = null
     var photos: List<Photo> = ArrayList()
@@ -16,9 +17,9 @@ class PublicPlace {
     @SerializedName("price_level")
     var priceLevel: Int = 0
     var types: List<String> = ArrayList()
-    @SerializedName("permanently_closed")
-    var permanentlyClosed: Boolean = false
+    var vicinity: String = ""
     var isFull: Boolean = false
+
 }
 
 class Geometry {
