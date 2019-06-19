@@ -1,10 +1,13 @@
 package com.visight.adondevamos.data.entity
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-class PublicPlace {
+class PublicPlace() : Parcelable {
     var id: String = ""
     var name: String = ""
+    var icon: String = ""
     @SerializedName("formatted_address")
     var formattedAddress: String = ""
     var geometry: Geometry? = null
@@ -19,6 +22,46 @@ class PublicPlace {
     var types: List<String> = ArrayList()
     var vicinity: String = ""
     var isFull: Boolean = false
+
+    constructor(parcel: Parcel) : this() {
+        id = parcel.readString()
+        name = parcel.readString()
+        icon = parcel.readString()
+        formattedAddress = parcel.readString()
+        rating = parcel.readFloat()
+        placeId = parcel.readString()
+        priceLevel = parcel.readInt()
+        types = parcel.createStringArrayList()
+        vicinity = parcel.readString()
+        isFull = parcel.readByte() != 0.toByte()
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(name)
+        parcel.writeString(icon)
+        parcel.writeString(formattedAddress)
+        parcel.writeFloat(rating)
+        parcel.writeString(placeId)
+        parcel.writeInt(priceLevel)
+        parcel.writeStringList(types)
+        parcel.writeString(vicinity)
+        parcel.writeByte(if (isFull) 1 else 0)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<PublicPlace> {
+        override fun createFromParcel(parcel: Parcel): PublicPlace {
+            return PublicPlace(parcel)
+        }
+
+        override fun newArray(size: Int): Array<PublicPlace?> {
+            return arrayOfNulls(size)
+        }
+    }
 
 }
 

@@ -48,5 +48,10 @@ class GooglePlacesService {
                             @Query("radius") radius: Int,
                             @Query("types") types: String,
                             @Query("key") key: String): Single<GetPublicPlacesResponse>
+
+        /*@GET("photo")
+        fun getPublicPlacePhoto(@Query("maxwidth") maxWidth: Int,
+                            @Query("photoreference") photoReference: String,
+                            @Query("key") key: String): Single<GetPublicPlacePhotoResponse>*/
     }
 }

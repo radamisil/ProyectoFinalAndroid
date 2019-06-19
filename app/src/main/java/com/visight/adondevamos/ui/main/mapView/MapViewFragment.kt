@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.utils.AppConstants
+import com.visight.adondevamos.utils.PlacePreviewDialog
 import io.reactivex.disposables.Disposable
 
 class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.View {
@@ -29,6 +30,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     private lateinit var mClusterManager: ClusterManager<MapItem>
     private lateinit var mCurrentLocation: LatLng
     private var mLocationDisposable: Disposable? = null
+    private var mPlacePreviewDialog: PlacePreviewDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(com.visight.adondevamos.R.layout.fragment_map, container, false)
@@ -94,6 +96,11 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
         mClusterManager.setOnClusterItemClickListener {
             //TODO implement function for marker click event
+            mPlacePreviewDialog = PlacePreviewDialog()
+            var bundle = Bundle()
+            bundle.putParcelable(AppConstants.PUBLIC_PLACE, it.publicPlace)
+            mPlacePreviewDialog!!.arguments = bundle
+            mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
             true
         }
 

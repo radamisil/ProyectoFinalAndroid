@@ -20,6 +20,7 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
     var mView: MapViewFragmentContract.View? = null
     var mCompositeDisposable: CompositeDisposable? = null
     var disposable: Disposable? = null
+    var disposablePhoto: Disposable? = null
 
     override fun startView(view: MapViewFragmentContract.View) {
         mView = view
@@ -37,7 +38,8 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
 
         disposable = GooglePlacesService().getClient().getPublicPlaces(
             locationToSend, AppConstants.searchRadius, type,
-            "AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o")
+            "AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o"
+        )
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .map { t: GetPublicPlacesResponse ->

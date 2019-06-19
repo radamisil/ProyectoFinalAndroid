@@ -42,4 +42,7 @@
     <color name="colorGrey">#616161</color>
     <color name="colorDarkSemiTransparent">#99000000</color>
 
+    <color name="colorGreen">#94c11f</color>
+    <color name="colorRed">#e72f29</color>}
+
 </resources>
