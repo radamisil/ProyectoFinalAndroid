@@ -16,7 +16,7 @@
         <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@drawable/bg_circle_grey"
+                android:background="@drawable/bg_circle_orange"
                 android:padding="15dp"
                 android:src="@drawable/ph_user"/>
     </FrameLayout>

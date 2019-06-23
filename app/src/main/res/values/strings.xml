@@ -14,4 +14,14 @@
     <string name="text_registrarme_niniciar_sesi_n">Registrarme ó Iniciar sesión</string>
     <string name="text_ver_perfil">Ver perfil</string>
     <string name="text_no_ten_s_cuenta_registrarme">¿No tenés cuenta? ¡Registrarme!</string>
+    <string name="text_registrarse">Registrarse</string>
+    <string name="text_login">Iniciar sesión</string>
+    <string name="text_correo_electronico">Correo eléctronico</string>
+    <string name="text_nombre">Nombre</string>
+    <string name="text_apellido">Apellido</string>
+    <string name="text_ingresar">¡Ingresar!</string>
+    <string name="text_registrarme_btn">¡Registrarme!</string>
+    <string name="text_ya_tenes_cuenta_iniciar_sesion">¿Ya tenés cuenta? ¡Iniciá sesión!</string>
+    <string name="text_contrasena">Contraseña</string>
+    <string name="text_olvide_mi_contrasena">Olvidé mi contraseña</string>
 </resources>
