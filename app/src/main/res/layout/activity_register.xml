@@ -17,9 +17,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/layoutToolbar"
-            android:paddingVertical="15dp">
+            android:paddingVertical="15dp"
+            android:background="@drawable/bg_gradient">
 
+        <!-- TODO change this and maybe implement "Add image" option later -->
         <ImageView
+                android:id="@+id/ivPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/logo"/>
+
+        <!--<ImageView
                 android:id="@+id/ivPhoto"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -36,7 +45,7 @@
                 android:padding="5dp"
                 android:layout_alignRight="@id/ivPhoto"
                 android:layout_alignTop="@id/ivPhoto"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"/>-->
     </RelativeLayout>
 
     <LinearLayout
@@ -94,7 +103,7 @@
                     android:id="@+id/tieEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/text_correo_electronico"
+                    android:hint="Correo electrónico"
                     android:inputType="textEmailAddress"
                     tools:text="email@mail.com"
                     style="@style/text_primary_regular"/>

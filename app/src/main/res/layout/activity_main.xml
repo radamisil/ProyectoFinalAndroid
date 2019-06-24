@@ -24,20 +24,15 @@
             app:itemTextAppearance="@style/NavigationTextAppearance"
             app:itemIconTint="@color/colorPrimaryDark"
             android:theme="@style/NavigationViewStyle"
-            android:background="@color/colorLightGrey">
-
-        <View
-                android:id="@+id/vNoSessionRegistered"
-                android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorDarkSemiTransparent"></View>
+            android:background="@color/colorLightGrey">}
 
         <LinearLayout
                 android:id="@+id/llContainerNoSessionRegisteredOptions"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_gravity="bottom">
+                android:gravity="bottom"
+                android:background="@color/colorDarkSemiTransparent">
 
             <TextView
                     android:layout_width="match_parent"

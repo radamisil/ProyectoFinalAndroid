@@ -30,10 +30,18 @@ class MainActivity : BaseActivity() {
     private var mLocationDisposable: Disposable? = null
     private var isMapShowing: Boolean = false  //default, when not added yet or changed later
     private lateinit var mCurrentFragment: Fragment
+    private var isLogged: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if(intent?.extras?.get(AppConstants.IS_LOGGED) == null ||
+            intent?.extras?.get(AppConstants.IS_LOGGED) == false){
+            llContainerNoSessionRegisteredOptions.visibility = View.VISIBLE
+        }else{
+            llContainerNoSessionRegisteredOptions.visibility = View.GONE
+        }
 
         setSupportActionBar(toolbar)
         supportActionBar!!.title = null
@@ -60,6 +68,8 @@ class MainActivity : BaseActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
+            if(dlDrawer.isDrawerOpen(GravityCompat.START)) dlDrawer.closeDrawer(GravityCompat.START)
+            finish()
         }
     }
 
