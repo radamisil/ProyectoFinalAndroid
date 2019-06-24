@@ -7,11 +7,18 @@
               android:background="@drawable/bg_gradient"
               android:padding="20dp">
 
-    <FrameLayout
+    <!-- TODO change this and maybe implement "Add image" option later -->
+    <!--<FrameLayout
             android:layout_marginTop="60dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp">
+
+        <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:padding="10dp"
+                android:src="@drawable/logo"/>
 
         <ImageView
                 android:layout_width="80dp"
@@ -19,14 +26,15 @@
                 android:background="@drawable/bg_circle_orange"
                 android:padding="15dp"
                 android:src="@drawable/ph_user"/>
-    </FrameLayout>
+    </FrameLayout>-->
 
     <LinearLayout
             android:layout_marginTop="60dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginEnd="100dp">
 
         <TextView
                 android:layout_width="match_parent"
