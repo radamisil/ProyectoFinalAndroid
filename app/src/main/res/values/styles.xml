@@ -24,4 +24,19 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="CustomTabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@android:color/transparent</item>
+        <item name="tabPaddingStart">10dp</item>
+        <item name="tabPaddingEnd">10dp</item>
+        <item name="tabTextAppearance">@style/CustomTabTextStyle</item>
+        <item name="tabSelectedTextColor">@color/colorPrimary</item>
+        <item name="tabBackground">@drawable/selector_bg_tab</item>
+    </style>
+
+    <style name="CustomTabTextStyle" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:fontFamily">@font/opensans_regular</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

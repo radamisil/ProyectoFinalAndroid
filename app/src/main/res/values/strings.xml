@@ -24,4 +24,5 @@
     <string name="text_ya_tenes_cuenta_iniciar_sesion">¿Ya tenés cuenta? ¡Iniciá sesión!</string>
     <string name="text_contrasena">Contraseña</string>
     <string name="text_olvide_mi_contrasena">Olvidé mi contraseña</string>
+    <string name="text_buscar_lugar">Buscar lugar</string>
 </resources>

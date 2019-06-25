@@ -24,7 +24,7 @@
             app:itemTextAppearance="@style/NavigationTextAppearance"
             app:itemIconTint="@color/colorPrimaryDark"
             android:theme="@style/NavigationViewStyle"
-            android:background="@color/colorLightGrey">}
+            android:background="@color/colorLightGrey">
 
         <LinearLayout
                 android:id="@+id/llContainerNoSessionRegisteredOptions"
