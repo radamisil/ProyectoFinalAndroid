@@ -1,30 +1,26 @@
 package com.visight.adondevamos.ui.start.login
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.visight.adondevamos.R
-import com.visight.adondevamos.ui.main.MainActivity
+import com.visight.adondevamos.ui.base.BaseActivity
+import com.visight.adondevamos.ui.main.user.MainActivity
+import com.visight.adondevamos.ui.start.register.RegisterActivity
 import com.visight.adondevamos.utils.AppConstants
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        ivLogo.visibility = View.GONE
-
-        setSupportActionBar(toolbar)
-        supportActionBar!!.title = getString(R.string.text_login)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_back)
+        setUpToolbar(toolbar, "Iniciar sesión", ivLogo)
 
         val typeface = ResourcesCompat.getFont(this, R.font.opensans_regular)
         tilPassword.typeface = typeface
@@ -38,6 +34,11 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        tvRegister.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -47,5 +48,7 @@ class LoginActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
+    override fun getContext(): Context {
+        return this
+    }
 }

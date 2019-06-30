@@ -172,10 +172,10 @@
             android:layout_height="1dp"
             android:background="@color/colorDarkerLightGrey"
             android:layout_marginHorizontal="25dp"
-            app:layout_constraintBottom_toTopOf="@+id/tvRegister"/>
+            app:layout_constraintBottom_toTopOf="@+id/tvLogin"/>
 
     <TextView
-            android:id="@+id/tvRegister"
+            android:id="@+id/tvLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/text_ya_tenes_cuenta_iniciar_sesion"

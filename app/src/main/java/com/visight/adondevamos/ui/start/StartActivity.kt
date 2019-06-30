@@ -29,49 +29,47 @@ class StartActivity : AppCompatActivity(){
 
         val animatorSubtitle = AnimatorInflater.loadAnimator(this@StartActivity, R.animator.animator_fade_in)
         animatorSubtitle.setTarget(tvSubtitle)
-        animatorSubtitle.startDelay = 100
+        animatorSubtitle.startDelay = 50
         animatorSubtitle.start()
 
         animatorSubtitle.addListener(object: Animator.AnimatorListener{
             override fun onAnimationRepeat(animation: Animator?) {
-                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun onAnimationEnd(animation: Animator?) {
-                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 val animatorLogin = AnimatorInflater.loadAnimator(this@StartActivity, R.animator.animator_fade_in)
                 animatorLogin.setTarget(btnLogin)
                 animatorLogin.start()
 
                 animatorLogin.addListener(object: Animator.AnimatorListener{
                     override fun onAnimationRepeat(animation: Animator?) {
-                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
                     }
 
                     override fun onAnimationEnd(animation: Animator?) {
-                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                         val animatorRegister = AnimatorInflater.loadAnimator(this@StartActivity, R.animator.animator_fade_in)
                         animatorRegister.setTarget(btnRegister)
                         animatorRegister.start()
                     }
 
                     override fun onAnimationCancel(animation: Animator?) {
-                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
                     }
 
                     override fun onAnimationStart(animation: Animator?) {
-                        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
                     }
 
                 })
             }
 
             override fun onAnimationCancel(animation: Animator?) {
-                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
             override fun onAnimationStart(animation: Animator?) {
-                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
 
         })

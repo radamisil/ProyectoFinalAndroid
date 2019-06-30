@@ -3,19 +3,13 @@ package com.visight.adondevamos.ui.start
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Pair
-import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityOptionsCompat
 import kotlinx.android.synthetic.main.activity_splash.*
-import java.util.*
-import kotlin.concurrent.schedule
 import android.os.Handler
 import com.visight.adondevamos.R
-import com.visight.adondevamos.ui.main.MainActivity
+import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.utils.AppConstants
 
 

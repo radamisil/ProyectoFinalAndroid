@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-                android:id="@+id/menu_seccion_1"
+                android:id="@+id/menuMap"
                 android:icon="@drawable/ic_map"
                 android:title="Mapa"/>
         <item
-                android:id="@+id/menu_seccion_2"
+                android:id="@+id/menuFavourites"
                 android:icon="@drawable/ic_fav"
                 android:title="Mis lugares favoritos"/>
         <item
-                android:id="@+id/menu_seccion_3"
+                android:id="@+id/menuHistory"
                 android:icon="@drawable/ic_history"
                 android:title="Historial"/>
     </group>
@@ -18,11 +18,11 @@
     <group android:checkableBehavior="single">
         <menu>
             <item
-                    android:id="@+id/menu_opcion_1"
+                    android:id="@+id/menuInfo"
                     android:icon="@drawable/ic_info"
                     android:title="Info"/>
             <item
-                    android:id="@+id/menu_opcion_2"
+                    android:id="@+id/menuLogout"
                     android:icon="@drawable/ic_logout"
                     android:title="Cerrar sesión"/>
         </menu>

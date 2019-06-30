@@ -25,8 +25,9 @@
         <activity android:name=".ui.start.StartActivity" />
         <activity android:name=".ui.start.login.LoginActivity"/>
         <activity android:name=".ui.start.register.RegisterActivity"/>
-        <activity android:name=".ui.main.MainActivity"
+        <activity android:name=".ui.main.user.MainActivity"
             android:launchMode="singleTask"/>
+        <activity android:name=".ui.main.user.ProfileActivity"/>
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"

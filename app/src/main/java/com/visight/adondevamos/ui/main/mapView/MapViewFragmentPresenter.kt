@@ -1,17 +1,11 @@
 package com.visight.adondevamos.ui.main.mapView
 
 import com.google.android.gms.maps.model.LatLng
-import com.visight.adondevamos.data.entity.PublicPlace
-import com.visight.adondevamos.data.remote.BaseService
 import com.visight.adondevamos.data.remote.GooglePlacesService
-import com.visight.adondevamos.data.remote.requests.GetPublicPlacesRequest
 import com.visight.adondevamos.data.remote.responses.GetPublicPlacesResponse
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
 import com.visight.adondevamos.utils.AppConstants
-import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.annotations.SchedulerSupport
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
