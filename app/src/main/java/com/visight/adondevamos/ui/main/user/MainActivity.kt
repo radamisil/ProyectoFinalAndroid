@@ -37,14 +37,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        llContainerNoSessionRegisteredOptions.visibility = View.VISIBLE
-        /*if (intent?.extras?.get(AppConstants.IS_LOGGED) == null ||
+        if (intent?.extras?.get(AppConstants.IS_LOGGED) == null ||
             intent?.extras?.get(AppConstants.IS_LOGGED) == false
         ) {
             llContainerNoSessionRegisteredOptions.visibility = View.VISIBLE
         } else {
             llContainerNoSessionRegisteredOptions.visibility = View.GONE
-        }*/
+        }
 
         setSupportActionBar(toolbar)
         supportActionBar!!.title = null

@@ -25,4 +25,6 @@
     <string name="text_contrasena">Contraseña</string>
     <string name="text_olvide_mi_contrasena">Olvidé mi contraseña</string>
     <string name="text_buscar_lugar">Buscar lugar</string>
+    <string name="text_editar">Editar</string>
+    <string name="text_confirmar">Confirmar</string>
 </resources>

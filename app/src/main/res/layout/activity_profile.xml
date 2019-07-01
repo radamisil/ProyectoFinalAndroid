@@ -49,7 +49,8 @@
                     android:hint="@string/text_nombre"
                     android:inputType="textCapSentences"
                     tools:text="Juan"
-                    style="@style/text_primary_regular"/>
+                    style="@style/text_primary_regular"
+                    android:enabled="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -67,7 +68,8 @@
                     android:hint="@string/text_apellido"
                     android:inputType="textCapSentences"
                     tools:text="Gómez"
-                    style="@style/text_primary_regular"/>
+                    style="@style/text_primary_regular"
+                    android:enabled="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -85,7 +87,8 @@
                     android:hint="Correo electrónico"
                     android:inputType="textEmailAddress"
                     tools:text="email@mail.com"
-                    style="@style/text_primary_regular"/>
+                    style="@style/text_primary_regular"
+                    android:enabled="false"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
