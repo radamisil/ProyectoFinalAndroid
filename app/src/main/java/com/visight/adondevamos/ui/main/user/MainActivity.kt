@@ -2,9 +2,11 @@ package com.visight.adondevamos.ui.main.user
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -26,6 +28,12 @@ import kotlinx.android.synthetic.main.layout_content_main.*
 import kotlinx.android.synthetic.main.layout_sidebar_header.*
 import kotlinx.android.synthetic.main.layout_sidebar_header.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import java.util.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener{
     private lateinit var mCurrentLocation: LatLng
@@ -70,6 +78,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
         }
 
+        // Initialize Places.
+        Places.initialize(getApplicationContext(), getResources().getString(R.string.maps_debug_api_key))
+
         fabMyLocation.setOnClickListener {
             mCurrentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)!!
             if(mCurrentFragment is MapViewFragment){
@@ -93,6 +104,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_toolbar, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item!!.itemId == R.id.optionSearch){
+            var fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
+            var intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this)
+            startActivityForResult(intent, AppConstants.PLACE_AUTOCOMPLETE_REQUEST_CODE)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
@@ -166,6 +186,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.flFragmentContainer, mapFragment)
         transaction.commit()*/
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == AppConstants.PLACE_AUTOCOMPLETE_REQUEST_CODE){
+                if(resultCode != AutocompleteActivity.RESULT_ERROR){
+                    var place = Autocomplete.getPlaceFromIntent(data!!)
+                    //TODO send place to map fragment
+                }else{
+                    var status = Autocomplete.getStatusFromIntent(data!!)
+                    Log.d("AUTOCOMPLETE ERROR", status.statusMessage)
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun getContext(): Context {

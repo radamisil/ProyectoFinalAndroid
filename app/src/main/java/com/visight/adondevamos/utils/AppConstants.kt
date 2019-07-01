@@ -6,6 +6,7 @@ object AppConstants {
     @JvmField val IS_LOGGED = "isLogged"
     @JvmField val CURRENT_LOCATION_KEY = "currentLocation"
     @JvmField val PUBLIC_PLACE = "publicPlace"
+    @JvmField val PLACE_AUTOCOMPLETE_REQUEST_CODE = 600
 
     @JvmField val PLACE_PREVIEW_DIALOG = "placePreviewDialog"
 }
