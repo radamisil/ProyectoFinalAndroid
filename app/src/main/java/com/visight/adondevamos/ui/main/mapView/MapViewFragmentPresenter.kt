@@ -54,4 +54,27 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
             }
     }
 
+    override fun getSpecificPublicPlace(placeId: String) {
+        disposable = GooglePlacesService().getClient().getSpecificPublicPlace(
+            placeId, "AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o")
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { t: GetPublicPlacesResponse ->
+                t.results
+            }
+            .toObservable()  //TODO PREGUNTAR SI ESTO ERA NECESARIO
+            .flatMapIterable { l -> l }
+            .map { MapItem(it) }
+            .toList()
+            .subscribe { t1: List<MapItem>?, t2: Throwable? ->
+                run {
+                    if (t1 != null) {
+                        mView!!.displayPlaces(t1)
+                    }else{
+                        t2!!.message?.let { mView!!.displayMessage(it) }
+                    }
+                }
+            }
+    }
+
 }

@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.layout_sidebar_header.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
@@ -109,7 +110,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(item!!.itemId == R.id.optionSearch){
             var fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
-            var intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(this)
+            var intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
+                .setTypeFilter(TypeFilter.ESTABLISHMENT)
+                .build(this)
             startActivityForResult(intent, AppConstants.PLACE_AUTOCOMPLETE_REQUEST_CODE)
         }
         return super.onOptionsItemSelected(item)
@@ -194,6 +197,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 if(resultCode != AutocompleteActivity.RESULT_ERROR){
                     var place = Autocomplete.getPlaceFromIntent(data!!)
                     //TODO send place to map fragment
+
+                    if(supportFragmentManager.findFragmentById(R.id.flFragmentContainer) is MapViewFragment){
+                        var mapFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer) as MapViewFragment
+                        val transaction = supportFragmentManager.beginTransaction()
+
+                        transaction
+                            .detach(mapFragment)
+                            .attach(mapFragment)
+
+                        val bundle = Bundle()
+                        bundle.putParcelable(AppConstants.CURRENT_PLACE_KEY, place)
+                        mapFragment.arguments = bundle
+
+                        transaction.commit()
+                    }
                 }else{
                     var status = Autocomplete.getStatusFromIntent(data!!)
                     Log.d("AUTOCOMPLETE ERROR", status.statusMessage)

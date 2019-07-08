@@ -16,10 +16,15 @@ import com.google.maps.android.clustering.ClusterManager
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MyMapClusterRenderer
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.model.Place
 import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
+import com.visight.adondevamos.R
+import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.PlacePreviewDialog
 import io.reactivex.disposables.Disposable
@@ -28,7 +33,8 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     private var mPresenter: MapViewFragmentContract.Presenter? = null
     private lateinit var mMap: GoogleMap
     private lateinit var mClusterManager: ClusterManager<MapItem>
-    private lateinit var mCurrentLocation: LatLng
+    private var mCurrentLocation: LatLng? = null
+    private var mCurrentPlace: Place? = null
     private var mLocationDisposable: Disposable? = null
     private var mPlacePreviewDialog: PlacePreviewDialog? = null
 
@@ -38,6 +44,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
         if(arguments != null){
             mCurrentLocation = arguments!!.getParcelable(AppConstants.CURRENT_LOCATION_KEY)
+            mCurrentPlace = arguments!!.getParcelable(AppConstants.CURRENT_PLACE_KEY)
         }else {
             checkPermissions()
         }
@@ -72,7 +79,10 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, AppConstants.mapZoomIn))
+
+        if(mCurrentLocation != null){
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, AppConstants.mapZoomIn))
+        }
         setUpClusterer()
     }
 
@@ -104,8 +114,12 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
             true
         }
 
-        // Add cluster items (markers) to the cluster manager.
-        mPresenter!!.getPublicPlaces(mCurrentLocation, "store")
+        if(mCurrentPlace != null){
+            mPresenter!!.getSpecificPublicPlace(mCurrentPlace!!.id!!)
+        }else{
+            // Add cluster items (markers) to the cluster manager.
+            mPresenter!!.getPublicPlaces(mCurrentLocation!!, "store")
+        }
     }
 
     fun setCameraToCurrentPosition(newPosition: LatLng){
@@ -124,7 +138,15 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     }
 
     override fun displayPlaces(placesList: List<MapItem>) {
+        mClusterManager.clearItems()
         for(mapItem: MapItem in placesList){
+            if(placesList.size == 1){
+                mMap.addMarker(MarkerOptions()
+                    .position(mapItem.publicPlacePosition!!)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.img_marker_available)))
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mapItem.publicPlacePosition, 1000f))
+                break
+            }
             mClusterManager.addItem(mapItem)
             mClusterManager.cluster()
         }
