@@ -8,6 +8,7 @@ interface ReportFromPlaceActivityContract {
         fun displayMessage(message: String)
         fun takePhotoIntent(intent: Intent)
         fun displayImage(photoPath: String)
+        fun onResponseSendPhoto(peopleNumber: Int)
     }
 
     interface Presenter: BaseContract.Presenter<ReportFromPlaceActivityContract.View> {

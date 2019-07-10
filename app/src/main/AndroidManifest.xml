@@ -30,6 +30,7 @@
             android:launchMode="singleTask"/>
         <activity android:name=".ui.main.user.ProfileActivity"/>
         <activity android:name=".ui.main.place.PlaceDetailActivity"/>
+        <activity android:name=".ui.main.place.report.ReportFromPlaceActivity"/>
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"

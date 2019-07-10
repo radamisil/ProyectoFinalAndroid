@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:paddingHorizontal="10dp">
+
+            <ImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/ivIcon"
+                android:layout_toRightOf="@+id/ivIcon"
+                android:fontFamily="@font/opensans_semibold"
+                android:paddingStart="5dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="15sp"
+                tools:text="Name" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivIcon"
+                android:fontFamily="@font/opensans_regular"
+                android:paddingTop="10dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="14sp"
+                tools:text="Address" />
+
+            <TextView
+                android:id="@+id/tvSeeDirections"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAddress"
+                android:fontFamily="@font/opensans_regular"
+                android:textColor="@color/colorGrey"
+                android:textSize="14sp"
+                android:text="¿Cómo llegar?" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAvailability"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_green_rounded"
+                android:fontFamily="@font/opensans_regular"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                tools:text="Poca concurrencia" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSeeMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:fontFamily="@font/opensans_regular"
+                android:text="Ver más"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp"
+                app:backgroundTint="@color/colorAccent"
+                app:cornerRadius="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>

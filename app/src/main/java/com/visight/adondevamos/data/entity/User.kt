@@ -2,12 +2,18 @@ package com.visight.adondevamos.data.entity
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 
 class User(): Parcelable {
+    @SerializedName("Id")
     var id: String = ""
+    @SerializedName("Nombre")
     var name: String = ""
+    @SerializedName("Apellido")
     var surname: String = ""
+    @SerializedName("Email")
     var email: String = ""
+    @SerializedName("Password")
     var password: String = ""
 
     constructor(parcel: Parcel) : this() {
@@ -16,6 +22,14 @@ class User(): Parcelable {
         surname = parcel.readString()
         email = parcel.readString()
         password = parcel.readString()
+    }
+
+    constructor(user: User) : this() {
+        id = user.id
+        name = user.name
+        surname = user.surname
+        email = user.email
+        password = user.password
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

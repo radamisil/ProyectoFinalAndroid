@@ -29,8 +29,6 @@ class PlacePreviewDialog: DialogFragment() {
         var v: View = inflater.inflate(R.layout.layout_dialog_preview, container, false)
 
         v.progressBar.visibility = View.VISIBLE
-
-        //TODO check image loading
         v.ivPlaceImage.clipToOutline = true
 
         if(publicPlace!!.photos != null && !publicPlace!!.photos.isEmpty()){

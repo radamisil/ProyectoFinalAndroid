@@ -35,13 +35,15 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.tabs.TabLayout
 import com.visight.adondevamos.data.entity.PublicPlace
+import com.visight.adondevamos.data.entity.User
+import com.visight.adondevamos.data.local.SharedPreferencesManager
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
 import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
 import kotlinx.android.synthetic.main.layout_tabs_categories.*
 import kotlinx.android.synthetic.main.layout_tabs_categories.view.*
 import java.util.*
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var mCurrentLocation: LatLng
     private var mLocationDisposable: Disposable? = null
     private var isMapShowing: Boolean = false  //default, when not added yet or changed later
@@ -51,18 +53,35 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (intent?.extras?.get(AppConstants.IS_LOGGED) == null ||
-            intent?.extras?.get(AppConstants.IS_LOGGED) == false
+        /*if (intent?.extras?.get(AppConstants.IS_LOGGED) == null ||
+                intent?.extras?.get(AppConstants.IS_LOGGED) == false
         ) {
             llContainerNoSessionRegisteredOptions.visibility = View.VISIBLE
         } else {
             llContainerNoSessionRegisteredOptions.visibility = View.GONE
+        }*/
+        val prefs = this.getSharedPreferences(AppConstants.PREFS_NAME, AppConstants.MODE)
+        if (prefs.getString(AppConstants.PREFS_USER_NAME, "") != null
+                && prefs.getString(AppConstants.PREFS_USER_NAME, "").isNotEmpty()) {
+            llContainerNoSessionRegisteredOptions.visibility = View.GONE
+        } else {
+            llContainerNoSessionRegisteredOptions.visibility = View.VISIBLE
         }
 
         setSupportActionBar(toolbar)
         supportActionBar!!.title = null
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_menu)
+
+        /*if(SharedPreferencesManager().getUser(this) != null){
+            setSidebarUserInfo(SharedPreferencesManager().getUser(this))
+        }*/
+
+        //val prefs = this.getSharedPreferences(AppConstants.PREFS_NAME, AppConstants.MODE)
+        if (prefs.getString(AppConstants.PREFS_USER_NAME, "") != null
+                && prefs.getString(AppConstants.PREFS_USER_NAME, "").isNotEmpty()) {
+            setSidebarUserInfo()
+        }
 
         toolbar.setNavigationOnClickListener {
             dlDrawer.openDrawer(GravityCompat.START)
@@ -73,12 +92,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setCategories()
 
         nvDrawer.getHeaderView(0).btnSeeProfile.isClickable =
-            if (llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE) true else false
+                if (llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE) true else false
         nvDrawer.getHeaderView(0).btnSeeProfile.isEnabled =
-            if (llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE) true else false
+                if (llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE) true else false
 
         nvDrawer.getHeaderView(0).btnSeeProfile.setOnClickListener {
-            if(llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE){
+            if (llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE) {
                 //if(dlDrawer.isDrawerOpen(GravityCompat.START)) dlDrawer.closeDrawer(GravityCompat.START)
                 val intent = Intent(this@MainActivity, ProfileActivity::class.java)
                 startActivity(intent)
@@ -88,7 +107,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // Initialize Places.
         Places.initialize(getApplicationContext(), getResources().getString(R.string.maps_debug_api_key))
 
-        mTabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+        mTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(p0: TabLayout.Tab?) {
 
             }
@@ -98,19 +117,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
 
             override fun onTabSelected(p0: TabLayout.Tab?) {
-               if(supportFragmentManager.findFragmentById(R.id.flFragmentContainer) is MapViewFragment){
-                   (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) as MapViewFragment)
-                           .callMethodGetPublicPlaces(p0!!.text.toString())
-               }
+                if (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) is MapViewFragment) {
+                    (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) as MapViewFragment)
+                            .callMethodGetPublicPlaces(p0!!.text.toString())
+                }
             }
 
         })
 
         fabMyLocation.setOnClickListener {
             mCurrentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)!!
-            if(mCurrentFragment is MapViewFragment){
+            if (mCurrentFragment is MapViewFragment) {
                 (mCurrentFragment as MapViewFragment).setCameraToCurrentPosition(mCurrentLocation)
-            }else{
+            } else {
                 //TODO implement change of current position to List view
             }
         }
@@ -125,10 +144,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
+    private fun setSidebarUserInfo() {
+        val prefs = getSharedPreferences(AppConstants.PREFS_NAME, AppConstants.MODE)
+        var name = prefs.getString(AppConstants.PREFS_USER_NAME, "")
+        nvDrawer.getHeaderView(0).tvSidebarUser.text = "¡Hola, " + name + "!"
+    }
+
     private fun setCategories() {
         val placeTypes = resources.getStringArray(R.array.placeTypes)
-        for(s in placeTypes){
-                mTabLayout.addTab(mTabLayout.newTab().setText(s))
+        for (s in placeTypes) {
+            mTabLayout.addTab(mTabLayout.newTab().setText(s))
         }
     }
 
@@ -139,40 +164,53 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item!!.itemId == R.id.optionSearch){
+        if (item!!.itemId == R.id.optionSearch) {
             var fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG)
             var intent = Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields)
-                .setTypeFilter(TypeFilter.ESTABLISHMENT)
-                .build(this)
+                    .setTypeFilter(TypeFilter.ESTABLISHMENT)
+                    .build(this)
             startActivityForResult(intent, AppConstants.PLACE_AUTOCOMPLETE_REQUEST_CODE)
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        if(llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE){
+        if (llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE) {
             when (menuItem.itemId) {
                 R.id.menuMap -> {
-                    Toast.makeText(this, "Android Store", Toast.LENGTH_SHORT).show()
+
+                    //Toast.makeText(this, "Android Store", Toast.LENGTH_SHORT).show()
                 }
                 R.id.menuFavourites -> {
-                    Toast.makeText(this, "Newsletter", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "Newsletter", Toast.LENGTH_SHORT).show()
                 }
                 R.id.menuHistory -> {
-                    Toast.makeText(this, "Join Community", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "Join Community", Toast.LENGTH_SHORT).show()
                 }
                 R.id.menuInfo -> {
-                    Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
                 }
                 R.id.menuLogout -> {
-                    Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                    logout()
+                    //Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
                 }
             }
             dlDrawer.closeDrawer(GravityCompat.START)
             return true
-        }else{
+        } else {
             return false
         }
+    }
+
+    private fun logout() {
+        val prefs = this.getSharedPreferences(AppConstants.PREFS_NAME, AppConstants.MODE)
+        with (prefs.edit()) {
+            putString(AppConstants.PREFS_USER_NAME, "")
+            putString(AppConstants.PREFS_USER_SURNAME,"")
+            putString(AppConstants.PREFS_USER_EMAIL, "")
+            commit()
+        }
+        this.finish()
     }
 
     @SuppressLint("MissingPermission")
@@ -180,27 +218,27 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         var rxPermissions = RxPermissions(this)
         var rxLocation = RxLocation(this)
         mLocationDisposable = rxPermissions
-            .request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
-            .subscribe { granted ->
-                if (granted) { // Always true pre-M
-                    //TODO PREGUNTAR COMO HACER PARA QUE ME RECONOZCA EL PERMISO ANTERIOR SIN USAR EL WARNING
-                    rxLocation.location().lastLocation().subscribe {
-                        mCurrentLocation = LatLng(it.latitude, it.longitude)
-                        if(!isMapShowing){
-                            isMapShowing = true
-                            displayMapView()
-                        }else{
-                            isMapShowing = false
-                            displayListView()
+                .request(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe { granted ->
+                    if (granted) { // Always true pre-M
+                        //TODO PREGUNTAR COMO HACER PARA QUE ME RECONOZCA EL PERMISO ANTERIOR SIN USAR EL WARNING
+                        rxLocation.location().lastLocation().subscribe {
+                            mCurrentLocation = LatLng(it.latitude, it.longitude)
+                            if (!isMapShowing) {
+                                isMapShowing = true
+                                displayMapView()
+                            } else {
+                                isMapShowing = false
+                                displayListView()
+                            }
                         }
+                    } else {
+                        rxPermissions.request(
+                                Manifest.permission.ACCESS_COARSE_LOCATION,
+                                Manifest.permission.ACCESS_FINE_LOCATION
+                        )
                     }
-                } else {
-                    rxPermissions.request(
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    )
                 }
-            }
     }
 
     private fun displayMapView() {
@@ -253,7 +291,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun redirectToPlaceDetailActivity(place: PublicPlace){
+    fun redirectToPlaceDetailActivity(place: PublicPlace) {
         val intent = Intent(this@MainActivity, PlaceDetailActivity::class.java)
         intent.putExtra(AppConstants.PUBLIC_PLACE, place)
         startActivity(intent)
@@ -265,7 +303,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onDestroy() {
         super.onDestroy()
-        if(mLocationDisposable != null){
+        if (mLocationDisposable != null) {
             mLocationDisposable!!.dispose()
         }
     }

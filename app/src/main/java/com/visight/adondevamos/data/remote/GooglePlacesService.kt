@@ -53,9 +53,9 @@ class GooglePlacesService {
         fun getSpecificPublicPlace(@Query("place_id") placeId: String,
                             @Query("key") key: String): Single<GetPublicPlacesResponse>
 
-        /*@GET("photo")
+        @GET("photo")
         fun getPublicPlacePhoto(@Query("maxwidth") maxWidth: Int,
                             @Query("photoreference") photoReference: String,
-                            @Query("key") key: String): Single<GetPublicPlacePhotoResponse>*/
+                            @Query("key") key: String): Single<String>
     }
 }

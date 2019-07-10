@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.visight.adondevamos.R
+import com.visight.adondevamos.data.entity.User
 import com.visight.adondevamos.ui.base.BaseActivity
 import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.ui.start.register.RegisterActivity
@@ -15,24 +16,20 @@ import com.visight.adondevamos.utils.AppConstants
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : BaseActivity(), LoginActivityContract.View {
+    var mPresenter: LoginActivityContract.Presenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setUpToolbar(toolbar, "Iniciar sesión", ivLogo)
+        startPresenter()
 
         val typeface = ResourcesCompat.getFont(this, R.font.opensans_regular)
         tilPassword.typeface = typeface
 
         btnLogin.setOnClickListener {
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-            intent.putExtra(AppConstants.IS_LOGGED, true)
-            startActivity(intent)
-            finish()
+            mPresenter!!.login(tieEmail.editableText.toString())
         }
 
         tvRegister.setOnClickListener {
@@ -50,5 +47,31 @@ class LoginActivity : BaseActivity() {
 
     override fun getContext(): Context {
         return this
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    override fun displayMessage(message: String) {
+
+    }
+
+    override fun onResponseLogin(user: User?, message: String?) {
+        if(message == null){
+            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            intent.putExtra(AppConstants.IS_LOGGED, true)
+            startActivity(intent)
+            finish()
+        }
+
+    }
+
+    override fun startPresenter() {
+        mPresenter = LoginActivityPresenter()
+        mPresenter!!.startView(this)
     }
 }

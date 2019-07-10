@@ -17,7 +17,6 @@ open abstract class BaseActivity: AppCompatActivity() {
         setSupportActionBar(toolbar)
         if(title != null){
             ivLogo.visibility = View.GONE
-
             supportActionBar!!.title = title
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_back)

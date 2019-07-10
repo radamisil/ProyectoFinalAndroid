@@ -11,11 +11,21 @@ import io.reactivex.disposables.CompositeDisposable
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.*
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import com.visight.adondevamos.data.remote.AppServices
+import com.visight.adondevamos.data.remote.requests.SendPlacePhotoRequest
+import com.visight.adondevamos.data.remote.responses.AnalizedPhotoResponse
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+
 
 class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presenter {
     var mView: ReportFromPlaceActivityContract.View? = null
     var absolutePath = ""
-    var mCompositeDisposable: CompositeDisposable? = null
+    var mDisposable: Disposable? = null
 
     override fun startView(@NonNull view: ReportFromPlaceActivityContract.View) {
         mView = view
@@ -45,7 +55,35 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
     }
 
     override fun sendReport() {
+        var base64Image = setBase64ImageFromPath(absolutePath)
+        mDisposable = AppServices().getClient().sendPhoto(SendPlacePhotoRequest(base64Image!!))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .subscribe { response: AnalizedPhotoResponse ->
+                    mView!!.onResponseSendPhoto(response.people!!)
+                }
+    }
 
+    private fun setBase64ImageFromPath(absolutePath: String): String? {
+        val bitmap = BitmapFactory.decodeFile(absolutePath)
+
+        val path: String?
+        if (bitmap != null) {
+            if (bitmap.width > bitmap.height) {
+                val matrix = Matrix()
+                matrix.postRotate(90f)
+
+                val imageBitmapRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width,
+                        bitmap.height, matrix, true)
+                path = toBase64(imageBitmapRotated)
+            } else {
+                path = toBase64(bitmap)
+            }
+        } else {
+            path = null
+        }
+
+        return path
     }
 
     // Create the File where the photo should go
@@ -62,11 +100,11 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
         return storageDirectory
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun toBase64(image: Bitmap): String {
         val output = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.JPEG, 65, output)
         val bytes = output.toByteArray()
-        return "data:image/jpeg;base64," + Base64.getEncoder().encode(bytes)
+        return android.util.Base64.encodeToString(bytes, android.util.Base64.DEFAULT)
     }
 }

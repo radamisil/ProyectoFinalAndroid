@@ -50,16 +50,16 @@
                     android:layout_height="20dp"/>
 
             <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Name"
-                    android:fontFamily="@font/opensans_semibold"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="15sp"
-                    android:paddingStart="5dp"
-                    android:layout_toRightOf="@+id/ivIcon"
-                    android:layout_alignBottom="@+id/ivIcon"/>
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/ivIcon"
+                android:layout_toRightOf="@+id/ivIcon"
+                android:fontFamily="@font/opensans_semibold"
+                android:paddingStart="5dp"
+                android:textColor="@color/colorGrey"
+                android:textSize="15sp"
+                tools:text="Name" />
 
             <TextView
                     android:id="@+id/tvAddress"
