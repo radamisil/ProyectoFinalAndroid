@@ -27,13 +27,15 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         setContentView(R.layout.activity_report_place_attendance)
         startPresenter()
 
+
+
         mPublicPlace = intent.getParcelableExtra(AppConstants.PUBLIC_PLACE)
 
-        tvAvailability.setOnClickListener {
+        fabTakePhoto.setOnClickListener {
             requestPermissionAndStartCameraActivity()
         }
 
-        btnGoBack.setOnClickListener {
+        btnSendReport.setOnClickListener {
             mPresenter!!.sendReport()
         }
     }
@@ -62,7 +64,6 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
     override fun displayImage(photoPath: String) {
         GlideApp.with(getContext())
                 .load(File(photoPath))
-                .circleCrop()
                 .into(ivPlaceImage)
     }
 

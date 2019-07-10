@@ -5,43 +5,181 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:padding="15dp"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:id="@+id/llContainer">
 
-
+    <include
+        android:id="@+id/layoutToolbar"
+        layout="@layout/layout_toolbar"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="250dp"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/tvTitlePhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tomar fotografía"
+            android:textSize="16sp"
+            android:fontFamily="@font/opensans_semibold"
+            android:paddingBottom="10dp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/ivPlaceImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="15dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:background="@drawable/bg_grey_rounded_top"/>
+            android:background="@drawable/bg_grey_rounded_top"
+            app:layout_constraintTop_toBottomOf="@id/tvTitlePhoto"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabTakePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPlaceImage"
+            android:src="@drawable/ic_location"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="25dp"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="@dimen/progress_bar_value"
             android:layout_height="@dimen/progress_bar_value"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/ivPlaceImage"
+            app:layout_constraintBottom_toBottomOf="@id/ivPlaceImage"
+            app:layout_constraintLeft_toLeftOf="@id/ivPlaceImage"
+            app:layout_constraintRight_toRightOf="@id/ivPlaceImage"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textAlignment="center"
+            android:text="¿Tomaste una foto y no te parece \nque refleje la concurrencia real? \n¡Puedes tomar otra!\n\nRecuerda que nuestra IA \nva aprendiendo mientras más fotos se tomen :)"
+            />
+
+    <View
+        android:id="@+id/vDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        android:layout_marginHorizontal="25dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         android:clipChildren="false"
-        android:clipToPadding="false">
+        android:clipToPadding="false"
+        android:padding="15dp"
+        android:layout_weight="1">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/tvTitleSurvey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Completar nivel de concurrencia"
+            android:textSize="16sp"
+            android:fontFamily="@font/opensans_semibold"
+            android:paddingBottom="10dp"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_users_few"
+                        android:background="@drawable/bg_circle_green"
+                        android:padding="15dp"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Bajo"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/colorGrey"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/ic_users_some"
+                    android:background="@drawable/bg_circle_orange"
+                    android:padding="15dp"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Medio"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/colorGrey"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/ic_users_many"
+                    android:background="@drawable/bg_circle_red"
+                    android:padding="15dp"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Alto"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/opensans_semibold"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/colorGrey"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--<RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -75,7 +213,7 @@
                 android:textColor="@color/colorGrey"
                 android:layout_below="@+id/ivIcon"/>
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -113,23 +251,22 @@
 
     </LinearLayout>
 
-    <View
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorGrey"
-        android:layout_marginVertical="10dp"/>
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnGoBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:strokeColor="@color/colorAccent"
-        app:strokeWidth="2dp"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:text="Volver"
-        android:fontFamily="@font/opensans_regular"
-        android:textColor="@color/colorAccent"
-        android:textSize="15dp"
-        android:textAlignment="center"/>
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSendReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="¡Enviar mi reporte!"
+            android:padding="15dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginHorizontal="30dp"
+            app:backgroundTint="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
+            app:cornerRadius="20dp"
+            android:fontFamily="@font/opensans_semibold"
+            android:layout_gravity="bottom"/>
+    </FrameLayout>
 </LinearLayout>
