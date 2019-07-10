@@ -11,12 +11,16 @@
             layout="@layout/layout_toolbar"
             app:layout_constraintTop_toTopOf="parent"/>
 
-    <include
-            android:id="@+id/layoutTabLayout"
-            layout="@layout/layout_tabs_categories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/layoutToolbar"/>
+    <FrameLayout
+        android:id="@+id/layoutTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layoutToolbar">
+
+        <include
+            layout="@layout/layout_tabs_categories" />
+    </FrameLayout>
+
 
     <ProgressBar
             android:id="@+id/progressBar"

@@ -24,17 +24,20 @@ import com.google.android.libraries.places.api.model.Place
 import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
+import com.visight.adondevamos.data.entity.Location
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.utils.AppConstants
+import com.visight.adondevamos.utils.DisplayMessage
 import com.visight.adondevamos.utils.PlacePreviewDialog
 import io.reactivex.disposables.Disposable
+import kotlinx.android.synthetic.main.fragment_map.*
 
 class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.View {
     private var mPresenter: MapViewFragmentContract.Presenter? = null
     private lateinit var mMap: GoogleMap
     private lateinit var mClusterManager: ClusterManager<MapItem>
     private var mCurrentLocation: LatLng? = null
-    private var mCurrentPlace: Place? = null
+    private var mCurrentPlace: PublicPlace? = null
     private var mLocationDisposable: Disposable? = null
     private var mPlacePreviewDialog: PlacePreviewDialog? = null
 
@@ -114,12 +117,25 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
             true
         }
 
+        //from Autocomplete
         if(mCurrentPlace != null){
-            mPresenter!!.getSpecificPublicPlace(mCurrentPlace!!.id!!)
+            mClusterManager.clearItems()
+            var mapItem = MapItem(mCurrentPlace!!)
+            mClusterManager.addItem(mapItem)
+
+            var placePosition = LatLng(mCurrentPlace!!.geometry!!.location!!.lat, mCurrentPlace!!.geometry!!.location!!.lng)
+            mMap.addMarker(MarkerOptions()
+                    .position(placePosition)
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.img_marker_available)))
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(placePosition, AppConstants.mapZoomInSpecificPlace))
         }else{
-            // Add cluster items (markers) to the cluster manager.
-            mPresenter!!.getPublicPlaces(mCurrentLocation!!, "store")
+            //First time
+            mPresenter!!.getPublicPlaces(mCurrentLocation!!, null)
         }
+    }
+
+    fun callMethodGetPublicPlaces(type: String){
+        mPresenter!!.getPublicPlaces(mCurrentLocation!!, type)
     }
 
     fun setCameraToCurrentPosition(newPosition: LatLng){
@@ -137,23 +153,20 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         mPresenter!!.startView(this)
     }
 
-    override fun displayPlaces(placesList: List<MapItem>) {
-        mClusterManager.clearItems()
-        for(mapItem: MapItem in placesList){
-            if(placesList.size == 1){
-                mMap.addMarker(MarkerOptions()
-                    .position(mapItem.publicPlacePosition!!)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.img_marker_available)))
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mapItem.publicPlacePosition, 1000f))
-                break
-            }
-            mClusterManager.addItem(mapItem)
-            mClusterManager.cluster()
-        }
+    override fun displayMessage(message: String) {
+        DisplayMessage().displayMessage(message, flMapContainer)
     }
 
-    override fun displayMessage(message: String) {
-
+    override fun displayPlaces(placesList: List<MapItem>) {
+        mClusterManager.clearItems()
+        if(placesList.isEmpty()){
+            displayMessage("No se encontraron lugares cercanos, prueba otra ubicación")
+        }else{
+            for(mapItem: MapItem in placesList){
+                mClusterManager.addItem(mapItem)
+            }
+        }
+        mClusterManager.cluster()
     }
 
     override fun onDestroy() {

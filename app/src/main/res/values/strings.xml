@@ -27,4 +27,32 @@
     <string name="text_buscar_lugar">Buscar lugar</string>
     <string name="text_editar">Editar</string>
     <string name="text_confirmar">Confirmar</string>
+
+
+    <string-array name="placeTypes">
+        <item>Comercios</item>
+        <item>Restaurantes</item>
+        <item>Supermercados</item>
+        <item>Shoppings</item>
+        <item>Cajeros automáticos</item>
+        <item>Panaderías</item>
+        <item>Bancos</item>
+        <item>Bares</item>
+        <item>Salones de belleza</item>
+        <item>Librerías</item>
+        <item>Cafés</item>
+        <item>Reparación de autos</item>
+        <item>Lavaderos de autos</item>
+        <item>Casinos</item>
+        <item>Dentistas</item>
+        <item>Doctores</item>
+        <item>Estaciones de servicio</item>
+        <item>Gimnasios</item>
+        <item>Peluquerías</item>
+        <item>Hospitales</item>
+        <item>Lavaderos</item>
+        <item>Museos</item>
+        <item>Parques</item>
+        <item>Farmacias</item>
+    </string-array>
 </resources>

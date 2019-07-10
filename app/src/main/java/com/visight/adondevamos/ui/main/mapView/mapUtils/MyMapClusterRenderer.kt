@@ -19,7 +19,7 @@ class MyMapClusterRenderer(context: Context?, map: GoogleMap?, clusterManager: C
     }
 
     override fun shouldRenderAsCluster(cluster: Cluster<MapItem>?): Boolean {
-        return cluster!!.size > 10
+        return cluster!!.size > 20
     }
 
     override fun getColor(clusterSize: Int): Int {

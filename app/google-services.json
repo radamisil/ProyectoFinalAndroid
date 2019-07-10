@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "421826611945",
+    "firebase_url": "https://adondevamos.firebaseio.com",
+    "project_id": "adondevamos",
+    "storage_bucket": "adondevamos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421826611945:android:70c37a260492da8a",
+        "android_client_info": {
+          "package_name": "com.visight.adondevamos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421826611945-mk49f3f5neg8r1ki28e45jk09f0m5h4f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxGgWfk3kFFPfiUB94el9YVNZ0hZvwuAs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421826611945-mk49f3f5neg8r1ki28e45jk09f0m5h4f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

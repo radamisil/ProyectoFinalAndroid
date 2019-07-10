@@ -25,7 +25,6 @@ import com.visight.adondevamos.utils.AppConstants
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_content_main.*
-import kotlinx.android.synthetic.main.layout_sidebar_header.*
 import kotlinx.android.synthetic.main.layout_sidebar_header.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import com.google.android.libraries.places.api.Places
@@ -34,6 +33,10 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.android.material.tabs.TabLayout
+import com.visight.adondevamos.data.entity.PublicPlace
+import kotlinx.android.synthetic.main.layout_tabs_categories.*
+import kotlinx.android.synthetic.main.layout_tabs_categories.view.*
 import java.util.*
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener{
@@ -65,6 +68,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         nvDrawer.setNavigationItemSelectedListener(this)
         getCurrentLocation()
+        setCategories()
 
         nvDrawer.getHeaderView(0).btnSeeProfile.isClickable =
             if (llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE) true else false
@@ -82,6 +86,24 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         // Initialize Places.
         Places.initialize(getApplicationContext(), getResources().getString(R.string.maps_debug_api_key))
 
+        mTabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+               if(supportFragmentManager.findFragmentById(R.id.flFragmentContainer) is MapViewFragment){
+                   (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) as MapViewFragment)
+                           .callMethodGetPublicPlaces(p0!!.text.toString())
+               }
+            }
+
+        })
+
         fabMyLocation.setOnClickListener {
             mCurrentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)!!
             if(mCurrentFragment is MapViewFragment){
@@ -98,6 +120,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             startActivity(intent)
             //if(dlDrawer.isDrawerOpen(GravityCompat.START)) dlDrawer.closeDrawer(GravityCompat.START)
             finish()
+        }
+    }
+
+    private fun setCategories() {
+        val placeTypes = resources.getStringArray(R.array.placeTypes)
+        for(s in placeTypes){
+                mTabLayout.addTab(mTabLayout.newTab().setText(s))
         }
     }
 
@@ -207,7 +236,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                             .attach(mapFragment)
 
                         val bundle = Bundle()
-                        bundle.putParcelable(AppConstants.CURRENT_PLACE_KEY, place)
+                        var publicPlace = PublicPlace(place)  //place to display in the marker
+                        bundle.putParcelable(AppConstants.CURRENT_PLACE_KEY, publicPlace)
                         mapFragment.arguments = bundle
 
                         transaction.commit()

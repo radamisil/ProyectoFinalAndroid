@@ -31,36 +31,44 @@ class PlacePreviewDialog: DialogFragment() {
 
         //TODO check image loading
         v.ivPlaceImage.clipToOutline = true
-        GlideApp.with(v.context)
-            .load("https://maps.googleapis.com/maps/api/place/" +
-                    "photo?maxwidth=500&photoreference=" +
-                    publicPlace!!.photos.get(0).photoReference +
-                    "&key=AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o")
-            .listener(object : RequestListener<Drawable>{
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    v.progressBar.visibility = View.GONE
-                    return false
-                }
 
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    v.progressBar.visibility = View.GONE
-                    v.ivPlaceImage.setImageDrawable(resource)
-                    return true
-                }
+        if(publicPlace!!.photos != null && !publicPlace!!.photos.isEmpty()){
+            GlideApp.with(v.context)
+                    .load("https://maps.googleapis.com/maps/api/place/" +
+                            "photo?maxwidth=500&photoreference=" +
+                            publicPlace!!.photos.get(0).photoReference +
+                            "&key=AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o")
+                    .listener(object : RequestListener<Drawable>{
+                        override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                isFirstResource: Boolean
+                        ): Boolean {
+                            v.progressBar.visibility = View.GONE
+                            return false
+                        }
 
-            })
-            .into(v.ivPlaceImage)
+                        override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                        ): Boolean {
+                            v.progressBar.visibility = View.GONE
+                            v.ivPlaceImage.setImageDrawable(resource)
+                            return true
+                        }
+
+                    })
+                    .into(v.ivPlaceImage)
+        }else{
+            v.progressBar.visibility = View.GONE
+            GlideApp.with(v.context)
+                    .load(publicPlace!!.icon)
+                    .into(v.ivPlaceImage)
+        }
 
         GlideApp.with(v.context)
             .load(publicPlace!!.icon)
