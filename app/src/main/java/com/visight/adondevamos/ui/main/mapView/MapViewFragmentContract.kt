@@ -3,9 +3,10 @@ package com.visight.adondevamos.ui.main.mapView
 import com.google.android.gms.maps.model.LatLng
 import com.visight.adondevamos.ui.base.BaseContract
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
+import com.visight.adondevamos.utils.PlacePreviewDialog
 
 interface MapViewFragmentContract {
-    interface View: BaseContract.View {
+    interface View: BaseContract.View, PlacePreviewDialog.OnClickPreviewPlaceDialog {
         fun displayPlaces(placesList: List<MapItem>)
         fun displayMessage(message: String)
     }
@@ -14,5 +15,4 @@ interface MapViewFragmentContract {
         fun getPublicPlaces(location: LatLng, type: String?)
         fun getSpecificPublicPlace(placeId: String)
     }
-
 }

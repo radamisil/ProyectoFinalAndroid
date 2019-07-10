@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +27,8 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.Location
 import com.visight.adondevamos.data.entity.PublicPlace
+import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
+import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.DisplayMessage
 import com.visight.adondevamos.utils.PlacePreviewDialog
@@ -110,9 +113,12 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         mClusterManager.setOnClusterItemClickListener {
             //TODO implement function for marker click event
             mPlacePreviewDialog = PlacePreviewDialog()
+            mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
+
             var bundle = Bundle()
             bundle.putParcelable(AppConstants.PUBLIC_PLACE, it.publicPlace)
             mPlacePreviewDialog!!.arguments = bundle
+
             mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
             true
         }
@@ -167,6 +173,10 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
             }
         }
         mClusterManager.cluster()
+    }
+
+    override fun onClickPlaceSeeMore(publicPlace: PublicPlace) {
+        (activity as MainActivity).redirectToPlaceDetailActivity(publicPlace)
     }
 
     override fun onDestroy() {

@@ -4,7 +4,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.clustering.ClusterItem
 import com.visight.adondevamos.data.entity.PublicPlace
 
-class MapItem(place: PublicPlace) : ClusterItem {
+class MapItem(place: PublicPlace) : ClusterItem{
     var publicPlace : PublicPlace? = null
     var publicPlacePosition : LatLng? = null
 

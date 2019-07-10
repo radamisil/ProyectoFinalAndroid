@@ -9,6 +9,7 @@ object AppConstants {
     @JvmField val CURRENT_PLACE_KEY = "currentPlace"
     @JvmField val PUBLIC_PLACE = "publicPlace"
     @JvmField val PLACE_AUTOCOMPLETE_REQUEST_CODE = 600
+    @JvmField val REQUEST_IMAGE_CAPTURE = 183
 
     @JvmField val PLACE_PREVIEW_DIALOG = "placePreviewDialog"
 }

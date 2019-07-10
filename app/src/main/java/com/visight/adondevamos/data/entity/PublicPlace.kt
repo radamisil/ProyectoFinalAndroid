@@ -7,22 +7,22 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.gson.annotations.SerializedName
 
 class PublicPlace() : Parcelable {
-    var id: String = ""
-    var name: String = ""
-    var icon: String = ""
+    var id: String? = ""
+    var name: String? = ""
+    var icon: String? = ""
     @SerializedName("formatted_address")
-    var formattedAddress: String = ""
+    var formattedAddress: String? = ""
     var geometry: Geometry? = null
     @SerializedName("opening_hours")
     var openingHours: OpeningHours? = null
     var photos: List<Photo> = ArrayList()
-    var rating: Double = 0.0
+    var rating: Double? = 0.0
     @SerializedName("place_id")
-    var placeId: String = ""
+    var placeId: String? = ""
     @SerializedName("price_level")
-    var priceLevel: Int = 0
+    var priceLevel: Int? = 0
     var types: List<String> = ArrayList()
-    var vicinity: String = ""
+    var vicinity: String? = ""
     var isFull: Boolean = false
 
     constructor(parcel: Parcel) : this() {
@@ -41,10 +41,10 @@ class PublicPlace() : Parcelable {
     //TODO PREGUNTAR POR QUE NECESITA ESE THIS() / CONSTRUCTORES SECUNDARIOS
     constructor(place: Place) : this() {
         name = place.name!!
-        formattedAddress = place.address!!
-        rating = place.rating!!
+        formattedAddress = place.address
+        rating = place.rating
         placeId = place.id!!
-        priceLevel = place.priceLevel!!
+        priceLevel = place.priceLevel
         geometry = Geometry(Location(place.latLng!!))
         isFull = false
     }
@@ -54,9 +54,9 @@ class PublicPlace() : Parcelable {
         parcel.writeString(name)
         parcel.writeString(icon)
         parcel.writeString(formattedAddress)
-        parcel.writeDouble(rating)
+        rating?.let { parcel.writeDouble(it) }
         parcel.writeString(placeId)
-        parcel.writeInt(priceLevel)
+        priceLevel?.let { parcel.writeInt(it) }
         parcel.writeStringList(types)
         parcel.writeString(vicinity)
         parcel.writeByte(if (isFull) 1 else 0)

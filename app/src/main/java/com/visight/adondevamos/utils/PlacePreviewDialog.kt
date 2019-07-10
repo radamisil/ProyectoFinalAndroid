@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.layout_dialog_preview.view.*
 
 class PlacePreviewDialog: DialogFragment() {
     var publicPlace: PublicPlace? = null
+    var onClickPreviewPlaceDialog: OnClickPreviewPlaceDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,7 +83,14 @@ class PlacePreviewDialog: DialogFragment() {
             this.dismiss()
         }
 
+        v.btnSeeMore.setOnClickListener {
+            onClickPreviewPlaceDialog!!.onClickPlaceSeeMore(publicPlace!!)
+        }
+
         return v
     }
 
+    interface OnClickPreviewPlaceDialog{
+        fun onClickPlaceSeeMore(publicPlace: PublicPlace)
+    }
 }

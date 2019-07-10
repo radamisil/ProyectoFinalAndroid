@@ -35,6 +35,8 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.tabs.TabLayout
 import com.visight.adondevamos.data.entity.PublicPlace
+import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
+import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
 import kotlinx.android.synthetic.main.layout_tabs_categories.*
 import kotlinx.android.synthetic.main.layout_tabs_categories.view.*
 import java.util.*
@@ -221,19 +223,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(resultCode == Activity.RESULT_OK){
-            if(requestCode == AppConstants.PLACE_AUTOCOMPLETE_REQUEST_CODE){
-                if(resultCode != AutocompleteActivity.RESULT_ERROR){
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == AppConstants.PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+                if (resultCode != AutocompleteActivity.RESULT_ERROR) {
                     var place = Autocomplete.getPlaceFromIntent(data!!)
                     //TODO send place to map fragment
 
-                    if(supportFragmentManager.findFragmentById(R.id.flFragmentContainer) is MapViewFragment){
+                    if (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) is MapViewFragment) {
                         var mapFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer) as MapViewFragment
                         val transaction = supportFragmentManager.beginTransaction()
 
                         transaction
-                            .detach(mapFragment)
-                            .attach(mapFragment)
+                                .detach(mapFragment)
+                                .attach(mapFragment)
 
                         val bundle = Bundle()
                         var publicPlace = PublicPlace(place)  //place to display in the marker
@@ -242,13 +244,19 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                         transaction.commit()
                     }
-                }else{
+                } else {
                     var status = Autocomplete.getStatusFromIntent(data!!)
                     Log.d("AUTOCOMPLETE ERROR", status.statusMessage)
                 }
             }
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    fun redirectToPlaceDetailActivity(place: PublicPlace){
+        val intent = Intent(this@MainActivity, PlaceDetailActivity::class.java)
+        intent.putExtra(AppConstants.PUBLIC_PLACE, place)
+        startActivity(intent)
     }
 
     override fun getContext(): Context {
