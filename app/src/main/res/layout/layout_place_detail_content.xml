@@ -14,7 +14,7 @@
         android:clipToPadding="false"
         android:orientation="horizontal">
 
-        <RelativeLayout
+        <!--<RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -58,7 +58,7 @@
                 android:textSize="14sp"
                 android:text="¿Cómo llegar?" />
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <LinearLayout
             android:layout_width="0dp"
@@ -68,7 +68,7 @@
             android:clipToPadding="false"
             android:orientation="vertical">
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/tvAvailability"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,16 +77,16 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
-                tools:text="Poca concurrencia" />
+                tools:text="Poca concurrencia" />-->
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSeeMore"
+                android:id="@+id/btnGoToReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipChildren="false"
                 android:clipToPadding="false"
                 android:fontFamily="@font/opensans_regular"
-                android:text="Ver más"
+                android:text="¡Dar mi reporte!"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="15sp"

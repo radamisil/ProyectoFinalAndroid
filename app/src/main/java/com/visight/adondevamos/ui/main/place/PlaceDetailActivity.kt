@@ -15,6 +15,7 @@ import com.visight.adondevamos.utils.GlideApp
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_place_detail.*
 import kotlinx.android.synthetic.main.activity_report_place_attendance.*
+import kotlinx.android.synthetic.main.layout_place_detail_content.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import java.io.File
 
@@ -31,15 +32,15 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
         setUpToolbar(toolbar, mPublicPlace!!.name, ivLogo)
         setPlaceInformation(mPublicPlace)
 
-        if(mPublicPlace!!.photos != null && mPublicPlace!!.photos.isNotEmpty()){
+        /*if(mPublicPlace!!.photos != null && mPublicPlace!!.photos.isNotEmpty()){
             mPresenter!!.getPlacePhoto(mPublicPlace!!)
         }else{
             GlideApp.with(this)
                     .load(R.drawable.ic_add)
                     .into(ivHeader)
-        }
+        }*/
 
-        fabGoToReport.setOnClickListener {
+        btnGoToReport.setOnClickListener {
             val intent = Intent(this@PlaceDetailActivity, ReportFromPlaceActivity::class.java)
             intent.putExtra(AppConstants.PUBLIC_PLACE, mPublicPlace)
             startActivity(intent)
@@ -47,9 +48,9 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
     }
 
     override fun setPlacePhoto(photoUrl: String) {
-            GlideApp.with(this)
+            /*GlideApp.with(this)
                     .load(photoUrl)
-                    .into(ivHeader)
+                    .into(ivHeader)*/
     }
 
     private fun setPlaceInformation(mPublicPlace: PublicPlace?) {

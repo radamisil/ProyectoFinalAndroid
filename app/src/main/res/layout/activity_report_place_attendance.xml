@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/ivPlaceImage"
-            android:src="@drawable/ic_location"
+            android:src="@drawable/ic_camera"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="25dp"/>
 
@@ -55,7 +55,8 @@
             app:layout_constraintTop_toTopOf="@id/ivPlaceImage"
             app:layout_constraintBottom_toBottomOf="@id/ivPlaceImage"
             app:layout_constraintLeft_toLeftOf="@id/ivPlaceImage"
-            app:layout_constraintRight_toRightOf="@id/ivPlaceImage"/>
+            app:layout_constraintRight_toRightOf="@id/ivPlaceImage"
+            android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

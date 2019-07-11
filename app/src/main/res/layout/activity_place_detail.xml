@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_search"
+                android:src="@drawable/ph_place"
                 app:layout_collapseMode="parallax" />
 
             <include
@@ -48,14 +48,4 @@
             layout="@layout/layout_place_detail_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabGoToReport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_location" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
