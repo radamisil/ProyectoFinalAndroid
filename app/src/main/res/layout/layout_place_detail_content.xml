@@ -14,7 +14,7 @@
         android:clipToPadding="false"
         android:orientation="horizontal">
 
-        <!--<RelativeLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -58,7 +58,7 @@
                 android:textSize="14sp"
                 android:text="¿Cómo llegar?" />
 
-        </RelativeLayout>-->
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="0dp"
