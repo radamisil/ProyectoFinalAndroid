@@ -84,7 +84,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/tvAvailabilityHuman"
@@ -96,6 +97,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:textAlignment="center"
+                    android:paddingVertical="5dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/tvAvailabilityAI"/>
 
@@ -109,6 +111,7 @@
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:textAlignment="center"
+                    android:paddingVertical="5dp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/tvAvailabilityHuman"/>
 
