@@ -75,7 +75,9 @@ class PlacePreviewDialog: DialogFragment() {
 
         v.tvName.text = publicPlace!!.name
         v.tvAddress.text = publicPlace!!.vicinity
-        v.tvAvailability.text = "Poca concurrencia"
+        //v.tvAvailability.text = "Poca concurrencia"
+        v.tvAvailabilityHuman.text = "Baja"
+        v.tvAvailabilityAI.text = "Media"
 
         v.btnGoBack.setOnClickListener {
             this.dismiss()
