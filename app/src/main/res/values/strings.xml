@@ -27,6 +27,16 @@
     <string name="text_buscar_lugar">Buscar lugar</string>
     <string name="text_editar">Editar</string>
     <string name="text_confirmar">Confirmar</string>
+    <string name="text_por_favor_ingresa_el_correo_electronico">Por favor, ingresa el correo electrónico</string>
+    <string name="text_por_favor_ingresa_la_contrasenia">Por favor, ingresa la contraseña</string>
+    <string name="text_iniciar_sesion">Iniciar sesión</string>
+    <string name="text_error_login">No se pudo iniciar sesión, por favor intente nuevamente</string>
+    <string name="text_por_favor_ingresa_un_nombre">Por favor, ingresa un nombre</string>
+    <string name="text_por_favor_ingresa_un_apellido">Por favor, ingresa un apellido</string>
+    <string name="text_por_favor_ingresa_un_correo_electronico">Por favor, ingresa un correo electrónico</string>
+    <string name="text_por_favor_ingresa_un_correo_electronico_valido">Por favor, ingresa un correo electrónico válido
+    </string>
+    <string name="text_las_contrasenias_no_coinciden">Las contraseñas no coinciden</string>
 
 
     <string-array name="placeTypes">

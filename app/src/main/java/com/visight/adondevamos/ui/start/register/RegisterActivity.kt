@@ -3,10 +3,12 @@ package com.visight.adondevamos.ui.start.register
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.User
@@ -14,6 +16,7 @@ import com.visight.adondevamos.ui.base.BaseActivity
 import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.ui.start.login.LoginActivity
 import com.visight.adondevamos.utils.AppConstants
+import com.visight.adondevamos.utils.DisplayMessage
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
@@ -30,25 +33,75 @@ class RegisterActivity : BaseActivity(), RegisterActivityContract.View {
         applyTypeface(tilRePassword)
 
         btnRegister.setOnClickListener {
-            mPresenter!!.register(
+            if(validateFields(
+                    tieName,
+                    tieSurname,
+                    tieEmail,
+                    tiePassword)){
+                progressBar.visibility = View.VISIBLE
+                btnRegister.isEnabled = false
+                mPresenter!!.register(
                     tieName.editableText.toString(),
                     tieSurname.editableText.toString(),
                     tieEmail.editableText.toString(),
                     tiePassword.editableText.toString(),
-                    1)
-            /*val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-
-            intent.putExtra(AppConstants.IS_LOGGED, true)
-            startActivity(intent)
-            finish()*/
+                    AppConstants.TYPE_USER)
+            }
         }
 
         tvLogin.setOnClickListener {
             val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    private fun validateFields(tieName: TextInputEditText?, tieSurname: TextInputEditText?,
+                               tieEmail: TextInputEditText?, tiePassword: TextInputEditText?): Boolean {
+
+        var isValid = true
+
+        if(!checkFields(tieName, AppConstants.FIELD_NAME) ||
+            !checkFields(tieSurname, AppConstants.FIELD_SURNAME) ||
+            !checkFields(tieEmail, AppConstants.FIELD_EMAIL) ||
+            !checkFields(tiePassword, AppConstants.FIELD_PASSWORD)){
+            isValid = false
+        }
+
+        return isValid
+    }
+
+    private fun checkFields(tie: TextInputEditText?, field: String): Boolean {
+        var errorMessage = ""
+        var isValid = true
+
+        if(tie!!.editableText.toString().isEmpty()){
+            when(field){
+                AppConstants.FIELD_NAME -> {
+                    errorMessage = getString(R.string.text_por_favor_ingresa_un_nombre)
+                    isValid = false
+                }
+                AppConstants.FIELD_SURNAME -> {
+                    errorMessage = getString(R.string.text_por_favor_ingresa_un_apellido)
+                    isValid = false
+                }
+                AppConstants.FIELD_EMAIL -> {
+                    errorMessage = getString(R.string.text_por_favor_ingresa_un_correo_electronico)
+                    isValid = false
+                }
+            }
+        }else if(field == AppConstants.FIELD_EMAIL){
+            if(!Patterns.EMAIL_ADDRESS.matcher(tie.editableText.toString()).matches()){
+                errorMessage = getString(R.string.text_por_favor_ingresa_un_correo_electronico_valido)
+                isValid = false
+            }
+        }else{
+            if(tie.editableText.toString() != tieRePassword.editableText.toString()){
+                errorMessage = getString(R.string.text_las_contrasenias_no_coinciden)
+                isValid = false
+            }
+        }
+        tie.error = errorMessage
+        return isValid
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -68,11 +121,23 @@ class RegisterActivity : BaseActivity(), RegisterActivityContract.View {
     }
 
     override fun displayMessage(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        DisplayMessage().displayMessage(message, clMainContainer)
     }
 
     override fun onResponseRegister(user: User?, message: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar.visibility = View.GONE
+        if(user != null){
+            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            intent.putExtra(AppConstants.IS_LOGGED, true)
+            startActivity(intent)
+            finish()
+        }else{
+            displayMessage(message!!)
+            btnRegister.isEnabled = true
+        }
     }
 
     override fun startPresenter() {

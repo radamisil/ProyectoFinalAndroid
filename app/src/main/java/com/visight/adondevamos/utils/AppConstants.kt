@@ -17,6 +17,14 @@ object AppConstants {
     @JvmField val PREFS_USER_NAME ="username"
     @JvmField val PREFS_USER_SURNAME = "surname"
     @JvmField val PREFS_USER_EMAIL = "email"
+    @JvmField val TYPE_USER = 1
+    @JvmField val TYPE_SHOP = 2
 
     @JvmField val PLACE_PREVIEW_DIALOG = "placePreviewDialog"
+
+    //Fields validation
+    @JvmField val FIELD_NAME = "name"
+    @JvmField val FIELD_SURNAME = "surname"
+    @JvmField val FIELD_EMAIL = "email"
+    @JvmField val FIELD_PASSWORD = "password"
 }

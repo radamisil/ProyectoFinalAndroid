@@ -27,7 +27,8 @@ class RegisterActivityPresenter: RegisterActivityContract.Presenter{
         mDisposable = AppServices().getClient().register(request)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
-                .subscribe { user: User ->
+                .subscribe({ onSuccess(it) }, { onRegisterError() })
+                /*.subscribe { user: User ->
                     run {
                         //SharedPreferencesManager().setUser(mView!!.getContext(), user!!)
 
@@ -40,6 +41,21 @@ class RegisterActivityPresenter: RegisterActivityContract.Presenter{
                         }
                         mView!!.onResponseRegister(user, null)
                     }
-                }
+                }*/
+    }
+
+    private fun onSuccess(user: User) {
+        val prefs = mView!!.getContext().getSharedPreferences(AppConstants.PREFS_NAME, AppConstants.MODE)
+        with (prefs.edit()) {
+            putString(AppConstants.PREFS_USER_NAME, user.name)
+            putString(AppConstants.PREFS_USER_SURNAME, user.surname)
+            putString(AppConstants.PREFS_USER_EMAIL, user.email)
+            commit()
+        }
+        mView!!.onResponseRegister(user, null)
+    }
+
+    private fun onRegisterError() {
+        mView!!.onResponseRegister(null, "No se pudo registrar al usuario, por favor intente nuevamente")
     }
 }
