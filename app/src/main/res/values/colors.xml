@@ -1,38 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--<color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>-->
-
-    <!--<color name="colorPrimary">#f74842</color>
-    <color name="colorPrimaryDark">#b92427</color>
-    <color name="colorAccent">#00adb3</color>-->
-
-    <!--<color name="colorPrimary">#BA0000</color>
-    <color name="colorPrimaryDark">#910000</color>
-    <color name="colorAccent">#FC3636</color>-->
-
-    <!--<color name="colorPrimary">#b83709</color>
-    <color name="colorPrimaryDark">#910000</color>
-    <color name="colorAccent">#fb5f02</color>-->
-
-    <!--<color name="colorPrimary">#c0392b</color>
-    <color name="colorPrimaryDark">#cb1204</color>
-    <color name="colorAccent">#cddc39</color>-->
-
-    <!--<color name="colorPrimary">#e51c23
-    </color>
-    <color name="colorPrimaryDark">#cb1204</color>
-    <color name="colorAccent">#ffeb3b</color>-->
-
-    <!--<color name="colorPrimary">#4DB6AC</color>
-    <color name="colorPrimaryDark">#00796B</color>
-    <color name="colorAccent">#FFF8E1</color>-->
-
-    <!--<color name="colorPrimary">#D32F2F</color>
-    <color name="colorPrimaryDark">#B71C1C</color>
-    <color name="colorAccent">#FFF8E1</color>-->
-
     <color name="colorPrimary">#C2185B</color>
     <color name="colorPrimaryDark">#880E4F</color>
     <color name="colorAccent">#FFAB00</color>
@@ -41,8 +8,11 @@
     <color name="colorDarkerLightGrey">#E0E0E0</color>
     <color name="colorGrey">#616161</color>
     <color name="colorDarkSemiTransparent">#99000000</color>
+    <color name="colorGreyDarker">#424242</color>
+    <color name="colorGreyDark">#212121</color>
+
 
     <color name="colorGreen">#94c11f</color>
-    <color name="colorRed">#e72f29</color>}
+    <color name="colorRed">#e72f29</color>
 
 </resources>

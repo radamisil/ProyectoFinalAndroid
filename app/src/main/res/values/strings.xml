@@ -37,6 +37,11 @@
     <string name="text_por_favor_ingresa_un_correo_electronico_valido">Por favor, ingresa un correo electrónico válido
     </string>
     <string name="text_las_contrasenias_no_coinciden">Las contraseñas no coinciden</string>
+    <string name="text_mapa">Mapa</string>
+    <string name="text_mis_lugares_favoritos">Mis lugares favoritos</string>
+    <string name="text_historial">Historial</string>
+    <string name="text_info">Info</string>
+    <string name="text_cerrar_sesion">Cerrar sesión</string>
 
 
     <string-array name="placeTypes">

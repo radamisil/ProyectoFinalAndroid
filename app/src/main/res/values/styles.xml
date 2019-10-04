@@ -39,4 +39,14 @@
         <item name="android:fontFamily">@font/opensans_regular</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+    <style name="style_texts_titles">
+        <item name="android:fontFamily">@font/opensans_semibold</item>
+        <item name="android:textColor">@color/colorGreyDark</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="style_regular_texts">
+        <item name="android:fontFamily">@font/opensans_regular</item>
+        <item name="android:textColor">@color/colorGreyDarker</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
