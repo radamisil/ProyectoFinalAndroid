@@ -19,6 +19,9 @@ object AppConstants {
     @JvmField val PREFS_USER_EMAIL = "email"
     @JvmField val TYPE_USER = 1
     @JvmField val TYPE_SHOP = 2
+    @JvmField val PLACES_LIST_KEY = "placesList"
+    @JvmField val TERMS_KEY = "Términos y condiciones"
+    @JvmField val PRIVACY_POLICY_KEY = "Política de privacidad"
 
     @JvmField val PLACE_PREVIEW_DIALOG = "placePreviewDialog"
 

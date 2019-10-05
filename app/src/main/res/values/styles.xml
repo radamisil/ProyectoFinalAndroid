@@ -49,4 +49,9 @@
         <item name="android:textColor">@color/colorGreyDarker</item>
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="RatingBarStyle" parent="Base.Widget.AppCompat.RatingBar.Small">
+        <item name="android:progressDrawable">@drawable/layer_list_rating</item>
+        <item name="android:minHeight">25dip</item>
+        <item name="android:maxHeight">25dip</item>
+    </style>
 </resources>

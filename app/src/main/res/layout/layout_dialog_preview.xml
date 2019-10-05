@@ -23,8 +23,8 @@
 
         <ProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="@dimen/progress_bar_value"
-                android:layout_height="@dimen/progress_bar_value"
+                android:layout_width="@dimen/dimen_progress_bar"
+                android:layout_height="@dimen/dimen_progress_bar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

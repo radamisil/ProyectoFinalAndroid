@@ -31,7 +31,7 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
 
         mPublicPlace = intent.getParcelableExtra(AppConstants.PUBLIC_PLACE)
         setUpToolbar(toolbar, mPublicPlace!!.name, ivLogo)
-        setPlaceInformation(mPublicPlace)
+        setPlaceInformation(mPublicPlace!!)
 
         /*if(mPublicPlace!!.photos != null && mPublicPlace!!.photos.isNotEmpty()){
             mPresenter!!.getPlacePhoto(mPublicPlace!!)
@@ -54,13 +54,13 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
                     .into(ivHeader)*/
     }
 
-    private fun setPlaceInformation(mPublicPlace: PublicPlace?) {
+    private fun setPlaceInformation(mPublicPlace: PublicPlace) {
         GlideApp.with(this)
-            .load(mPublicPlace!!.icon)
+            .load(mPublicPlace.icon)
             .into(ivIcon)
 
-        tvName.text = mPublicPlace!!.name
-        tvAddress.text = mPublicPlace!!.vicinity
+        tvName.text = mPublicPlace.name
+        tvAddress.text = mPublicPlace.vicinity
     }
 
     override fun getContext(): Context {

@@ -34,6 +34,7 @@ import com.visight.adondevamos.utils.DisplayMessage
 import com.visight.adondevamos.utils.PlacePreviewDialog
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.android.synthetic.main.layout_content_main.*
 
 class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.View {
     private var mPresenter: MapViewFragmentContract.Presenter? = null
@@ -44,8 +45,9 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     private var mLocationDisposable: Disposable? = null
     private var mPlacePreviewDialog: PlacePreviewDialog? = null
 
+    @SuppressLint("RestrictedApi")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view: View = inflater.inflate(com.visight.adondevamos.R.layout.fragment_map, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_map, container, false)
         startPresenter()
 
         if(arguments != null){
@@ -55,8 +57,11 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
             checkPermissions()
         }
 
-        val mapFragment = childFragmentManager.findFragmentById(com.visight.adondevamos.R.id.map) as SupportMapFragment
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        activity!!.fabMyLocation.visibility = View.VISIBLE
+        activity!!.fabListMode.setImageResource(R.drawable.ic_list)
 
         return view
     }
@@ -177,6 +182,10 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
     override fun onClickPlaceSeeMore(publicPlace: PublicPlace) {
         (activity as MainActivity).redirectToPlaceDetailActivity(publicPlace)
+    }
+
+    fun getPlacesList() : MutableList<PublicPlace>? {
+        return mPresenter!!.getAllPublicPlacesList()
     }
 
     override fun onDestroy() {

@@ -15,7 +15,7 @@ class PublicPlace() : Parcelable {
     var geometry: Geometry? = null
     @SerializedName("opening_hours")
     var openingHours: OpeningHours? = null
-    var photos: List<Photo> = ArrayList()
+    var photos: List<Photo>? = ArrayList()
     var rating: Double? = 0.0
     @SerializedName("place_id")
     var placeId: String? = ""
@@ -30,9 +30,9 @@ class PublicPlace() : Parcelable {
         name = parcel.readString()
         icon = parcel.readString()
         formattedAddress = parcel.readString()
-        rating = parcel.readDouble()
+        rating = parcel.readValue(Double::class.java.classLoader) as? Double
         placeId = parcel.readString()
-        priceLevel = parcel.readInt()
+        priceLevel = parcel.readValue(Int::class.java.classLoader) as? Int
         types = parcel.createStringArrayList()
         vicinity = parcel.readString()
         isFull = parcel.readByte() != 0.toByte()
@@ -54,9 +54,9 @@ class PublicPlace() : Parcelable {
         parcel.writeString(name)
         parcel.writeString(icon)
         parcel.writeString(formattedAddress)
-        rating?.let { parcel.writeDouble(it) }
+        parcel.writeValue(rating)
         parcel.writeString(placeId)
-        priceLevel?.let { parcel.writeInt(it) }
+        parcel.writeValue(priceLevel)
         parcel.writeStringList(types)
         parcel.writeString(vicinity)
         parcel.writeByte(if (isFull) 1 else 0)

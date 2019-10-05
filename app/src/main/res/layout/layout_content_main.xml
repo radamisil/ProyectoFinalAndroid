@@ -21,15 +21,15 @@
             layout="@layout/layout_tabs_categories" />
     </FrameLayout>
 
-
     <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_width="@dimen/progress_bar_value"
-            android:layout_height="@dimen/progress_bar_value"
+            android:layout_width="@dimen/dimen_progress_bar"
+            android:layout_height="@dimen/dimen_progress_bar"
             app:layout_constraintTop_toTopOf="@id/flFragmentContainer"
             app:layout_constraintBottom_toBottomOf="@id/flFragmentContainer"
             app:layout_constraintLeft_toLeftOf="@id/flFragmentContainer"
-            app:layout_constraintRight_toRightOf="@id/flFragmentContainer"/>
+            app:layout_constraintRight_toRightOf="@id/flFragmentContainer"
+            android:visibility="gone"/>
 
     <FrameLayout
             android:id="@+id/flFragmentContainer"

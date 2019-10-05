@@ -32,6 +32,9 @@
         <activity android:name=".ui.main.user.ProfileActivity"/>
         <activity android:name=".ui.main.place.PlaceDetailActivity"/>
         <activity android:name=".ui.main.place.report.ReportFromPlaceActivity"/>
+        <activity android:name=".ui.main.user.favourites.FavouritesActivity"/>
+        <activity android:name=".ui.main.user.info.InformationActivity"/>
+        <activity android:name=".ui.main.user.info.TermsPolicyActivity"/>
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"

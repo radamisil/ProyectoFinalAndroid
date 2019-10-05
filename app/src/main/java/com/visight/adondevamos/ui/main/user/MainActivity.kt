@@ -6,7 +6,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -37,8 +39,10 @@ import com.google.android.material.tabs.TabLayout
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.entity.User
 import com.visight.adondevamos.data.local.SharedPreferencesManager
+import com.visight.adondevamos.ui.main.listView.ListViewFragment
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
 import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
+import com.visight.adondevamos.ui.main.user.favourites.FavouritesActivity
 import kotlinx.android.synthetic.main.layout_tabs_categories.*
 import kotlinx.android.synthetic.main.layout_tabs_categories.view.*
 import java.util.*
@@ -134,6 +138,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
         }
 
+        fabListMode.setOnClickListener {
+            mCurrentFragment = supportFragmentManager.findFragmentById(R.id.flFragmentContainer)!!
+            if (!isMapShowing) {
+                isMapShowing = true
+                displayMapView()
+            } else {
+                isMapShowing = false
+                displayListView((mCurrentFragment as MapViewFragment).getPlacesList())
+            }
+        }
+
         btnRegisterLogin.setOnClickListener {
             val intent = Intent(this@MainActivity, StartActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -178,15 +193,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (llContainerNoSessionRegisteredOptions.visibility != View.VISIBLE) {
             when (menuItem.itemId) {
                 R.id.menuMap -> {
-
+                    if (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) is MapViewFragment) {
+                        dlDrawer.closeDrawer(GravityCompat.START)
+                    }else{
+                        displayMapView()
+                    }
                     //Toast.makeText(this, "Android Store", Toast.LENGTH_SHORT).show()
                 }
                 R.id.menuFavourites -> {
+                    val intent = Intent(this@MainActivity, FavouritesActivity::class.java)
+                    startActivity(intent)
                     //Toast.makeText(this, "Newsletter", Toast.LENGTH_SHORT).show()
                 }
-                R.id.menuHistory -> {
+                /*R.id.menuHistory -> {
                     //Toast.makeText(this, "Join Community", Toast.LENGTH_SHORT).show()
-                }
+                }*/
                 R.id.menuInfo -> {
                     //Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
                 }
@@ -229,7 +250,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                                 displayMapView()
                             } else {
                                 isMapShowing = false
-                                displayListView()
+                                displayListView((mCurrentFragment as MapViewFragment).getPlacesList())
                             }
                         }
                     } else {
@@ -249,15 +270,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         mapFragment.arguments = bundle
 
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.flFragmentContainer, mapFragment)
+        transaction.replace(R.id.flFragmentContainer, mapFragment)
         transaction.commit()
     }
 
-    private fun displayListView() {
-        /*val mapFragment = MapViewFragment()
+    private fun displayListView(placesList: MutableList<PublicPlace>?) {
+        val listFragment = ListViewFragment()
+
+        val bundle = Bundle()
+        bundle.putParcelable(AppConstants.CURRENT_LOCATION_KEY, mCurrentLocation)
+        bundle.putParcelableArrayList(AppConstants.PLACES_LIST_KEY, placesList as ArrayList<out Parcelable>)
+        listFragment.arguments = bundle
+
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.flFragmentContainer, mapFragment)
-        transaction.commit()*/
+        transaction.replace(R.id.flFragmentContainer, listFragment)
+        transaction.commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

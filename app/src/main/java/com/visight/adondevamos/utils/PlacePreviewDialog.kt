@@ -31,12 +31,9 @@ class PlacePreviewDialog: DialogFragment() {
         v.progressBar.visibility = View.VISIBLE
         v.ivPlaceImage.clipToOutline = true
 
-        if(publicPlace!!.photos != null && !publicPlace!!.photos.isEmpty()){
+        if(publicPlace!!.photos != null && publicPlace!!.photos!!.isNotEmpty()){
             GlideApp.with(v.context)
-                    .load("https://maps.googleapis.com/maps/api/place/" +
-                            "photo?maxwidth=500&photoreference=" +
-                            publicPlace!!.photos.get(0).photoReference +
-                            "&key=AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o")
+                    .load(Utilities().loadPlaceImageFromGoogle(publicPlace!!.photos!![0].photoReference))
                     .listener(object : RequestListener<Drawable>{
                         override fun onLoadFailed(
                                 e: GlideException?,

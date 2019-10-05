@@ -1,5 +1,6 @@
 package com.visight.adondevamos.ui.main.mapView
 
+import com.facebook.internal.Mutable
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.internal.p
 import com.visight.adondevamos.data.entity.PublicPlace
@@ -18,6 +19,7 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
     var disposable: Disposable? = null
     var disposablePhoto: Disposable? = null
     var allPlaces: MutableList<MapItem>? = mutableListOf()
+    var allPublicPlaces :  MutableList<PublicPlace>? = mutableListOf()
     var placesToDisplay: MutableList<MapItem>? = mutableListOf()
     var placeTypesList: HashMap<String, String> = hashMapOf()
 
@@ -84,10 +86,12 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
                     .subscribe { items: List<MapItem>?, throwable: Throwable? ->
                         run {
                             if (items != null) {
+                                allPublicPlaces?.clear()
                                 allPlaces?.addAll(items)
                                 for(i in allPlaces!!){
+                                    allPublicPlaces!!.add(i.publicPlace!!)
                                     for(t in i.publicPlace!!.types){
-                                        if(t.equals("store")){
+                                        if(t == "store"){
                                             placesToDisplay?.add(i)
                                         }
                                     }
@@ -104,7 +108,7 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
 
             var selectedPlaceType = ""
             for(t in placeTypesList){
-                if(t.key.equals(type)){
+                if(t.key == type){
                     selectedPlaceType = t.value
                     break
                 }
@@ -112,7 +116,7 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
 
             for(i in allPlaces!!){
                 for(t in i.publicPlace!!.types){
-                    if(t.equals(selectedPlaceType)){
+                    if(t == selectedPlaceType){
                         placesToDisplay?.add(i)
                     }
                 }
@@ -144,5 +148,8 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
             }
     }
 
+    override fun getAllPublicPlacesList(): MutableList<PublicPlace>? {
+        return allPublicPlaces
+    }
 
 }
