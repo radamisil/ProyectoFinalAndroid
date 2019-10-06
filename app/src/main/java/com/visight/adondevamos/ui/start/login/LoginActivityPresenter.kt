@@ -52,7 +52,7 @@ class LoginActivityPresenter: LoginActivityContract.Presenter{
             putString(AppConstants.PREFS_USER_NAME, user.name)
             putString(AppConstants.PREFS_USER_SURNAME, user.surname)
             putString(AppConstants.PREFS_USER_EMAIL, user.email)
-            commit()
+            apply()
         }
         mView!!.onResponseLogin(user, null)
     }

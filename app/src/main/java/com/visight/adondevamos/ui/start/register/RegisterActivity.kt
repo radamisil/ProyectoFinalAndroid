@@ -94,13 +94,14 @@ class RegisterActivity : BaseActivity(), RegisterActivityContract.View {
                 errorMessage = getString(R.string.text_por_favor_ingresa_un_correo_electronico_valido)
                 isValid = false
             }
-        }else{
+        }else if(field == AppConstants.FIELD_PASSWORD){
             if(tie.editableText.toString() != tieRePassword.editableText.toString()){
                 errorMessage = getString(R.string.text_las_contrasenias_no_coinciden)
                 isValid = false
             }
         }
-        tie.error = errorMessage
+
+        if(!isValid) tie.error = errorMessage
         return isValid
     }
 

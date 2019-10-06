@@ -23,7 +23,7 @@ class RegisterActivityPresenter: RegisterActivityContract.Presenter{
     }
 
     override fun register(nombre: String, apellido: String, email: String, password: String, tipo: Int) {
-        var request = RegisterRequest(nombre, apellido, email, password, tipo)
+        val request = RegisterRequest(nombre, apellido, email, password, tipo)
         mDisposable = AppServices().getClient().register(request)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
@@ -50,7 +50,7 @@ class RegisterActivityPresenter: RegisterActivityContract.Presenter{
             putString(AppConstants.PREFS_USER_NAME, user.name)
             putString(AppConstants.PREFS_USER_SURNAME, user.surname)
             putString(AppConstants.PREFS_USER_EMAIL, user.email)
-            commit()
+            apply()
         }
         mView!!.onResponseRegister(user, null)
     }

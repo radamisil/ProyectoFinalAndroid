@@ -2,16 +2,9 @@ package com.visight.adondevamos.data.remote.requests
 
 import com.google.gson.annotations.SerializedName
 
-class RegisterRequest(_nombre: String, _apellido: String, _email: String,
-                      _password: String, _tipo: Int) {
-    @SerializedName("Nombre")
-    var nombre: String? = null
-    @SerializedName("Apellido")
-    var apellido: String? = null
-    @SerializedName("Email")
-    var email: String? = null
-    @SerializedName("Password")
-    var password: String? = null
-    @SerializedName("Tipo")
-    var tipo: Integer? = null
-}
+
+class RegisterRequest(@SerializedName("Nombre") private val nombre :  String,
+                      @SerializedName("Apellido") private val apellido: String,
+                      @SerializedName("Email") private val email: String,
+                      @SerializedName("Password") private val password: String,
+                      @SerializedName("Tipo") private val tipo: Int)
