@@ -4,7 +4,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.ui.base.BaseContract
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
-import com.visight.adondevamos.utils.PlacePreviewDialog
+import com.visight.adondevamos.ui.main.dialogs.PlacePreviewDialog
 
 interface MapViewFragmentContract {
     interface View: BaseContract.View, PlacePreviewDialog.OnClickPreviewPlaceDialog {

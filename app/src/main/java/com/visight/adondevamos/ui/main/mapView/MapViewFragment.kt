@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,17 +20,14 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MyMapClusterRenderer
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.libraries.places.api.model.Place
 import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
-import com.visight.adondevamos.data.entity.Location
 import com.visight.adondevamos.data.entity.PublicPlace
-import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
 import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.DisplayMessage
-import com.visight.adondevamos.utils.PlacePreviewDialog
+import com.visight.adondevamos.ui.main.dialogs.PlacePreviewDialog
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.layout_content_main.*

@@ -1,4 +1,4 @@
-package com.visight.adondevamos.utils
+package com.visight.adondevamos.ui.main.dialogs
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -12,6 +12,10 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.PublicPlace
+import com.visight.adondevamos.utils.AppConstants
+import com.visight.adondevamos.utils.GlideApp
+import com.visight.adondevamos.utils.Utilities
+import com.visight.adondevamos.utils.loadImage
 import kotlinx.android.synthetic.main.layout_dialog_preview.view.*
 
 class PlacePreviewDialog: DialogFragment() {
@@ -32,7 +36,8 @@ class PlacePreviewDialog: DialogFragment() {
         v.ivPlaceImage.clipToOutline = true
 
         if(publicPlace!!.photos != null && publicPlace!!.photos!!.isNotEmpty()){
-            GlideApp.with(v.context)
+            v.ivPlaceImage.loadImage(v.context, publicPlace!!, v.progressBar)
+           /* GlideApp.with(v.context)
                     .load(Utilities().loadPlaceImageFromGoogle(publicPlace!!.photos!![0].photoReference))
                     .listener(object : RequestListener<Drawable>{
                         override fun onLoadFailed(
@@ -58,7 +63,7 @@ class PlacePreviewDialog: DialogFragment() {
                         }
 
                     })
-                    .into(v.ivPlaceImage)
+                    .into(v.ivPlaceImage)*/
         }else{
             v.progressBar.visibility = View.GONE
             GlideApp.with(v.context)
