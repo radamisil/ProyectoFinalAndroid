@@ -60,6 +60,7 @@
         nuevamente
     </string>
     <string name="text_enviar_mi_reporte">Enviar mi reporte</string>
+    <string name="text_like">Like</string>
 
 
     <string-array name="placeTypes">

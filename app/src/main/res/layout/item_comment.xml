@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_light_rounded"
+              android:elevation="4dp"
+              android:padding="15dp"
+              android:layout_margin="5dp">
+
+    <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_circle_primary"
+            android:id="@+id/ivProfileImage"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/logo"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            tools:layout_editor_absoluteY="15dp"
+            tools:layout_editor_absoluteX="95dp">
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tvDate"
+                tools:text="Nombre"
+                android:lines="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/opensans_semibold"
+                style="@style/style_texts_titles"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvDate"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tvName"
+                tools:text="20/9"
+                android:lines="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/opensans_regular"
+                android:textColor="@color/colorLighterDarkGrey"
+                android:textSize="12sp"
+                style="@style/style_texts_titles"/>
+
+        <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rbStars"
+                style="@style/RatingBarStyle"
+                android:scaleY="0.7"
+                android:scaleX="0.7"
+                android:transformPivotX="0dp"
+                android:transformPivotY="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvName"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvRatingReported"
+                app:layout_constraintRight_toRightOf="@id/rbStars"
+                app:layout_constraintTop_toTopOf="@id/rbStars"
+                app:layout_constraintBottom_toBottomOf="@id/rbStars"
+                android:layout_marginEnd="15dp"
+                tools:text="5.0"
+                android:fontFamily="@font/opensans_regular"
+                android:textColor="@color/colorGrey"
+                android:textSize="10sp"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/tvComment"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rbStars"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Comentario"
+                android:lines="2"
+                android:ellipsize="end"
+                style="@style/style_regular_texts"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

@@ -7,10 +7,9 @@ import com.visight.adondevamos.ui.base.BaseContract
 interface PlaceDetailActivityContract {
     interface View: BaseContract.View {
         fun displayMessage(message: String)
-        fun setPlacePhoto(photoUrl: String)
     }
 
     interface Presenter: BaseContract.Presenter<PlaceDetailActivityContract.View> {
-        fun getPlacePhoto(publicPlace: PublicPlace)
+
     }
 }

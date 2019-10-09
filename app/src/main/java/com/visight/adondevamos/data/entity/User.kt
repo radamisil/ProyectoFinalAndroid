@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
-class User(): Parcelable {
+class User() : Parcelable {
     @SerializedName("Id")
     var id: String = ""
     @SerializedName("Nombre")
@@ -15,6 +15,7 @@ class User(): Parcelable {
     var email: String = ""
     @SerializedName("Password")
     var password: String = ""
+    var profileImage: String? = null
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()
@@ -22,6 +23,7 @@ class User(): Parcelable {
         surname = parcel.readString()
         email = parcel.readString()
         password = parcel.readString()
+        profileImage = parcel.readString()
     }
 
     constructor(user: User) : this() {
@@ -32,12 +34,19 @@ class User(): Parcelable {
         password = user.password
     }
 
+    constructor(name: String, surname: String, profileImage: String) : this() {
+        this.name = name
+        this.surname = surname
+        this.profileImage = profileImage
+    }
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
         parcel.writeString(name)
         parcel.writeString(surname)
         parcel.writeString(email)
         parcel.writeString(password)
+        parcel.writeString(profileImage)
     }
 
     override fun describeContents(): Int {
@@ -53,4 +62,5 @@ class User(): Parcelable {
             return arrayOfNulls(size)
         }
     }
+
 }

@@ -18,17 +18,4 @@ class PlaceDetailActivityPresenter : PlaceDetailActivityContract.Presenter{
     override fun onDestroy() {
         mView = null
     }
-
-    override fun getPlacePhoto(publicPlace: PublicPlace) {
-        if(publicPlace.photos != null){
-            mPhotoDisposable = GooglePlacesService().getClient().getPublicPlacePhoto(
-                500, publicPlace!!.photos!!.get(0).photoReference,
-                "AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o")
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { photoUrl, throwable ->
-                    mView!!.setPlacePhoto(photoUrl)
-                }
-        }
-    }
 }

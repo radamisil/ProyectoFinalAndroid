@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -20,20 +23,48 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <ImageView
-                android:id="@+id/ivHeader"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ph_place"
-                app:layout_collapseMode="parallax" />
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp">
 
-            <include
-                android:id="@+id/layoutToolbar"
-                layout="@layout/layout_toolbar"
-                android:minHeight="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:layout_scrollFlags="scroll|enterAlways" />
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@id/layoutToolbar">
+
+                    <ImageView
+                            android:id="@+id/ivHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ph_place"
+                            app:layout_collapseMode="parallax"/>
+
+                    <ProgressBar
+                            android:id="@+id/progressBarPlaceDetailImage"
+                            android:layout_width="@dimen/dimen_progress_bar"
+                            android:layout_height="@dimen/dimen_progress_bar"
+                            android:layout_centerInParent="true"
+                            android:visibility="gone"/>
+                </RelativeLayout>
+
+                <include
+                        android:id="@+id/layoutToolbar"
+                        layout="@layout/layout_toolbar"
+                        android:minHeight="?attr/actionBarSize"
+                        app:layout_collapseMode="pin"
+                        app:layout_scrollFlags="scroll|enterAlways" />
+
+                <CheckBox
+                        android:id="@+id/cbFav"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="12dp"
+                        android:button="@null"
+                        android:background="@drawable/selector_fav_light"
+                        android:elevation="6dp"/>
+            </RelativeLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

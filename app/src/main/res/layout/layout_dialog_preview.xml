@@ -70,7 +70,9 @@
                     android:paddingTop="10dp"
                     android:fontFamily="@font/opensans_regular"
                     android:textColor="@color/colorGrey"
-                    android:layout_below="@+id/ivIcon"/>
+                    android:layout_below="@+id/ivIcon"
+                    android:lines="2"
+                    android:ellipsize="end"/>
 
         </RelativeLayout>
 
