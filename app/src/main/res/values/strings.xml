@@ -47,6 +47,19 @@
         \n\nDui justo tortor felis placerat venenatis urna phasellus, ut tempus ante vel platea taciti, viverra rhoncus etiam pretium inceptos ullamcorper sem, non suscipit porta torquent fames. Habitant magna tempor justo volutpat dictum dis condimentum accumsan, non cursus purus et nullam diam commodo, egestas scelerisque montes ac ad neque porta. Congue posuere a enim ac condimentum lobortis phasellus, potenti nunc hac proin pellentesque senectus cursus suscipit, magnis sociis urna aenean quisque litora.</string>
     <string name="text_informacion">Información</string>
     <string name="text_favoritos">Favoritos</string>
+    <string name="text_tomaste_una_foto_y_no_te_parece_nque_refleje_la_concurrencia_real_n_puedes_tomar_otra_n_nrecuerda_que_nuestra_ia_nva_aprendiendo_mientras_mas_fotos_se_tomen">
+        ¿Tomaste una foto y no te parece que refleje la concurrencia real? ¡Puedes tomar otra! Recuerda que nuestra IA
+        va aprendiendo mientras más fotos se tomen :)
+    </string>
+    <string name="text_como_ves_el_lugar_neligue_una_opcion_para_comparar_lo_que_ve_la_ia_y_lo_que_ven_las_personas">
+        ¿Cómo ves el lugar?\nElige una opción para comparar lo que ve la IA y lo que ven las personas :)
+    </string>
+    <string name="text_se_encontro_un_persona">Se encontró una persona.</string>
+    <string name="text_se_encontraron_personas">Se encontraron %1d personas.</string>
+    <string name="text_no_se_encontraron_personas">No se han detectado personas en la captura, por favor intentalo
+        nuevamente
+    </string>
+    <string name="text_enviar_mi_reporte">Enviar mi reporte</string>
 
 
     <string-array name="placeTypes">

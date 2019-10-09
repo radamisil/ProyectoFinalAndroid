@@ -31,3 +31,9 @@ object AppConstants {
     @JvmField val FIELD_EMAIL = "email"
     @JvmField val FIELD_PASSWORD = "password"
 }
+
+enum class Availability(val value: Int) {
+    LOW(2),
+    MEDIUM(9),
+    HIGH(12)
+}

@@ -5,17 +5,18 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import androidx.core.view.setPadding
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.ui.base.BaseActivity
-import com.visight.adondevamos.utils.AppConstants
-import com.visight.adondevamos.utils.DisplayMessage
-import com.visight.adondevamos.utils.GlideApp
-import com.visight.adondevamos.utils.showMessage
+import com.visight.adondevamos.utils.*
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_place_detail.*
 import kotlinx.android.synthetic.main.activity_report_place_attendance.*
+import kotlinx.android.synthetic.main.layout_toolbar.*
 import java.io.File
 
 class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.View {
@@ -26,9 +27,8 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report_place_attendance)
+        setUpToolbar(toolbar, getString(R.string.text_enviar_mi_reporte), ivLogo)
         startPresenter()
-
-
 
         mPublicPlace = intent.getParcelableExtra(AppConstants.PUBLIC_PLACE)
 
@@ -36,9 +36,36 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
             requestPermissionAndStartCameraActivity()
         }
 
-        btnSendReport.setOnClickListener {
-            mPresenter!!.sendReport(mPublicPlace!!.placeId!!)
+        btnSendPhoto.setOnClickListener {
+            progressBarReport.visibility = View.VISIBLE
+            mPresenter!!.sendReport(mPublicPlace!!.placeId!!, false)
         }
+
+        llOptionLow.setOnClickListener {
+            mPresenter!!.setSurveySelectedOption(Availability.LOW.value)
+        }
+
+        llOptionMedium.setOnClickListener {
+            mPresenter!!.setSurveySelectedOption(Availability.MEDIUM.value)
+        }
+
+        llOptionHigh.setOnClickListener {
+            mPresenter!!.setSurveySelectedOption(Availability.HIGH.value)
+        }
+
+        btnSendReport.setOnClickListener {
+            if(mPresenter!!.getSurveySelectedOption() != null){
+                progressBarReport.visibility = View.VISIBLE
+                mPresenter!!.sendReport(mPublicPlace!!.placeId!!, true)
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item!!.itemId == android.R.id.home){
+            onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun requestPermissionAndStartCameraActivity() {
@@ -63,16 +90,20 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
     }
 
     override fun displayImage(photoPath: String) {
+        ivPlaceImage.setPadding(0)
         GlideApp.with(getContext())
                 .load(File(photoPath))
                 .into(ivPlaceImage)
     }
 
     override fun onResponseSendPhoto(peopleNumber: Int) {
-        var peopleMessage = "Se encontraron " + peopleNumber.toString() + " personas."
-        if(peopleNumber == 1){
-            peopleMessage = "Se encontró una persona."
+        var peopleMessage: String
+        when {
+            peopleNumber == 1 -> peopleMessage = getString(R.string.text_se_encontro_un_persona)
+            peopleNumber > 1 -> peopleMessage = getString(R.string.text_se_encontraron_personas, peopleNumber)
+            else -> peopleMessage = getString(R.string.text_no_se_encontraron_personas)
         }
+
         //displayMessage(peopleMessage)
         showMessage(peopleMessage, llContainer)
     }
@@ -82,6 +113,15 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
             if (resultCode == Activity.RESULT_OK) {
                 mPresenter!!.takePhotoResult()
             }
+        }
+    }
+
+    override fun onResponseReport(message: String?) {
+        progressBarReport.visibility = View.GONE
+        if(message == null){
+            finish()
+        }else{
+            displayMessage(message)
         }
     }
 

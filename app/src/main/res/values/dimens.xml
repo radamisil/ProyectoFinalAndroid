@@ -3,4 +3,5 @@
     <dimen name="dimen_progress_bar">40dp</dimen>
     <dimen name="dimen_fav">30dp</dimen>
     <dimen name="dimen_place_icon">20dp</dimen>
+    <dimen name="dimen_availability_icon">50dp</dimen>
 </resources>
