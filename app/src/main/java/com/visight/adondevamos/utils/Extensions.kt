@@ -3,6 +3,7 @@ package com.visight.adondevamos.utils
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import com.bumptech.glide.load.DataSource
@@ -10,6 +11,10 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.visight.adondevamos.data.entity.PublicPlace
+
+fun Context.showMessage(message: String, container: ViewGroup){
+    DisplayMessage().displayMessage(message, container)
+}
 
 fun ImageView.loadImage(context: Context, publicPlace: PublicPlace, progressBar: ProgressBar?){
         GlideApp.with(context)

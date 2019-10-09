@@ -12,6 +12,7 @@ import com.visight.adondevamos.ui.base.BaseActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.DisplayMessage
 import com.visight.adondevamos.utils.GlideApp
+import com.visight.adondevamos.utils.showMessage
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_place_detail.*
 import kotlinx.android.synthetic.main.activity_report_place_attendance.*
@@ -36,7 +37,7 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         }
 
         btnSendReport.setOnClickListener {
-            mPresenter!!.sendReport()
+            mPresenter!!.sendReport(mPublicPlace!!.placeId!!)
         }
     }
 
@@ -72,7 +73,8 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         if(peopleNumber == 1){
             peopleMessage = "Se encontró una persona."
         }
-        displayMessage(peopleMessage)
+        //displayMessage(peopleMessage)
+        showMessage(peopleMessage, llContainer)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

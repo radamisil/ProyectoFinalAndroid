@@ -7,7 +7,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="false"
@@ -61,7 +61,7 @@
             android:clipToPadding="false"
             android:orientation="vertical">
 
-            <!--<TextView
+            &lt;!&ndash;<TextView
                 android:id="@+id/tvAvailability"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
-                tools:text="Poca concurrencia" />-->
+                tools:text="Poca concurrencia" />&ndash;&gt;
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGoToReport"
@@ -87,6 +87,154 @@
                 app:cornerRadius="20dp" />
         </LinearLayout>
 
-    </LinearLayout>
+    </LinearLayout>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+        <ImageView
+                android:id="@+id/ivPlaceIcon"
+                android:layout_width="13dp"
+                android:layout_height="14dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tvPlaceName"
+                app:layout_constraintTop_toTopOf="@id/tvPlaceName"
+                app:layout_constraintBottom_toBottomOf="@id/tvPlaceName"
+                tools:src="@drawable/ic_location"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPlaceName"
+                app:layout_constraintLeft_toRightOf="@id/ivPlaceIcon"
+                app:layout_constraintRight_toLeftOf="@id/llContainerAvailability"
+                tools:text="Nombre del lugar"
+                android:lines="1"
+                android:ellipsize="end"
+                android:fontFamily="@font/opensans_semibold"
+                style="@style/style_texts_titles"/>
+
+        <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rbStars"
+                style="@style/RatingBarStyle"
+                android:scaleY="0.7"
+                android:scaleX="0.7"
+                android:transformPivotX="0dp"
+                android:transformPivotY="12dp"
+                app:layout_constraintTop_toBottomOf="@id/tvPlaceName"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPlaceRating"
+                app:layout_constraintRight_toRightOf="@id/rbStars"
+                app:layout_constraintTop_toTopOf="@id/rbStars"
+                app:layout_constraintBottom_toBottomOf="@id/rbStars"
+                android:layout_marginEnd="15dp"
+                tools:text="5.0"
+                android:fontFamily="@font/opensans_regular"
+                android:textColor="@color/colorGrey"
+                android:textSize="10sp"/>
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPlaceAddress"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/llContainerAvailability"
+                app:layout_constraintTop_toBottomOf="@id/rbStars"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Dirección 1234"
+                android:lines="2"
+                android:ellipsize="end"
+                style="@style/style_regular_texts"/>
+
+        <LinearLayout
+                android:id="@+id/llContainerAvailability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                android:orientation="vertical"
+                android:gravity="end"
+                android:layout_marginTop="3dp">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/tvAvailabilityHuman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        tools:text="Baja"
+                        android:fontFamily="@font/opensans_regular"
+                        android:textColor="@color/colorGreen"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:layout_toLeftOf="@id/ivAvailabilityHuman"/>
+
+                <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_human"
+                        android:id="@+id/ivAvailabilityHuman"
+                        android:layout_alignParentRight="true"/>
+            </LinearLayout>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorLightGrey"
+                    android:layout_marginVertical="3dp"/>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/tvAvailabilityAI"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        tools:text="Media"
+                        android:fontFamily="@font/opensans_regular"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="10sp"
+                        android:gravity="center"
+                        android:layout_marginEnd="5dp"
+                        android:layout_toLeftOf="@id/ivAvailabilityAI"/>
+
+                <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_robot"
+                        android:id="@+id/ivAvailabilityAI"
+                        android:layout_alignParentRight="true"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoToReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:fontFamily="@font/opensans_regular"
+            android:text="¡Dar mi reporte!"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="20dp" />
 
 </LinearLayout>

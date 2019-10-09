@@ -17,6 +17,7 @@ import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.ui.start.login.LoginActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.DisplayMessage
+import com.visight.adondevamos.utils.showMessage
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
@@ -121,9 +122,9 @@ class RegisterActivity : BaseActivity(), RegisterActivityContract.View {
         return this
     }
 
-    override fun displayMessage(message: String) {
+    /*override fun displayMessage(message: String) {
         DisplayMessage().displayMessage(message, clMainContainer)
-    }
+    }*/
 
     override fun onResponseRegister(user: User?, message: String?) {
         progressBar.visibility = View.GONE
@@ -136,7 +137,8 @@ class RegisterActivity : BaseActivity(), RegisterActivityContract.View {
             startActivity(intent)
             finish()
         }else{
-            displayMessage(message!!)
+            //displayMessage(message!!)
+            showMessage(message!!, clMainContainer)
             btnRegister.isEnabled = true
         }
     }

@@ -28,6 +28,7 @@ import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.DisplayMessage
 import com.visight.adondevamos.ui.main.dialogs.PlacePreviewDialog
+import com.visight.adondevamos.utils.showMessage
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.layout_content_main.*
@@ -167,7 +168,8 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     override fun displayPlaces(placesList: List<MapItem>) {
         mClusterManager.clearItems()
         if(placesList.isEmpty()){
-            displayMessage("No se encontraron lugares cercanos, prueba otra ubicación")
+            //displayMessage("No se encontraron lugares cercanos, prueba otra ubicación")
+            activity!!.showMessage("No se encontraron lugares cercanos, prueba otra ubicación", flMapContainer)
         }else{
             for(mapItem: MapItem in placesList){
                 mClusterManager.addItem(mapItem)

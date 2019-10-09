@@ -99,7 +99,8 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
 
                                 mView!!.displayPlaces(placesToDisplay!!)
                             }else{
-                                throwable!!.message?.let { mView!!.displayMessage(it) }
+                                throwable!!.message?.let {
+                                    mView!!.displayMessage(it) }
                             }
                         }
                     }

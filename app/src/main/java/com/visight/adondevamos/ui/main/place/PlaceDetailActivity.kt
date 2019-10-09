@@ -15,6 +15,8 @@ import com.visight.adondevamos.utils.GlideApp
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_place_detail.*
 import kotlinx.android.synthetic.main.activity_report_place_attendance.*
+import kotlinx.android.synthetic.main.item_place.view.*
+import kotlinx.android.synthetic.main.layout_dialog_preview.*
 import kotlinx.android.synthetic.main.layout_dialog_preview.view.*
 import kotlinx.android.synthetic.main.layout_place_detail_content.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
@@ -57,10 +59,12 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
     private fun setPlaceInformation(mPublicPlace: PublicPlace) {
         GlideApp.with(this)
             .load(mPublicPlace.icon)
-            .into(ivIcon)
+            .into(ivPlaceIcon)
 
-        tvName.text = mPublicPlace.name
-        tvAddress.text = mPublicPlace.vicinity
+        tvPlaceName.text = mPublicPlace.name
+        rbStars.rating = if(mPublicPlace.rating != null) mPublicPlace.rating!!.toFloat() else 0f
+        tvPlaceRating.text = if(mPublicPlace.rating != null) mPublicPlace.rating!!.toString() else "0.0"
+        tvPlaceAddress.text = mPublicPlace.vicinity
     }
 
     override fun getContext(): Context {

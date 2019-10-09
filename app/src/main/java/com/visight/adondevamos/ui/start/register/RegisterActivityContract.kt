@@ -5,7 +5,7 @@ import com.visight.adondevamos.ui.base.BaseContract
 
 interface RegisterActivityContract {
     interface View: BaseContract.View {
-        fun displayMessage(message: String)
+        //fun displayMessage(message: String)
         fun onResponseRegister(user: User?, message: String?)
     }
 

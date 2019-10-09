@@ -57,7 +57,7 @@ class AppServices {
         fun register(@Body registerRequest: RegisterRequest) : Observable<User>
 
         @GET("user")
-        fun login(@Query("filter") email: String): Observable<UserResponse>
+        fun login(@Query("Email") email: String): Observable<UserResponse>
 
         @POST("calculateIA")
         fun sendPhoto(@Body sendPlacePhotoRequest: SendPlacePhotoRequest) : Observable<AnalizedPhotoResponse>

@@ -5,7 +5,7 @@ import com.visight.adondevamos.ui.base.BaseContract
 
 interface LoginActivityContract {
     interface View: BaseContract.View {
-        fun displayMessage(message: String)
+        //fun displayMessage(message: String)
         fun onResponseLogin(user: User?, message: String?)
     }
 

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.textfield.TextInputEditText
@@ -16,6 +17,7 @@ import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.ui.start.register.RegisterActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.DisplayMessage
+import com.visight.adondevamos.utils.showMessage
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
@@ -92,9 +94,9 @@ class LoginActivity : BaseActivity(), LoginActivityContract.View {
         return isValid
     }
 
-    override fun displayMessage(message: String) {
+    /*override fun displayMessage(message: String) {
         DisplayMessage().displayMessage(message, clMainContainer)
-    }
+    }*/
 
     override fun onResponseLogin(user: User?, message: String?) {
         progressBar.visibility = View.VISIBLE
@@ -107,7 +109,8 @@ class LoginActivity : BaseActivity(), LoginActivityContract.View {
             startActivity(intent)
             finish()
         }else{
-            displayMessage(message)
+            //displayMessage(message)
+            showMessage(message, clMainContainer)
             btnLogin.isEnabled = true
         }
 

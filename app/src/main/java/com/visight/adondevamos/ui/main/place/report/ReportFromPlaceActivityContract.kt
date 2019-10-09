@@ -14,6 +14,6 @@ interface ReportFromPlaceActivityContract {
     interface Presenter: BaseContract.Presenter<ReportFromPlaceActivityContract.View> {
         fun takePhoto()
         fun takePhotoResult()
-        fun sendReport()
+        fun sendReport(placeId: String)
     }
 }

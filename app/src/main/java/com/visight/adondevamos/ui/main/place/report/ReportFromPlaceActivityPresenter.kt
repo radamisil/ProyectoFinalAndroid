@@ -56,9 +56,9 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
         mView!!.displayImage(absolutePath)
     }
 
-    override fun sendReport() {
+    override fun sendReport(placeId: String) {
         var base64Image = setBase64ImageFromPath(absolutePath)
-        mDisposable = AppServices().getClient().sendPhoto(SendPlacePhotoRequest(base64Image!!))
+        mDisposable = AppServices().getClient().sendPhoto(SendPlacePhotoRequest(placeId, base64Image!!, 2))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.newThread())
                 .subscribe { response: AnalizedPhotoResponse ->
