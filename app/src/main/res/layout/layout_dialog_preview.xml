@@ -5,7 +5,6 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@drawable/bg_light_rounded"
-              android:padding="15dp"
               android:clipChildren="false"
               android:clipToPadding="false">
 
@@ -19,7 +18,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="15dp"
                 android:scaleType="centerCrop"
-                android:background="@drawable/bg_grey_rounded_top"/>
+                android:background="@drawable/bg_grey_rounded_top"
+                android:layout_margin="15dp"/>
 
         <ProgressBar
                 android:id="@+id/progressBar"
@@ -29,6 +29,27 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circle_orange"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="22dp"
+                android:layout_marginTop="7dp"
+                android:padding="12dp"
+                android:clipChildren="false">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_promo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -41,7 +62,7 @@
         <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp">
+                android:layout_marginHorizontal="15dp">
 
             <ImageView
                     android:id="@+id/ivIcon"
@@ -79,7 +100,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
 
             <TextView
                     android:layout_width="match_parent"
@@ -177,11 +200,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorGrey"
-            android:layout_marginVertical="10dp"/>
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="15dp"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
 
             <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGoBack"
