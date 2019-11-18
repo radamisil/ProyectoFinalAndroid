@@ -9,13 +9,23 @@
                 android:id="@+id/menuFavourites"
                 android:icon="@drawable/ic_fav"
                 android:title="@string/text_mis_lugares_favoritos"/>
+
+        <item
+                android:id="@+id/menuInfo"
+                android:icon="@drawable/ic_info"
+                android:title="@string/text_info"/>
+        <item
+                android:id="@+id/menuLogout"
+                android:icon="@drawable/ic_logout"
+                android:title="@string/text_cerrar_sesion"/>
+
         <!--<item
                 android:id="@+id/menuHistory"
                 android:icon="@drawable/ic_history"
                 android:title="@string/text_historial"/>-->
     </group>
 
-    <group android:checkableBehavior="single">
+    <!--<group android:checkableBehavior="single">
         <menu>
             <item
                     android:id="@+id/menuInfo"
@@ -26,5 +36,5 @@
                     android:icon="@drawable/ic_logout"
                     android:title="@string/text_cerrar_sesion"/>
         </menu>
-    </group>
+    </group>-->
 </menu>

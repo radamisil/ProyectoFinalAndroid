@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_light_rounded"
+              android:padding="15dp"
+              android:clipChildren="false"
+              android:clipToPadding="false">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿Qué capacidad tiene el lugar?"
+                    android:background="@color/colorPrimary"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="14sp"/>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Oops, parece que este sitio no tiene registrada la capacidad del lugar. \n\nCompleta tu registro enviando una capacidad aproximada según las opciones"
+                    android:textColor="@color/colorGreyDark"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:layout_weight="4"
+                    style="@style/style_regular_texts"/>
+
+            <!--<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="5">
+
+                <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_human"
+                        android:id="@+id/ivAvailabilityHuman"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginHorizontal="15dp"
+                        android:layout_marginVertical="10dp"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Cerca de 4 personas votaron:"
+                        android:textColor="@color/colorGreyDark"
+                        android:gravity="center|left"
+                        android:paddingStart="10dp"
+                        android:layout_weight="4"
+                        style="@style/style_regular_texts"/>
+
+                <TextView
+                        android:id="@+id/tvAvailabilityHuman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="BAJO"
+                        android:textColor="@color/colorGreyDark"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        style="@style/style_texts_titles"/>
+            </LinearLayout>-->
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorGrey"
+                android:layout_marginVertical="10dp"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGoBack"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:strokeColor="@color/colorAccent"
+                    app:strokeWidth="2dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:text="Volver"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15dp"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="5dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSeeMore"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/colorAccent"
+                    android:textColor="@color/colorPrimary"
+                    android:text="Enviar"
+                    android:fontFamily="@font/opensans_regular"
+                    android:textSize="15sp"
+                    android:textAlignment="center"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
