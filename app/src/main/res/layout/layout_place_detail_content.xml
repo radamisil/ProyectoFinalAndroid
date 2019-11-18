@@ -97,7 +97,9 @@
                 android:background="@color/colorPrimary"
                 android:textColor="@android:color/white"
                 android:gravity="center"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                android:fontFamily="@font/opensans_regular"
+                android:textSize="14sp"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -122,7 +124,8 @@
                     android:textColor="@color/colorGreyDark"
                     android:gravity="center|left"
                     android:paddingStart="10dp"
-                    android:layout_weight="4"/>
+                    android:layout_weight="4"
+                    style="@style/style_regular_texts"/>
 
             <TextView
                     android:id="@+id/tvAvailabilityHuman"
@@ -131,7 +134,8 @@
                     android:text="BAJO"
                     android:textColor="@color/colorGreyDark"
                     android:gravity="center"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    style="@style/style_texts_titles"/>
         </LinearLayout>
 
         <View
@@ -163,7 +167,8 @@
                     android:textColor="@color/colorGreyDark"
                     android:gravity="center|left"
                     android:paddingStart="10dp"
-                    android:layout_weight="4"/>
+                    android:layout_weight="4"
+                    style="@style/style_regular_texts"/>
 
             <TextView
                     android:id="@+id/tvAvailabilityAI"
@@ -172,7 +177,8 @@
                     android:text="MEDIA"
                     android:textColor="@color/colorGreyDark"
                     android:gravity="center"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    style="@style/style_texts_titles"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -214,13 +220,15 @@
                 android:background="@color/colorPrimary"
                 android:textColor="@android:color/white"
                 android:gravity="center"
-                android:padding="8dp"/>
+                android:padding="8dp"
+                android:fontFamily="@font/opensans_regular"
+                android:textSize="14sp"/>
 
         <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
+                android:layout_height="200dp"
+                android:layout_marginTop="15dp"/>
     </LinearLayout>
 
     <View

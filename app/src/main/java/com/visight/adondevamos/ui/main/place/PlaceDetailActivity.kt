@@ -23,8 +23,10 @@ import kotlinx.android.synthetic.main.layout_place_detail_content.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import java.math.RoundingMode
 import android.R.attr.data
+import android.content.res.Resources
 import com.github.mikephil.charting.charts.LineChart
 import android.graphics.Color
+import android.os.Build
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.components.XAxis
@@ -65,18 +67,18 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
                 .into(ivHeader)
         }
 
-        chart.setViewPortOffsets(0f, 0f, 0f, 0f)
-        chart.setBackgroundColor(Color.rgb(104, 241, 175))
+        chart.setViewPortOffsets(40f, 0f, 0f, 40f)
+        //chart.setBackgroundColor(Color.rgb(104, 241, 175))
 
         // no description text
         chart.getDescription().setEnabled(false)
 
         // enable touch gestures
-        chart.setTouchEnabled(true)
+        chart.setTouchEnabled(false)
 
         // enable scaling and dragging
-        chart.setDragEnabled(true)
-        chart.setScaleEnabled(true)
+        chart.setDragEnabled(false)
+        chart.setScaleEnabled(false)
 
         // if disabled, scaling can be done on x- and y-axis separately
         chart.setPinchZoom(false)
@@ -85,12 +87,19 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
         chart.setMaxHighlightDistance(300f)
 
         var x = chart.getXAxis()
-        x.setEnabled(false)
+        x.position = XAxis.XAxisPosition.BOTTOM
+        x.setDrawGridLines(false)
+        x.setEnabled(true)
 
         var y = chart.getAxisLeft()
         y.setLabelCount(6, false)
-        y.setTextColor(Color.WHITE)
-        y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            y.setTextColor(Color.BLACK)
+        }else{
+            y.setTextColor(Color.MAGENTA)
+        }
+        y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
+        y.setEnabled(true)
         y.setDrawGridLines(false)
         y.setAxisLineColor(Color.WHITE)
 
@@ -103,7 +112,7 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
         // don't forget to refresh the drawing
         chart.invalidate()
 
-        setData(100, 200f)
+        setData(20, 50f)
 
         btnGoToReport.setOnClickListener {
             val intent = Intent(this@PlaceDetailActivity, ReportFromPlaceActivity::class.java)
@@ -195,11 +204,17 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View{
             set1.lineWidth = 1.8f
             set1.circleRadius = 4f
             set1.setCircleColor(Color.WHITE)
-            set1.highLightColor = Color.rgb(244, 117, 117)
-            set1.color = Color.WHITE
-            set1.fillColor = Color.WHITE
+            set1.highLightColor = Color.CYAN
+            chart.setGridBackgroundColor(Color.WHITE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                set1.color = resources.getColor(R.color.colorPrimaryDark, null)
+                set1.fillColor = resources.getColor(R.color.colorPrimary, null)
+            }else{
+                set1.color = Color.WHITE
+                set1.fillColor = Color.MAGENTA
+            }
             set1.fillAlpha = 100
-            set1.setDrawHorizontalHighlightIndicator(false)
+            set1.setDrawHorizontalHighlightIndicator(true)
             set1.fillFormatter = IFillFormatter { dataSet, dataProvider -> chart.axisLeft.axisMinimum }
 
             // create a data object with the data sets
