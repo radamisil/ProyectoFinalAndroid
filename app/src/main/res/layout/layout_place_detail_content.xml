@@ -1,93 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:orientation="vertical">
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:paddingHorizontal="10dp">
-
-            <ImageView
-                android:id="@+id/ivIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp" />
-
-            <TextView
-                    android:id="@+id/tvName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/ivIcon"
-                    android:layout_toRightOf="@+id/ivIcon"
-                    android:paddingStart="5dp"
-                    tools:text="Name" style="@style/style_texts_titles"/>
-
-            <TextView
-                    android:id="@+id/tvAddress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivIcon"
-                    android:paddingTop="10dp"
-                    tools:text="Address"
-                    style="@style/style_regular_texts"/>
-
-            <TextView
-                android:id="@+id/tvSeeDirections"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvAddress"
-                style="@style/style_regular_texts"
-                android:text="¿Cómo llegar?" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:orientation="vertical">
-
-            &lt;!&ndash;<TextView
-                android:id="@+id/tvAvailability"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_green_rounded"
-                android:fontFamily="@font/opensans_regular"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                tools:text="Poca concurrencia" />&ndash;&gt;
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnGoToReport"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:fontFamily="@font/opensans_regular"
-                android:text="¡Dar mi reporte!"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp"
-                app:backgroundTint="@color/colorAccent"
-                app:cornerRadius="20dp" />
-        </LinearLayout>
-
-    </LinearLayout>-->
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white"
+              android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -106,16 +24,18 @@
                 tools:src="@drawable/ic_location"/>
 
         <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/tvPlaceName"
-                app:layout_constraintLeft_toRightOf="@id/ivPlaceIcon"
                 tools:text="Nombre del lugar"
                 android:lines="1"
                 android:ellipsize="end"
                 android:fontFamily="@font/opensans_semibold"
                 style="@style/style_texts_titles"
-                android:layout_marginStart="5dp"/>
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="15dp"
+                app:layout_constraintLeft_toRightOf="@id/ivPlaceIcon"
+                app:layout_constraintRight_toRightOf="parent"/>
 
         <RatingBar
                 android:layout_width="wrap_content"
@@ -155,102 +75,160 @@
                 android:layout_marginVertical="5dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLighterDarkGrey"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="20dp"/>
+
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp">
 
-        <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnGoToReport"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:fontFamily="@font/opensans_regular"
-                android:text="¡Dar mi reporte!"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="15sp"
-                app:backgroundTint="@color/colorAccent"
-                app:cornerRadius="20dp"
-                android:layout_margin="10dp"
-                android:layout_weight="0.5"/>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Qué tan lleno está?"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:padding="8dp"/>
 
         <LinearLayout
-                android:id="@+id/llContainerAvailability"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintRight_toRightOf="parent"
-                android:orientation="vertical"
-                android:gravity="end"
-                android:layout_marginTop="3dp"
-                android:padding="10dp"
-                android:layout_weight="0.3">
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="5">
 
-            <LinearLayout
-                    android:layout_width="wrap_content"
+            <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_human"
+                    android:id="@+id/ivAvailabilityHuman"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="10dp"/>
+
+            <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="Cerca de 4 personas votaron:"
+                    android:textColor="@color/colorGreyDark"
+                    android:gravity="center|left"
+                    android:paddingStart="10dp"
+                    android:layout_weight="4"/>
 
-                <TextView
-                        android:id="@+id/tvAvailabilityHuman"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        tools:text="Baja"
-                        android:fontFamily="@font/opensans_regular"
-                        android:textColor="@color/colorGreen"
-                        android:textSize="15sp"
-                        android:gravity="center"
-                        android:layout_marginEnd="5dp"
-                        android:layout_toLeftOf="@id/ivAvailabilityHuman"/>
-
-                <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_human"
-                        android:id="@+id/ivAvailabilityHuman"
-                        android:layout_alignParentRight="true"/>
-            </LinearLayout>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorLightGrey"
-                    android:layout_marginVertical="3dp"/>
-
-            <LinearLayout
+            <TextView
+                    android:id="@+id/tvAvailabilityHuman"
                     android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="BAJO"
+                    android:textColor="@color/colorGreyDark"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLightGrey"
+                android:layout_marginVertical="10dp"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="5">
+
+            <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_robot"
+                    android:id="@+id/ivAvailabilityAI"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginVertical="10dp"/>
+
+            <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="Según las fotos enviadas por nuestros usuarios, \nla concurrencia es: "
+                    android:textColor="@color/colorGreyDark"
+                    android:gravity="center|left"
+                    android:paddingStart="10dp"
+                    android:layout_weight="4"/>
 
-                <TextView
-                        android:id="@+id/tvAvailabilityAI"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        tools:text="Media"
-                        android:fontFamily="@font/opensans_regular"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="15sp"
-                        android:gravity="center"
-                        android:layout_marginEnd="5dp"
-                        android:layout_toLeftOf="@id/ivAvailabilityAI"/>
-
-                <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/ic_robot"
-                        android:id="@+id/ivAvailabilityAI"
-                        android:layout_alignParentRight="true"/>
-            </LinearLayout>
+            <TextView
+                    android:id="@+id/tvAvailabilityAI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="MEDIA"
+                    android:textColor="@color/colorGreyDark"
+                    android:gravity="center"
+                    android:layout_weight="1"/>
         </LinearLayout>
     </LinearLayout>
 
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoToReport"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:fontFamily="@font/opensans_regular"
+            android:text="¿Vos cómo lo ves? ¡Dar mi reporte!"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="20dp"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="20dp"/>
+
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorLighterDarkGrey"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="15dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLighterDarkGrey"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="15dp"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Concurrencia por horarios"
+                android:background="@color/colorPrimary"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:padding="8dp"/>
+
+        <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorLighterDarkGrey"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginBottom="15dp"/>
 
     <TextView
             android:layout_width="match_parent"
@@ -259,7 +237,7 @@
             android:textSize="15sp"
             android:fontFamily="@font/opensans_regular"
             android:textColor="@color/colorPrimary"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="15dp"
             android:layout_marginBottom="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -116,7 +116,8 @@ dependencies {
 
     //endregion
 
-    //region Lottie
+    //region Others
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.airbnb.android:lottie:3.0.2'
 
     //endregion
