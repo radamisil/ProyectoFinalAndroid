@@ -12,6 +12,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.ui.base.BaseActivity
+import com.visight.adondevamos.ui.main.dialogs.PlaceCapacityDialog
 import com.visight.adondevamos.utils.*
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_place_detail.*
@@ -23,6 +24,7 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
     var mPresenter: ReportFromPlaceActivityContract.Presenter? = null
     var mPermissionsDisposable: Disposable? = null
     var mPublicPlace: PublicPlace? = null
+    var sendCapacityDialog: PlaceCapacityDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,8 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         startPresenter()
 
         mPublicPlace = intent.getParcelableExtra(AppConstants.PUBLIC_PLACE)
+        sendCapacityDialog = PlaceCapacityDialog()
+        sendCapacityDialog!!.onClickSendPlaceCapacity = this
 
         fabTakePhoto.setOnClickListener {
             requestPermissionAndStartCameraActivity()
@@ -54,10 +58,11 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         }
 
         btnSendReport.setOnClickListener {
-            if(mPresenter!!.getSurveySelectedOption() != null){
+            /*if(mPresenter!!.getSurveySelectedOption() != null){
                 progressBarReport.visibility = View.VISIBLE
                 mPresenter!!.sendReport(mPublicPlace!!.placeId!!, true)
-            }
+            }*/
+            sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
         }
     }
 
@@ -123,6 +128,11 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         }else{
             displayMessage(message)
         }
+    }
+
+    //TODO send capacity and form
+    override fun onClickSendPlaceCapacity() {
+        sendCapacityDialog!!.dismiss()
     }
 
     override fun startPresenter() {
