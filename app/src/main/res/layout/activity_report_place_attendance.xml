@@ -69,7 +69,7 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_marginBottom="25dp"/>
 
-                        <com.google.android.material.button.MaterialButton
+                        <!--<com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnSendPhoto"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                                 android:textSize="15sp"
                                 app:backgroundTint="@color/colorAccent"
                                 app:cornerRadius="20dp"
-                                app:layout_constraintTop_toBottomOf="@id/tvPhotoText"/>
+                                app:layout_constraintTop_toBottomOf="@id/tvPhotoText"/>-->
 
                         <ProgressBar
                                 android:id="@+id/progressBar"
@@ -101,8 +101,18 @@
                                 android:textColor="@color/colorPrimary"
                                 android:textAlignment="center"
                                 android:paddingVertical="15dp"
-                                android:text="@string/text_tomaste_una_foto_y_no_te_parece_nque_refleje_la_concurrencia_real_n_puedes_tomar_otra_n_nrecuerda_que_nuestra_ia_nva_aprendiendo_mientras_mas_fotos_se_tomen"
+                                android:text="¡Toma una foto para ver cuántas personas hay! Recuerda que nuestra IA va aprendiendo mientras más fotos se tomen :)"
                                 app:layout_constraintTop_toBottomOf="@id/ivPlaceImage"/>
+
+                        <!--<TextView
+                                android:id="@+id/tvPhotoText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorPrimary"
+                                android:textAlignment="center"
+                                android:paddingVertical="15dp"
+                                android:text="@string/text_tomaste_una_foto_y_no_te_parece_nque_refleje_la_concurrencia_real_n_puedes_tomar_otra_n_nrecuerda_que_nuestra_ia_nva_aprendiendo_mientras_mas_fotos_se_tomen"
+                                app:layout_constraintTop_toBottomOf="@id/ivPlaceImage"/>-->
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 

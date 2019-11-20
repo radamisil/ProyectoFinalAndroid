@@ -2,6 +2,7 @@ package com.visight.adondevamos.ui.main.user.info
 
 import android.content.Context
 import android.os.Bundle
+import android.view.MenuItem
 import com.visight.adondevamos.R
 import com.visight.adondevamos.ui.base.BaseActivity
 import com.visight.adondevamos.utils.AppConstants
@@ -20,6 +21,13 @@ class TermsPolicyActivity : BaseActivity() {
             title = AppConstants.PRIVACY_POLICY_KEY
         }
         setUpToolbar(toolbar, title, ivLogo)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item!!.itemId == android.R.id.home){
+            onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigateUp(): Boolean {

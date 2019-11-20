@@ -40,29 +40,30 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
             requestPermissionAndStartCameraActivity()
         }
 
-        btnSendPhoto.setOnClickListener {
+        /*btnSendPhoto.setOnClickListener {
             progressBarReport.visibility = View.VISIBLE
             mPresenter!!.sendReport(mPublicPlace!!.placeId!!, false)
-        }
+        }*/
 
         llOptionLow.setOnClickListener {
-            mPresenter!!.setSurveySelectedOption(Availability.LOW.value)
+            mPresenter!!.setSurveySelectedOption(Availability.LOW.name)
         }
 
         llOptionMedium.setOnClickListener {
-            mPresenter!!.setSurveySelectedOption(Availability.MEDIUM.value)
+            mPresenter!!.setSurveySelectedOption(Availability.MEDIUM.name)
         }
 
         llOptionHigh.setOnClickListener {
-            mPresenter!!.setSurveySelectedOption(Availability.HIGH.value)
+            mPresenter!!.setSurveySelectedOption(Availability.HIGH.name)
         }
 
+        //TODO edit Send Report
         btnSendReport.setOnClickListener {
-            /*if(mPresenter!!.getSurveySelectedOption() != null){
+            if(mPresenter!!.getSurveySelectedOption() != null){
                 progressBarReport.visibility = View.VISIBLE
                 mPresenter!!.sendReport(mPublicPlace!!.placeId!!, true)
-            }*/
-            sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
+            }
+            //sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
         }
     }
 

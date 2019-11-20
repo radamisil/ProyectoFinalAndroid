@@ -14,8 +14,8 @@
             android:layout_height="wrap_content"
             android:text="Términos y condiciones"
             android:textColor="@color/colorGreyDark"
-            android:textSize="18sp"
-            android:fontFamily="@font/opensans_semibold"
+            android:textSize="14sp"
+            android:fontFamily="@font/opensans_regular"
             android:id="@+id/tvTerms"
             android:padding="15dp"/>
 
@@ -30,8 +30,8 @@
             android:layout_height="wrap_content"
             android:text="Política de privacidad"
             android:textColor="@color/colorGreyDark"
-            android:textSize="18sp"
-            android:fontFamily="@font/opensans_semibold"
+            android:textSize="14sp"
+            android:fontFamily="@font/opensans_regular"
             android:id="@+id/tvPrivacyPolicy"
             android:padding="15dp"/>
 </LinearLayout>

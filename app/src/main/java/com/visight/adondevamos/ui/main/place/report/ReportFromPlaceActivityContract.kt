@@ -17,7 +17,7 @@ interface ReportFromPlaceActivityContract {
         fun takePhoto()
         fun takePhotoResult()
         fun sendReport(placeId: String, shouldSendSurveySelectedOption: Boolean)
-        fun setSurveySelectedOption(selectedOption: Int)
-        fun getSurveySelectedOption(): Int?
+        fun setSurveySelectedOption(selectedOption: String)
+        fun getSurveySelectedOption(): String?
     }
 }

@@ -24,6 +24,7 @@ class PublicPlace() : Parcelable {
     var types: List<String> = ArrayList()
     var vicinity: String? = ""
     var isFull: Boolean = false
+    var promotions: List<Promotion>? = listOf()
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()
@@ -39,9 +40,9 @@ class PublicPlace() : Parcelable {
         types = parcel.createStringArrayList()
         vicinity = parcel.readString()
         isFull = parcel.readByte() != 0.toByte()
+        promotions = parcel.createTypedArrayList(Promotion)
     }
 
-    //TODO PREGUNTAR POR QUE NECESITA ESE THIS() / CONSTRUCTORES SECUNDARIOS
     constructor(place: Place) : this() {
         name = place.name!!
         formattedAddress = place.address
@@ -66,6 +67,7 @@ class PublicPlace() : Parcelable {
         parcel.writeStringList(types)
         parcel.writeString(vicinity)
         parcel.writeByte(if (isFull) 1 else 0)
+        parcel.writeTypedList(promotions)
     }
 
     override fun describeContents(): Int {

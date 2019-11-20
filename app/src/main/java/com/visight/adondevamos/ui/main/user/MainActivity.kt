@@ -43,6 +43,8 @@ import com.visight.adondevamos.ui.main.listView.ListViewFragment
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
 import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
 import com.visight.adondevamos.ui.main.user.favourites.FavouritesActivity
+import com.visight.adondevamos.ui.main.user.info.InformationActivity
+import com.visight.adondevamos.ui.main.user.info.TermsPolicyActivity
 import kotlinx.android.synthetic.main.layout_tabs_categories.*
 import kotlinx.android.synthetic.main.layout_tabs_categories.view.*
 import java.util.*
@@ -210,6 +212,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }*/
                 R.id.menuInfo -> {
                     //Toast.makeText(this, "Contact us", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, InformationActivity::class.java)
+                    startActivity(intent)
                 }
                 R.id.menuLogout -> {
                     logout()
