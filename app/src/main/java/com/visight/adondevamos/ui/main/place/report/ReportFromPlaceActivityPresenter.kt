@@ -125,8 +125,8 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
             path = null
         }
 
-        //return path
-        return mPath
+        return path
+        //return mPath
     }
 
     // Create the File where the photo should go
