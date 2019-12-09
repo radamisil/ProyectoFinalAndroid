@@ -70,13 +70,13 @@ class PlacePreviewDialog: DialogFragment() {
         }
 
         v.btnSeeMore.setOnClickListener {
-            onClickPreviewPlaceDialog!!.onClickPlaceSeeMore(publicPlace!!)
+            onClickPreviewPlaceDialog!!.onClickPlaceSeeMore(publicPlace!!, pollAverageResponse!!)
         }
 
         return v
     }
 
     interface OnClickPreviewPlaceDialog{
-        fun onClickPlaceSeeMore(publicPlace: PublicPlace)
+        fun onClickPlaceSeeMore(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse)
     }
 }

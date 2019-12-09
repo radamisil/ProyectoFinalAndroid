@@ -1,6 +1,7 @@
 package com.visight.adondevamos.data.remote
 
 import com.visight.adondevamos.data.entity.PlaceAverageAvailability
+import com.visight.adondevamos.data.entity.Promotion
 import com.visight.adondevamos.data.entity.User
 import com.visight.adondevamos.data.remote.requests.RegisterRequest
 import com.visight.adondevamos.data.remote.requests.SendPlacePhotoRequest
@@ -70,9 +71,12 @@ class AppServices {
                 Observable<PollAverageResponse>
 
         @GET("GlobalAveragee")
-        fun getPlaceGlobalAverageAvailability(@Query("shop_id") shopId: String,
-                                        @Query("google_place_id") googlePlaceId: String):
+        fun getPlaceGlobalAverageAvailability(@Query("shop_id") shopId: String? = null,
+                                        @Query("google_place_id") googlePlaceId: String? = null):
                 Observable<List<PlaceAverageAvailability>>
+
+        @GET("promotions")
+        fun getPromotions(@Query("shop_id") shopId: String): Observable<List<Promotion>>
     }
 
 }

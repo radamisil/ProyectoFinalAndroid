@@ -180,8 +180,8 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         mClusterManager.cluster()
     }
 
-    override fun onClickPlaceSeeMore(publicPlace: PublicPlace) {
-        (activity as MainActivity).redirectToPlaceDetailActivity(publicPlace)
+    override fun onClickPlaceSeeMore(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {
+        (activity as MainActivity).redirectToPlaceDetailActivity(publicPlace, pollAverageResponse)
     }
 
     override fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {

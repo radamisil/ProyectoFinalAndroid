@@ -83,6 +83,7 @@
             android:layout_marginBottom="20dp"/>
 
     <LinearLayout
+            android:id="@+id/llPromotionsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -99,17 +100,20 @@
                     android:layout_height="40dp"/>
 
             <TextView
+                    android:id="@+id/tvTitlePromotions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="¡Promociones!"
-                    android:background="@color/colorPrimary"
-                    android:textColor="@android:color/white"
-                    android:gravity="center"
+                    style="@style/TitlesStyles"
                     android:padding="8dp"
-                    android:fontFamily="@font/opensans_regular"
-                    android:textSize="14sp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitlePromotions"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clContainerPromotion"
@@ -134,36 +138,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPromotions"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:weightSum="5"
-                android:paddingTop="10dp">
+                android:layout_height="wrap_content"/>
 
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="2 pintas "
-                    android:textColor="@color/colorGreyDark"
-                    android:gravity="center|left"
-                    android:paddingStart="10dp"
-                    android:layout_weight="4"
-                    style="@style/style_regular_texts"/>
-
-            <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="$150"
-                    android:textColor="@color/colorGreyDark"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    style="@style/style_texts_titles"/>
-        </LinearLayout>
-
-        <View
+        <!--<View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLightGrey"
@@ -195,7 +175,7 @@
                     android:gravity="center"
                     android:layout_weight="1"
                     style="@style/style_texts_titles"/>
-        </LinearLayout>
+        </LinearLayout>-->
     </LinearLayout>
 
     <View
@@ -209,99 +189,116 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="¿Qué tan lleno está?"
-                android:background="@color/colorPrimary"
-                android:textColor="@android:color/white"
-                android:gravity="center"
-                android:padding="8dp"
-                android:fontFamily="@font/opensans_regular"
-                android:textSize="14sp"/>
+                android:text="@string/texto_que_tan_lleno_esta_este_lugar"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                style="@style/TitlesStyles"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:weightSum="5">
+                android:weightSum="5"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp">
 
             <ImageView
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_human"
-                    android:id="@+id/ivAvailabilityHuman"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginVertical="10dp"/>
+                    android:id="@+id/ivAvailabilityHuman"/>
 
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Cerca de 4 personas votaron:"
-                    android:textColor="@color/colorGreyDark"
-                    android:gravity="center|left"
-                    android:paddingStart="10dp"
-                    android:layout_weight="4"
-                    style="@style/style_regular_texts"/>
+            <LinearLayout android:layout_width="0dp"
+                          android:layout_height="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_weight="5">
 
-            <TextView
-                    android:id="@+id/tvAvailabilityHuman"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="BAJO"
-                    android:textColor="@color/colorGreyDark"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    style="@style/style_texts_titles"/>
+                <TextView
+                        android:id="@+id/tvAvailabilityHumanQuantity"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="40%"
+                        android:textColor="@color/colorGreen"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/bg_rounded_green_border"
+                        style="@style/style_texts_titles"/>
+
+                <TextView
+                        android:id="@+id/tvAvailabilityHuman"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="BAJA"
+                        android:background="@drawable/bg_green_rounded"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        style="@style/style_texts_titles"/>
+            </LinearLayout>
         </LinearLayout>
 
         <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorLightGrey"
-                android:layout_marginVertical="10dp"/>
+                android:background="@color/colorLightGrey"/>
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:weightSum="5">
+                android:weightSum="5"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
             <ImageView
-                    android:layout_width="40dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_robot"
-                    android:id="@+id/ivAvailabilityAI"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginVertical="10dp"/>
+                    android:id="@+id/ivAvailabilityAI"/>
 
-            <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Según las fotos enviadas por nuestros usuarios, \nla concurrencia es: "
-                    android:textColor="@color/colorGreyDark"
-                    android:gravity="center|left"
-                    android:paddingStart="10dp"
-                    android:layout_weight="4"
-                    style="@style/style_regular_texts"/>
+            <LinearLayout android:layout_width="0dp"
+                          android:layout_height="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_weight="5">
 
-            <TextView
-                    android:id="@+id/tvAvailabilityAI"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="MEDIA"
-                    android:textColor="@color/colorGreyDark"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    style="@style/style_texts_titles"/>
+                <TextView
+                        android:id="@+id/tvAvailabilityAIQuantity"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="60%"
+                        android:textColor="@color/colorAccent"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="5dp"
+                        android:background="@drawable/bg_rounded_orange_border"
+                        style="@style/style_texts_titles"/>
+
+                <TextView
+                        android:id="@+id/tvAvailabilityAI"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="MEDIA"
+                        android:background="@drawable/bg_orange_rounded"
+                        android:textColor="@android:color/white"
+                        android:gravity="center"
+                        android:layout_weight="1"
+                        style="@style/style_texts_titles"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -340,12 +337,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Concurrencia por horarios"
-                android:background="@color/colorPrimary"
-                android:textColor="@android:color/white"
-                android:gravity="center"
                 android:padding="8dp"
-                android:fontFamily="@font/opensans_regular"
-                android:textSize="14sp"/>
+                style="@style/TitlesStyles"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimary"/>
 
         <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"

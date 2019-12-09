@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:descendantFocusability="beforeDescendants">
+    android:descendantFocusability="beforeDescendants"
+    android:id="@+id/clContainer">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"

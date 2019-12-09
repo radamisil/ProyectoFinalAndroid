@@ -39,6 +39,7 @@ import com.google.android.material.tabs.TabLayout
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.entity.User
 import com.visight.adondevamos.data.local.SharedPreferencesManager
+import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.ui.main.listView.ListViewFragment
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
 import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
@@ -322,9 +323,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun redirectToPlaceDetailActivity(place: PublicPlace) {
+    fun redirectToPlaceDetailActivity(place: PublicPlace, pollAverageResponse: PollAverageResponse) {
         val intent = Intent(this@MainActivity, PlaceDetailActivity::class.java)
         intent.putExtra(AppConstants.PUBLIC_PLACE, place)
+        intent.putExtra(AppConstants.PUBLIC_PLACE_CURRENT_AVAILABILITY, pollAverageResponse)
         startActivity(intent)
     }
 

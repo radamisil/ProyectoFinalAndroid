@@ -6,23 +6,23 @@ import android.os.Parcelable
 class Promotion() : Parcelable {
     var id: Int? = null
     var description: String? = null
-    var precio: Double? = null
+    var price: Double? = null
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readValue(Int::class.java.classLoader) as? Int
         description = parcel.readString()
-        precio = parcel.readValue(Double::class.java.classLoader) as? Double
+        price = parcel.readValue(Double::class.java.classLoader) as? Double
     }
 
     constructor(description: String?, precio: Double?) : this() {
         this.description = description
-        this.precio = precio
+        this.price = precio
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)
         parcel.writeString(description)
-        parcel.writeValue(precio)
+        parcel.writeValue(price)
     }
 
     override fun describeContents(): Int {
