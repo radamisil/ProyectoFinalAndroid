@@ -1,9 +1,11 @@
 package com.visight.adondevamos.data.remote
 
+import com.visight.adondevamos.data.entity.PlaceAverageAvailability
 import com.visight.adondevamos.data.entity.User
 import com.visight.adondevamos.data.remote.requests.RegisterRequest
 import com.visight.adondevamos.data.remote.requests.SendPlacePhotoRequest
 import com.visight.adondevamos.data.remote.responses.AnalizedPhotoResponse
+import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.data.remote.responses.UserResponse
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -61,6 +63,16 @@ class AppServices {
 
         @POST("calculateIA")
         fun sendPhoto(@Body sendPlacePhotoRequest: SendPlacePhotoRequest) : Observable<AnalizedPhotoResponse>
+
+        @GET("IntelligenceAndPollAverage")
+        fun getPlaceAverageAvailability(@Query("shop_id") shopId: String? = null,
+                                        @Query("google_place_id") googlePlaceId: String? = null):
+                Observable<PollAverageResponse>
+
+        @GET("GlobalAveragee")
+        fun getPlaceGlobalAverageAvailability(@Query("shop_id") shopId: String,
+                                        @Query("google_place_id") googlePlaceId: String):
+                Observable<List<PlaceAverageAvailability>>
     }
 
 }

@@ -10,6 +10,7 @@ object AppConstants {
     @JvmField val CURRENT_LOCATION_KEY = "currentLocation"
     @JvmField val CURRENT_PLACE_KEY = "currentPlace"
     @JvmField val PUBLIC_PLACE = "publicPlace"
+    @JvmField val PUBLIC_PLACE_CURRENT_AVAILABILITY = "currentAvailability"
     @JvmField val PLACE_AUTOCOMPLETE_REQUEST_CODE = 600
     @JvmField val REQUEST_IMAGE_CAPTURE = 183
     @JvmField val PREFS_NAME = "ADondeVamosPreferences"

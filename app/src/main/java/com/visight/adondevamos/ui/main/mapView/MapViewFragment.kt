@@ -24,6 +24,7 @@ import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.PublicPlace
+import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.DisplayMessage
@@ -113,8 +114,9 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         }
 
         mClusterManager.setOnClusterItemClickListener {
-            //TODO implement function for marker click event
-            mPlacePreviewDialog = PlacePreviewDialog()
+            mPresenter!!.getPublicPlaceCurrentAvailability(it.publicPlace!!)
+            true
+            /*mPlacePreviewDialog = PlacePreviewDialog()
             mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
 
             var bundle = Bundle()
@@ -122,7 +124,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
             mPlacePreviewDialog!!.arguments = bundle
 
             mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
-            true
+            true*/
         }
 
         //from Autocomplete
@@ -169,7 +171,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         mClusterManager.clearItems()
         if(placesList.isEmpty()){
             //displayMessage("No se encontraron lugares cercanos, prueba otra ubicación")
-            activity!!.showMessage("No se encontraron lugares cercanos, prueba otra ubicación", flMapContainer)
+            activity!!.showMessage("No se encontraron lugares cercanos, por favor prueba otra ubicación", flMapContainer)
         }else{
             for(mapItem: MapItem in placesList){
                 mClusterManager.addItem(mapItem)
@@ -180,6 +182,18 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
     override fun onClickPlaceSeeMore(publicPlace: PublicPlace) {
         (activity as MainActivity).redirectToPlaceDetailActivity(publicPlace)
+    }
+
+    override fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {
+        mPlacePreviewDialog = PlacePreviewDialog()
+        mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
+
+        var bundle = Bundle()
+        bundle.putParcelable(AppConstants.PUBLIC_PLACE, publicPlace)
+        bundle.putParcelable(AppConstants.PUBLIC_PLACE_CURRENT_AVAILABILITY, pollAverageResponse)
+        mPlacePreviewDialog!!.arguments = bundle
+
+        mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
     }
 
     fun getPlacesList() : MutableList<PublicPlace>? {
