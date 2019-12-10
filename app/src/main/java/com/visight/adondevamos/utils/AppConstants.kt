@@ -3,6 +3,7 @@ package com.visight.adondevamos.utils
 import android.content.Context
 
 object AppConstants {
+    @JvmField val DATABASE_NAME = "favouritePlaces.db"
     @JvmField val mapZoomIn: Float = 10f
     @JvmField val mapZoomInSpecificPlace: Float = 100f
     @JvmField val searchRadius: Int = 1000

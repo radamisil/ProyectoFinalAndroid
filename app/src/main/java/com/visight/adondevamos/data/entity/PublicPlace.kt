@@ -2,6 +2,7 @@ package com.visight.adondevamos.data.entity
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 import com.google.gson.annotations.SerializedName
