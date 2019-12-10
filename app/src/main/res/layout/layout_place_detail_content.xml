@@ -345,11 +345,22 @@
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary"/>
 
-        <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart"
+        <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="15dp"/>
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+            <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="15dp"/>
+        </FrameLayout>
+
+
     </LinearLayout>
 
     <View
