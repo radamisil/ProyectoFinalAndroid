@@ -116,11 +116,6 @@ dependencies {
 
     //endregion
 
-    //region ROOM
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    kapt "android.arch.persistence.room:compiler:1.1.1"
-    //endregion
-
     //region Others
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.airbnb.android:lottie:3.0.2'

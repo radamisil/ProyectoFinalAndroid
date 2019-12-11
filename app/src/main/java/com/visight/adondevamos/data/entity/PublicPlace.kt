@@ -2,7 +2,6 @@ package com.visight.adondevamos.data.entity
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.Entity
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 import com.google.gson.annotations.SerializedName
@@ -75,6 +74,35 @@ class PublicPlace() : Parcelable {
         return 0
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as PublicPlace
+
+        if (placeId != other.placeId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + (name?.hashCode() ?: 0)
+        result = 31 * result + (icon?.hashCode() ?: 0)
+        result = 31 * result + (formattedAddress?.hashCode() ?: 0)
+        result = 31 * result + (geometry?.hashCode() ?: 0)
+        result = 31 * result + (openingHours?.hashCode() ?: 0)
+        result = 31 * result + (photos?.hashCode() ?: 0)
+        result = 31 * result + (rating?.hashCode() ?: 0)
+        result = 31 * result + (placeId?.hashCode() ?: 0)
+        result = 31 * result + (priceLevel ?: 0)
+        result = 31 * result + types.hashCode()
+        result = 31 * result + (vicinity?.hashCode() ?: 0)
+        result = 31 * result + isFull.hashCode()
+        result = 31 * result + (promotions?.hashCode() ?: 0)
+        return result
+    }
+
     companion object CREATOR : Parcelable.Creator<PublicPlace> {
         override fun createFromParcel(parcel: Parcel): PublicPlace {
             return PublicPlace(parcel)
@@ -84,6 +112,8 @@ class PublicPlace() : Parcelable {
             return arrayOfNulls(size)
         }
     }
+
+
 
 }
 

@@ -14,6 +14,7 @@ import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.GlideApp
 import com.visight.adondevamos.utils.Utilities
+import com.visight.adondevamos.utils.loadTintedIcon
 import kotlinx.android.synthetic.main.item_place.view.*
 
 class PlacesListAdapter(var items: List<PublicPlace>) : RecyclerView.Adapter<PlacesListAdapter.ViewHolder>() {
@@ -50,7 +51,7 @@ class PlacesListAdapter(var items: List<PublicPlace>) : RecyclerView.Adapter<Pla
                     .into(itemView.ivPlaceImage)
             }
 
-            if(place.icon != null){
+            /*if(place.icon != null){
                 GlideApp.with(itemView.context)
                     .load(place.icon)
                     .placeholder(R.drawable.logo)
@@ -59,7 +60,8 @@ class PlacesListAdapter(var items: List<PublicPlace>) : RecyclerView.Adapter<Pla
                 GlideApp.with(itemView.context)
                     .load(R.drawable.ic_location)
                     .into(itemView.ivPlaceIcon)
-            }
+            }*/
+            itemView.ivPlaceIcon.loadTintedIcon(place)
 
             itemView.tvPlaceName.text = place.name
             itemView.rbStars.rating = if(place.rating != null) place.rating!!.toFloat() else 0f

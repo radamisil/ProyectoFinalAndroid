@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.layout_place_detail_content.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
 import java.math.RoundingMode
 import android.R.attr.data
+import android.content.SharedPreferences
 import android.content.res.Resources
 import com.github.mikephil.charting.charts.LineChart
 import android.graphics.Color
@@ -32,6 +33,7 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.visight.adondevamos.adapters.PromotionsAdapter
 import com.visight.adondevamos.data.entity.*
+import com.visight.adondevamos.data.local.SharedPreferencesManager
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.utils.*
 
@@ -41,6 +43,7 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
     var mPublicPlace: PublicPlace? = null
     var mPublicPlaceCurrentAvailability: PollAverageResponse? = null
     var mPromotionsAdapter: PromotionsAdapter? = null
+    var placeIsFaved: Boolean = false
 
     //profile images
     var person1 =
@@ -77,6 +80,31 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
             val intent = Intent(this@PlaceDetailActivity, ReportFromPlaceActivity::class.java)
             intent.putExtra(AppConstants.PUBLIC_PLACE, mPublicPlace)
             startActivity(intent)
+        }
+
+        if(SharedPreferencesManager().getFavourites(this) != null){
+            for (place in SharedPreferencesManager().getFavourites(this)!!){
+                if(place.placeId == mPublicPlace!!.placeId){
+                    cbFav.isChecked = true
+                    placeIsFaved = true
+                }else{
+                    cbFav.isChecked = false
+                    placeIsFaved = false
+                }
+            }
+        }
+
+        cbFav.setOnCheckedChangeListener { buttonView, isChecked ->
+            var favourites = if(SharedPreferencesManager().getFavourites(this@PlaceDetailActivity) != null)
+                SharedPreferencesManager().getFavourites(this@PlaceDetailActivity) else mutableListOf()
+            if(!placeIsFaved){
+                favourites!!.add(mPublicPlace!!)
+                placeIsFaved = true
+            }else{
+                favourites!!.remove(mPublicPlace!!)
+                placeIsFaved = false
+            }
+            SharedPreferencesManager().setFavourites(this@PlaceDetailActivity, favourites)
         }
 
         setComments()
