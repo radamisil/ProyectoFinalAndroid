@@ -82,12 +82,10 @@ class ListViewFragmentPresenter : ListViewFragmentContract.Presenter {
                             for (i in allPlaces!!) {
                                 allPublicPlaces!!.add(i)
                                 for (t in i.types) {
-                                    if (t == "store") {
+                                    if (t == "store")
                                         placesToDisplay?.add(i)
-                                    }
                                 }
                             }
-
                             mView!!.displayPlaces(placesToDisplay!!)
                         } else {
                             throwable!!.message?.let {
@@ -97,7 +95,7 @@ class ListViewFragmentPresenter : ListViewFragmentContract.Presenter {
                     }
                 }
         } else {
-            //placesToDisplay?.clear()
+            placesToDisplay?.clear()
 
             var selectedPlaceType = ""
             for (t in placeTypesList) {
@@ -107,7 +105,7 @@ class ListViewFragmentPresenter : ListViewFragmentContract.Presenter {
                 }
             }
 
-            for (i in allPlaces!!) {
+            for (i in allPublicPlacesList!!) {
                 for (t in i.types) {
                     if (t == selectedPlaceType) {
                         placesToDisplay?.add(i)
