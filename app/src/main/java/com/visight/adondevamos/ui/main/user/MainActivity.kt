@@ -127,6 +127,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 if (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) is MapViewFragment) {
                     (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) as MapViewFragment)
                             .callMethodGetPublicPlaces(p0!!.text.toString())
+                }else{
+                    (supportFragmentManager.findFragmentById(R.id.flFragmentContainer) as ListViewFragment)
+                        .callMethodGetPublicPlaces(p0!!.text.toString())
                 }
             }
 

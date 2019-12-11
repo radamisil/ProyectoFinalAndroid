@@ -91,6 +91,10 @@ class ListViewFragment : Fragment(), ListViewFragmentContract.View {
         mPresenter!!.startView(this)
     }
 
+    fun callMethodGetPublicPlaces(type: String){
+        mPresenter!!.getPublicPlaces(mCurrentLocation!!, type)
+    }
+
     private fun setPlacesList(list: List<PublicPlace>) {
         mPlacesListAdapter = PlacesListAdapter(list)
         rvPlaces.adapter = mPlacesListAdapter
