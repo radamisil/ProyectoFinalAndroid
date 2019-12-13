@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -46,14 +47,17 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         }*/
 
         llOptionLow.setOnClickListener {
+            setSelectedOptionIndicators(Availability.LOW.name)
             mPresenter!!.setSurveySelectedOption(Availability.LOW.name)
         }
 
         llOptionMedium.setOnClickListener {
+            setSelectedOptionIndicators(Availability.MEDIUM.name)
             mPresenter!!.setSurveySelectedOption(Availability.MEDIUM.name)
         }
 
         llOptionHigh.setOnClickListener {
+            setSelectedOptionIndicators(Availability.HIGH.name)
             mPresenter!!.setSurveySelectedOption(Availability.HIGH.name)
         }
 
@@ -64,6 +68,44 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
                 mPresenter!!.sendReport(mPublicPlace!!.placeId!!, true)
             }
             //sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
+        }
+    }
+
+    private fun setSelectedOptionIndicators(name: String) {
+        when (name) {
+            Availability.LOW.name -> {
+                ivSelectedLow.visibility = View.VISIBLE
+                ivSelectedMedium.visibility = View.GONE
+                ivSelectedHigh.visibility = View.GONE
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tvOptionLow.setTextColor(resources.getColor(R.color.colorGreen, null))
+                    tvOptionMedium.setTextColor(resources.getColor(R.color.colorGrey, null))
+                    tvOptionHigh.setTextColor(resources.getColor(R.color.colorGrey, null))
+                }
+            }
+            Availability.MEDIUM.name -> {
+                ivSelectedLow.visibility = View.GONE
+                ivSelectedMedium.visibility = View.VISIBLE
+                ivSelectedHigh.visibility = View.GONE
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tvOptionLow.setTextColor(resources.getColor(R.color.colorGrey, null))
+                    tvOptionMedium.setTextColor(resources.getColor(R.color.colorAccent, null))
+                    tvOptionHigh.setTextColor(resources.getColor(R.color.colorGrey, null))
+                }
+            }
+            Availability.HIGH.name -> {
+                ivSelectedLow.visibility = View.GONE
+                ivSelectedMedium.visibility = View.GONE
+                ivSelectedHigh.visibility = View.VISIBLE
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    tvOptionLow.setTextColor(resources.getColor(R.color.colorGrey, null))
+                    tvOptionMedium.setTextColor(resources.getColor(R.color.colorGrey, null))
+                    tvOptionHigh.setTextColor(resources.getColor(R.color.colorRed, null))
+                }
+            }
         }
     }
 

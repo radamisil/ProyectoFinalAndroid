@@ -107,7 +107,7 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
                         }
                     }
         }else{
-            placesToDisplay?.clear()
+            /*placesToDisplay?.clear()
 
             var selectedPlaceType = ""
             for(t in placeTypesList){
@@ -124,7 +124,65 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
                     }
                 }
             }
-            mView!!.displayPlaces(placesToDisplay!!)
+            mView!!.displayPlaces(placesToDisplay!!)*/
+
+            var selectedPlaceType = ""
+            for(t in placeTypesList){
+                if(t.key == type){
+                    selectedPlaceType = t.value
+                    break
+                }
+            }
+
+            disposable = GooglePlacesService().getClient().getPublicPlaces(
+                locationToSend, AppConstants.searchRadius, selectedPlaceType,
+                "AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o"
+            )
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { t: GetPublicPlacesResponse ->
+                    t.results
+                }
+                .toObservable()  //TODO PREGUNTAR SI ESTO ERA NECESARIO
+                .flatMapIterable { l -> l }
+                .map {
+                    MapItem(it)
+                }
+                .toList()
+                .subscribe { items: List<MapItem>?, throwable: Throwable? ->
+                    run {
+                        if (items != null) {
+                            //allPublicPlaces?.clear()
+                            allPlaces?.clear()
+                            //allPlaces?.addAll(items)
+                            /*for(i in allPlaces!!){
+                                allPublicPlaces!!.add(i.publicPlace!!)
+                                *//*for(t in i.publicPlace!!.types){
+                                    if(t == type){
+                                        placesToDisplay?.add(i)
+                                    }
+                                }*//*
+                                placesToDisplay?.add(i)
+                            }*/
+
+                            allPlaces?.addAll(items)
+                            /*for(i in allPlaces){
+                                allPublicPlaces!!.add(i.publicPlace!!)
+                                *//*for(t in i.publicPlace!!.types){
+                                    if(t == type){
+                                        placesToDisplay?.add(i)
+                                    }
+                                }*//*
+                                placesToDisplay?.add(i)
+                            }*/
+
+                            mView!!.displayPlaces(allPlaces!!)
+                        }else{
+                            throwable!!.message?.let {
+                                mView!!.displayMessage(it) }
+                        }
+                    }
+                }
         }
     }
 

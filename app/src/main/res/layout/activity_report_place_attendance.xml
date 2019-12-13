@@ -171,14 +171,30 @@
                                     android:clipChildren="false"
                                     android:id="@+id/llOptionLow">
 
-                                <ImageView
-                                        android:layout_width="@dimen/dimen_availability_icon"
-                                        android:layout_height="@dimen/dimen_availability_icon"
-                                        android:src="@drawable/ic_users_few"
-                                        android:background="@drawable/bg_circle_green"
-                                        android:padding="15dp"/>
+                                <RelativeLayout android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center">
+
+                                    <ImageView
+                                            android:id="@+id/ivSelectedLow"
+                                            android:layout_width="62dp"
+                                            android:layout_height="62dp"
+                                            android:background="@drawable/bg_circle_selected_option"
+                                            android:padding="15dp"
+                                            android:layout_centerInParent="true"
+                                            android:visibility="invisible"/>
+
+                                    <ImageView
+                                            android:layout_width="@dimen/dimen_availability_icon"
+                                            android:layout_height="@dimen/dimen_availability_icon"
+                                            android:src="@drawable/ic_users_few"
+                                            android:background="@drawable/bg_circle_green"
+                                            android:padding="15dp"
+                                            android:layout_centerInParent="true"/>
+                                </RelativeLayout>
 
                                 <TextView
+                                        android:id="@+id/tvOptionLow"
                                         android:layout_width="70dp"
                                         android:layout_height="wrap_content"
                                         android:text="Bajo"
@@ -199,14 +215,30 @@
                                     android:clipChildren="false"
                                     android:id="@+id/llOptionMedium">
 
-                                <ImageView
-                                        android:layout_width="@dimen/dimen_availability_icon"
-                                        android:layout_height="@dimen/dimen_availability_icon"
-                                        android:src="@drawable/ic_users_some"
-                                        android:background="@drawable/bg_circle_orange"
-                                        android:padding="15dp"/>
+                                <RelativeLayout android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center">
+
+                                    <ImageView
+                                            android:id="@+id/ivSelectedMedium"
+                                            android:layout_width="62dp"
+                                            android:layout_height="62dp"
+                                            android:background="@drawable/bg_circle_selected_option"
+                                            android:padding="15dp"
+                                            android:layout_centerInParent="true"
+                                            android:visibility="visible"/>
+
+                                    <ImageView
+                                            android:layout_width="@dimen/dimen_availability_icon"
+                                            android:layout_height="@dimen/dimen_availability_icon"
+                                            android:src="@drawable/ic_users_some"
+                                            android:background="@drawable/bg_circle_orange"
+                                            android:padding="15dp"
+                                            android:layout_centerInParent="true"/>
+                                </RelativeLayout>
 
                                 <TextView
+                                        android:id="@+id/tvOptionMedium"
                                         android:layout_width="70dp"
                                         android:layout_height="wrap_content"
                                         android:text="Medio"
@@ -227,14 +259,30 @@
                                     android:clipChildren="false"
                                     android:id="@+id/llOptionHigh">
 
-                                <ImageView
-                                        android:layout_width="@dimen/dimen_availability_icon"
-                                        android:layout_height="@dimen/dimen_availability_icon"
-                                        android:src="@drawable/ic_users_many"
-                                        android:background="@drawable/bg_circle_red"
-                                        android:padding="15dp"/>
+                                <RelativeLayout android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center">
+
+                                    <ImageView
+                                            android:id="@+id/ivSelectedHigh"
+                                            android:layout_width="62dp"
+                                            android:layout_height="62dp"
+                                            android:background="@drawable/bg_circle_selected_option"
+                                            android:padding="15dp"
+                                            android:layout_centerInParent="true"
+                                            android:visibility="invisible"/>
+
+                                    <ImageView
+                                            android:layout_width="@dimen/dimen_availability_icon"
+                                            android:layout_height="@dimen/dimen_availability_icon"
+                                            android:src="@drawable/ic_users_many"
+                                            android:background="@drawable/bg_circle_red"
+                                            android:padding="15dp"
+                                            android:layout_centerInParent="true"/>
+                                </RelativeLayout>
 
                                 <TextView
+                                        android:id="@+id/tvOptionHigh"
                                         android:layout_width="70dp"
                                         android:layout_height="wrap_content"
                                         android:text="Alto"
