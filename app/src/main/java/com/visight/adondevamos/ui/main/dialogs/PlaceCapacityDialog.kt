@@ -19,13 +19,15 @@ class PlaceCapacityDialog: DialogFragment() {
         }
 
         v.btnSend.setOnClickListener {
-            onClickSendPlaceCapacity!!.onClickSendPlaceCapacity()
+            if(v.etCapacity.text.isNotEmpty()){
+                onClickSendPlaceCapacity!!.onClickSendPlaceCapacity(v.etCapacity.text.toString().toInt())
+            }
         }
 
         return v
     }
 
     interface OnClickSendPlaceCapacity{
-        fun onClickSendPlaceCapacity()
+        fun onClickSendPlaceCapacity(capacity: Int)
     }
 }

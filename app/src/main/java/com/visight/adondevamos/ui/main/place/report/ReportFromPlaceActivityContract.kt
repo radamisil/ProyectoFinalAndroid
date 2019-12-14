@@ -10,13 +10,13 @@ interface ReportFromPlaceActivityContract {
         fun takePhotoIntent(intent: Intent)
         fun displayImage(photoPath: String)
         fun onResponseSendPhoto(peopleNumber: Int)
-        fun onResponseReport(message: String?)
+        fun onResponseReport(message: String?, IAvalue: Int? = 0)
     }
 
     interface Presenter: BaseContract.Presenter<ReportFromPlaceActivityContract.View> {
         fun takePhoto()
         fun takePhotoResult()
-        fun sendReport(placeId: String, shouldSendSurveySelectedOption: Boolean)
+        fun sendReport(placeId: String, shouldSendSurveySelectedOption: Boolean, capacity: Int)
         fun setSurveySelectedOption(selectedOption: String)
         fun getSurveySelectedOption(): String?
     }
