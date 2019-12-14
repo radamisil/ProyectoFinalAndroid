@@ -56,6 +56,7 @@
                     style="@style/style_regular_texts"/>
 
             <EditText
+                    android:id="@+id/etCapacity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

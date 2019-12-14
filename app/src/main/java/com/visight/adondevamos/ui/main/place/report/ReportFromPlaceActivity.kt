@@ -5,14 +5,17 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.setPadding
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.ui.base.BaseActivity
 import com.visight.adondevamos.ui.main.dialogs.PlaceCapacityDialog
+import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
 import com.visight.adondevamos.utils.*
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_place_detail.*
@@ -59,11 +62,14 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
 
         //TODO edit Send Report
         btnSendReport.setOnClickListener {
-            if(mPresenter!!.getSurveySelectedOption() != null){
+            /*if(mPresenter!!.getSurveySelectedOption() != null){
                 progressBarReport.visibility = View.VISIBLE
                 mPresenter!!.sendReport(mPublicPlace!!.placeId!!, true)
+            }*/
+            if(mPresenter!!.getSurveySelectedOption() != null){
+                sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
             }
-            //sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
+            sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
         }
     }
 
@@ -122,17 +128,22 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         }
     }
 
-    override fun onResponseReport(message: String?) {
+    override fun onResponseReport(message: String?, IAvalue: Int?) {
         progressBarReport.visibility = View.GONE
         if(message == null){
-            finish()
+            onResponseSendPhoto(IAvalue!!)
+            Handler().postDelayed({
+                finish()
+            }, 3500)
         }else{
             displayMessage(message)
         }
     }
 
     //TODO send capacity and form
-    override fun onClickSendPlaceCapacity() {
+    override fun onClickSendPlaceCapacity(capacity: Int) {
+        progressBarReport.visibility = View.VISIBLE
+        mPresenter!!.sendReport(mPublicPlace!!.placeId!!, true, capacity)
         sendCapacityDialog!!.dismiss()
     }
 

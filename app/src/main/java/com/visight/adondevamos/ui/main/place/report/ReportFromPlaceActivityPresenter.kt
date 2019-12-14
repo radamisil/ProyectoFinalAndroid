@@ -67,21 +67,22 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
         return mSurveySelectedOption
     }
 
-    override fun sendReport(placeId: String, shouldSendSurveySelectedOption: Boolean) {
+    override fun sendReport(placeId: String, shouldSendSurveySelectedOption: Boolean, capacity: Int) {
         var base64Image = setBase64ImageFromPath(absolutePath)
 
         var request: SendPlacePhotoRequest
         if(base64Image != null){
             if(!shouldSendSurveySelectedOption){
-                request = SendPlacePhotoRequest(placeId = placeId, imagenbase64 = base64Image, encuesta = null)
+                //request = SendPlacePhotoRequest(placeId = placeId, imagenbase64 = base64Image, encuesta = null)
+                request = SendPlacePhotoRequest(placeId = placeId, imagenbase64 = base64Image, encuesta = null, capacity = capacity)
             }else{
                     var selectedValue = ""
                     when(mSurveySelectedOption){
-                        Availability.LOW.name -> selectedValue = "30"
-                        Availability.MEDIUM.name -> selectedValue = "60"
-                        Availability.HIGH.name -> selectedValue = "90"
+                        Availability.LOW.name -> selectedValue = Availability.LOW.value
+                        Availability.MEDIUM.name -> selectedValue = Availability.MEDIUM.value
+                        Availability.HIGH.name -> selectedValue = Availability.HIGH.value
                     }
-                    request = SendPlacePhotoRequest(placeId, base64Image, selectedValue)
+                    request = SendPlacePhotoRequest(placeId, base64Image, selectedValue, capacity = capacity)
             }
 
             if(setBase64ImageFromPath(absolutePath) != null){
@@ -97,8 +98,9 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
 
 
     fun onSuccess(response: AnalizedPhotoResponse, shouldSendSurveySelectedOption: Boolean){
-        if(!shouldSendSurveySelectedOption) mView!!.onResponseSendPhoto(response.people!!)
-        else mView!!.onResponseReport(null)
+        //if(!shouldSendSurveySelectedOption) mView!!.onResponseSendPhoto(response.people!!)
+        //else mView!!.onResponseReport(null)
+        mView!!.onResponseReport(null, response.people!!)
     }
 
     fun onError(t: Throwable){
