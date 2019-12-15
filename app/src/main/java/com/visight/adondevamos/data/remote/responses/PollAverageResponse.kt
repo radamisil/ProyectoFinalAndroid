@@ -3,15 +3,17 @@ package com.visight.adondevamos.data.remote.responses
 import android.os.Parcel
 import android.os.Parcelable
 
-class PollAverageResponse(var IA: Int? = null, var encuesta: Int? = null) : Parcelable {
+class PollAverageResponseData(var Data: List<PollAverageResponse>? = null)
+
+class PollAverageResponse(var PromedioIA: String? = null, var PromedioEncuesta: String? = null) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readValue(Int::class.java.classLoader) as? Int,
-        parcel.readValue(Int::class.java.classLoader) as? Int
+        parcel.readString(),
+        parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeValue(IA)
-        parcel.writeValue(encuesta)
+        parcel.writeString(PromedioIA)
+        parcel.writeString(PromedioEncuesta)
     }
 
     override fun describeContents(): Int {
@@ -27,4 +29,5 @@ class PollAverageResponse(var IA: Int? = null, var encuesta: Int? = null) : Parc
             return arrayOfNulls(size)
         }
     }
+
 }

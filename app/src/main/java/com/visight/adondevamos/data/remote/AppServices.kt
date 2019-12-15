@@ -7,6 +7,7 @@ import com.visight.adondevamos.data.remote.requests.RegisterRequest
 import com.visight.adondevamos.data.remote.requests.SendPlacePhotoRequest
 import com.visight.adondevamos.data.remote.responses.AnalizedPhotoResponse
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
+import com.visight.adondevamos.data.remote.responses.PollAverageResponseData
 import com.visight.adondevamos.data.remote.responses.UserResponse
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -67,10 +68,10 @@ class AppServices {
 
         @GET("IntelligenceAndPollAverage")
         fun getPlaceAverageAvailability(@Query("shop_id") shopId: String? = null,
-                                        @Query("google_place_id") googlePlaceId: String? = null):
-                Observable<PollAverageResponse>
+                                        @Query("filterGooglePlaceid") googlePlaceId: String? = null):
+                Observable<PollAverageResponseData>
 
-        @GET("GlobalAveragee")
+        @GET("GlobalAverage")
         fun getPlaceGlobalAverageAvailability(@Query("shop_id") shopId: String? = null,
                                         @Query("google_place_id") googlePlaceId: String? = null):
                 Observable<List<PlaceAverageAvailability>>

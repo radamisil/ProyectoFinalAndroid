@@ -34,15 +34,28 @@ class PlaceDetailActivityPresenter : PlaceDetailActivityContract.Presenter{
     }
 
     //TODO AVAILABILITY GLOBAL - add API
-    override fun getPlaceAvailability(placeId: String) {
-        /*disposable = AppServices().getClient().getPlaceGlobalAverageAvailability(googlePlaceId = placeId!!)
+    override fun getPlaceGlobalAvailability(placeId: String) {
+        mDisposable = AppServices().getClient().getPlaceGlobalAverageAvailability(googlePlaceId = placeId!!)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
             .subscribe({ placeAverageAvailabilityList ->
                 mView!!.setAvailabilityGraphic(placeAverageAvailabilityList)
             }, {
                 it.message?.let { mView!!.displayMessage("No se pudo obtener información del lugar, por favor inténtalo nuevamente") }
-            })*/
-        mView!!.setAvailabilityGraphic(listOf())
+            })
+        //mView!!.setAvailabilityGraphic(listOf())
+    }
+
+    //TODO AVAILABILITY GLOBAL - add API
+    override fun getPlaceAvailability(placeId: String) {
+        mDisposable = AppServices().getClient().getPlaceAverageAvailability(googlePlaceId = placeId!!)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.newThread())
+            .subscribe({ pollAverageResponseData ->
+                mView!!.setAvailability(pollAverageResponseData.Data!![0])
+            }, {
+                it.message?.let { mView!!.displayMessage("No se pudo obtener información del lugar, por favor inténtalo nuevamente") }
+            })
+        //mView!!.setAvailabilityGraphic(listOf())
     }
 }

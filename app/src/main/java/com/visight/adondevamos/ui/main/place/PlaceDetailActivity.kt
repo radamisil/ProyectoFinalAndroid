@@ -110,6 +110,10 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
         setComments()
     }
 
+    override fun onResume() {
+        super.onResume()
+    }
+
     //TODO AVAILABILITY GLOBAL - edit with API results
     override fun setAvailabilityGraphic(availabilityList: List<PlaceAverageAvailability>) {
         if (availabilityList.isEmpty()) {
@@ -249,8 +253,8 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
         tvPlaceAddress.text = mPublicPlace.vicinity
 
         //TODO AVAILABILITY - add API results
-        tvAvailabilityHumanQuantity.text = mPublicPlaceCurrentAvailability!!.IA.toString() + "%"
-        tvAvailabilityAIQuantity.text = mPublicPlaceCurrentAvailability!!.encuesta.toString() + "%"
+        tvAvailabilityHumanQuantity.text = mPublicPlaceCurrentAvailability!!.PromedioIA.toString() + "%"
+        tvAvailabilityAIQuantity.text = mPublicPlaceCurrentAvailability!!.PromedioEncuesta.toString() + "%"
         tvAvailabilityHuman.text = "Baja"
         tvAvailabilityAI.text = "Media"
 
@@ -350,6 +354,13 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
             }
             llPromotionsContainer.visibility = View.VISIBLE
         }
+    }
+
+    override fun setAvailability(availability: PollAverageResponse) {
+        tvAvailabilityHumanQuantity.text = "10%"
+        tvAvailabilityAIQuantity.text = "60%"
+        tvAvailabilityHuman.text = availability.PromedioEncuesta
+        tvAvailabilityAI.text = availability.PromedioIA
     }
 
 }

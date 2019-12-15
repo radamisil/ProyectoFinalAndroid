@@ -70,10 +70,10 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
                 progressBarReport.visibility = View.VISIBLE
                 mPresenter!!.sendReport(mPublicPlace!!.placeId!!, true)
             }*/
+            //sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
             if(mPresenter!!.getSurveySelectedOption() != null){
                 sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
             }
-            sendCapacityDialog!!.show(supportFragmentManager, "capacityDialog")
         }
     }
 
