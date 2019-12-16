@@ -18,17 +18,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
-    }
-
     signingConfigs {
         debug {
             storeFile file(getRootDir().absolutePath + '/app/debugKeystore.jks')
@@ -36,6 +25,26 @@ android {
             keyAlias "debug"
             keyPassword "adondevamos"
         }
+        release {
+            storeFile file(getRootDir().absolutePath + '/app/adondevamosKeystore.jks')
+            storePassword "adondevamos"
+            keyAlias "adondevamos"
+            keyPassword "adondevamos"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+        signingConfig signingConfigs.debug
+        }
+    }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
 }
 

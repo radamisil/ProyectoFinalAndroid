@@ -4,6 +4,7 @@
 
     <!-- Services -->
     <string name="maps_debug_api_key">AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o</string>
+    <string name="maps_release_api_key">AIzaSyCSpa7WWX9qTPjkyG81YFSLrJr-e7UxcWs</string>
     <string name="mapbox_debug_api_key">pk.eyJ1IjoidmlzaWdodCIsImEiOiJjangwdWl4cGQwMXhvNDlxbDJlcXZ6OThnIn0.we3GRpaTVBkMNfaYlIcpgA</string>
 
     <string name="text_ingresar_con_mi_cuenta">Ingresar con mi cuenta</string>
