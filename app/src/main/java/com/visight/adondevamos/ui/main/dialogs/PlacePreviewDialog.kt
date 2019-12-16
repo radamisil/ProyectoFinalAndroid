@@ -8,11 +8,8 @@ import androidx.fragment.app.DialogFragment
 import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
-import com.visight.adondevamos.utils.AppConstants
-import com.visight.adondevamos.utils.GlideApp
-import com.visight.adondevamos.utils.loadImage
+import com.visight.adondevamos.utils.*
 import kotlinx.android.synthetic.main.layout_dialog_preview.view.*
-import com.visight.adondevamos.utils.loadTintedIcon
 
 
 class PlacePreviewDialog: DialogFragment() {
@@ -53,10 +50,34 @@ class PlacePreviewDialog: DialogFragment() {
         v.tvAddress.text = publicPlace!!.vicinity
 
         //TODO AVAILABILITY - add API results
-        v.tvAvailabilityHumanQuantity.text = pollAverageResponse!!.IA.toString() + "%"
-        v.tvAvailabilityAIQuantity.text = pollAverageResponse!!.encuesta.toString() + "%"
-        v.tvAvailabilityHuman.text = "Baja"
-        v.tvAvailabilityAI.text = "Media"
+        v.tvAvailabilityHumanQuantity.text = "10%"
+        v.tvAvailabilityAIQuantity.text = "60%"
+
+        when (pollAverageResponse!!.PromedioIA){
+            Availability.LOW.value -> {
+                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+            }
+            Availability.MEDIUM.value -> {
+                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+            }
+            Availability.HIGH.value -> {
+                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+            }
+        }
+        v.tvAvailabilityHuman.text = pollAverageResponse!!.PromedioIA
+
+        when (pollAverageResponse!!.PromedioEncuesta){
+            Availability.LOW.value -> {
+                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+            }
+            Availability.MEDIUM.value -> {
+                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+            }
+            Availability.HIGH.value -> {
+                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+            }
+        }
+        v.tvAvailabilityAI.text = pollAverageResponse!!.PromedioEncuesta
 
         //TODO edit Promotions visibility
         if(!publicPlace!!.promotions.isNullOrEmpty())

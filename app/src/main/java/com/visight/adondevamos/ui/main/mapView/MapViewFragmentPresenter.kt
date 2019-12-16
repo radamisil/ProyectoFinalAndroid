@@ -8,6 +8,7 @@ import com.visight.adondevamos.data.remote.AppServices
 import com.visight.adondevamos.data.remote.GooglePlacesService
 import com.visight.adondevamos.data.remote.responses.GetPublicPlacesResponse
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
+import com.visight.adondevamos.data.remote.responses.PollAverageResponseData
 import com.visight.adondevamos.ui.main.mapView.mapUtils.MapItem
 import com.visight.adondevamos.utils.AppConstants
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -211,16 +212,20 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
 
     //TODO AVAILABILITY - agregar API
     override fun getPublicPlaceCurrentAvailability(publicPlace: PublicPlace) {
-      /*disposable = AppServices().getClient().getPlaceAverageAvailability(googlePlaceId = publicPlace.placeId!!)
+      disposable = AppServices().getClient().getPlaceAverageAvailability(googlePlaceId = publicPlace.placeId!!)
           .observeOn(AndroidSchedulers.mainThread())
           .subscribeOn(Schedulers.newThread())
           .subscribe({
-              pollAverageResponse: PollAverageResponse ->
-                    mView!!.displayPlacePreviewDialog(publicPlace, pollAverageResponse)
+              pollAverageResponseData: PollAverageResponseData ->
+                    if(pollAverageResponseData.Data!!.isEmpty()){
+                        mView!!.displayPlacePreviewDialog(publicPlace, PollAverageResponse())
+                    }else{
+                        mView!!.displayPlacePreviewDialog(publicPlace, pollAverageResponseData.Data!![0])
+                    }
+
           }, {
               it.message?.let { mView!!.displayMessage("No se pudo obtener la información del lugar, por favor inténtalo nuevamente") }
-          })*/
-        mView!!.displayPlacePreviewDialog(publicPlace, PollAverageResponse(10, 60))
+          })
     }
 
     override fun getAllPublicPlacesList(): MutableList<PublicPlace>? {

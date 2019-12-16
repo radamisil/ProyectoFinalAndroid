@@ -112,6 +112,7 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
 
     override fun onResume() {
         super.onResume()
+        mPresenter!!.getPlaceAvailability(mPublicPlace!!.placeId!!)
     }
 
     //TODO AVAILABILITY GLOBAL - edit with API results
