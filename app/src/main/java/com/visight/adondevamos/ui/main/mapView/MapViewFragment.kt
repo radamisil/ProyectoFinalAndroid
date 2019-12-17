@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,7 @@ import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.utils.AppConstants
 import com.visight.adondevamos.utils.DisplayMessage
 import com.visight.adondevamos.ui.main.dialogs.PlacePreviewDialog
+import com.visight.adondevamos.ui.main.place.report.ReportFromPlaceActivity
 import com.visight.adondevamos.utils.showMessage
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_map.*
@@ -182,6 +184,12 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
     override fun onClickPlaceSeeMore(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {
         (activity as MainActivity).redirectToPlaceDetailActivity(publicPlace, pollAverageResponse)
+    }
+
+    override fun onClickSendReport(publicPlace: PublicPlace) {
+        val intent = Intent(parentFragment!!.context, ReportFromPlaceActivity::class.java)
+        intent.putExtra(AppConstants.PUBLIC_PLACE, publicPlace)
+        startActivity(intent)
     }
 
     override fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {

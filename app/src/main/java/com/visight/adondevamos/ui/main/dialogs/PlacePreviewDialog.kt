@@ -9,7 +9,11 @@ import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.utils.*
+import kotlinx.android.synthetic.main.item_place.view.*
 import kotlinx.android.synthetic.main.layout_dialog_preview.view.*
+import kotlinx.android.synthetic.main.layout_dialog_preview.view.ivPlaceImage
+import kotlinx.android.synthetic.main.layout_dialog_preview.view.tvAvailabilityAI
+import kotlinx.android.synthetic.main.layout_dialog_preview.view.tvAvailabilityHuman
 
 
 class PlacePreviewDialog: DialogFragment() {
@@ -53,31 +57,43 @@ class PlacePreviewDialog: DialogFragment() {
         v.tvAvailabilityHumanQuantity.text = "10%"
         v.tvAvailabilityAIQuantity.text = "60%"
 
-        when (pollAverageResponse!!.PromedioIA){
-            Availability.LOW.value -> {
-                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
-            }
-            Availability.MEDIUM.value -> {
-                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
-            }
-            Availability.HIGH.value -> {
-                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
-            }
-        }
-        v.tvAvailabilityHuman.text = pollAverageResponse!!.PromedioIA
+        if(pollAverageResponse!!.PromedioIA == null && pollAverageResponse!!.PromedioEncuesta == null){
+            v.llContainerAvailability.visibility = View.GONE
+            v.llContainerNoAvailability.visibility = View.VISIBLE
 
-        when (pollAverageResponse!!.PromedioEncuesta){
-            Availability.LOW.value -> {
-                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+            v.btnAddReport.setOnClickListener {
+                onClickPreviewPlaceDialog!!.onClickSendReport(publicPlace!!)
             }
-            Availability.MEDIUM.value -> {
-                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+        }else{
+            v.llContainerNoAvailability.visibility = View.GONE
+            v.llContainerAvailability.visibility = View.VISIBLE
+
+            when (pollAverageResponse!!.PromedioIA){
+                Availability.LOW.value -> {
+                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+                }
+                Availability.MEDIUM.value -> {
+                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+                }
+                Availability.HIGH.value -> {
+                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+                }
             }
-            Availability.HIGH.value -> {
-                v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+            v.tvAvailabilityHuman.text = pollAverageResponse!!.PromedioIA
+
+            when (pollAverageResponse!!.PromedioEncuesta){
+                Availability.LOW.value -> {
+                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+                }
+                Availability.MEDIUM.value -> {
+                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+                }
+                Availability.HIGH.value -> {
+                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+                }
             }
+            v.tvAvailabilityAI.text = pollAverageResponse!!.PromedioEncuesta
         }
-        v.tvAvailabilityAI.text = pollAverageResponse!!.PromedioEncuesta
 
         //TODO edit Promotions visibility
         if(!publicPlace!!.promotions.isNullOrEmpty())
@@ -99,5 +115,6 @@ class PlacePreviewDialog: DialogFragment() {
 
     interface OnClickPreviewPlaceDialog{
         fun onClickPlaceSeeMore(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse)
+        fun onClickSendReport(publicPlace: PublicPlace)
     }
 }
