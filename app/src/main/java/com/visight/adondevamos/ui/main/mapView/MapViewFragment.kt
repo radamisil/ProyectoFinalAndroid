@@ -187,7 +187,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     }
 
     override fun onClickSendReport(publicPlace: PublicPlace) {
-        val intent = Intent(parentFragment!!.context, ReportFromPlaceActivity::class.java)
+        val intent = Intent(context, ReportFromPlaceActivity::class.java)
         intent.putExtra(AppConstants.PUBLIC_PLACE, publicPlace)
         startActivity(intent)
     }

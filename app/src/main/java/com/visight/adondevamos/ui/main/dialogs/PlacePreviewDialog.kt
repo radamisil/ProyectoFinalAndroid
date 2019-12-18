@@ -9,7 +9,6 @@ import com.visight.adondevamos.R
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.utils.*
-import kotlinx.android.synthetic.main.item_place.view.*
 import kotlinx.android.synthetic.main.layout_dialog_preview.view.*
 import kotlinx.android.synthetic.main.layout_dialog_preview.view.ivPlaceImage
 import kotlinx.android.synthetic.main.layout_dialog_preview.view.tvAvailabilityAI
