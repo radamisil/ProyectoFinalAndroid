@@ -31,6 +31,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.visight.adondevamos.adapters.HistoryInformationAdapter
 import com.visight.adondevamos.adapters.PromotionsAdapter
 import com.visight.adondevamos.data.entity.*
 import com.visight.adondevamos.data.local.SharedPreferencesManager
@@ -45,6 +46,7 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
     var mPublicPlaceCurrentAvailability: PollAverageResponse? = null
     var mPromotionsAdapter: PromotionsAdapter? = null
     var placeIsFaved: Boolean = false
+    var pieChartPagerAdapter: HistoryInformationAdapter? = null
 
     //profile images
     var person1 =
@@ -111,105 +113,13 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
     }
 
     //TODO AVAILABILITY GLOBAL - edit with API results
-    override fun setAvailabilityGraphic(availabilityList: List<PlaceAverageAvailability>) {
+    override fun setAvailabilityGraphic(availabilityList: List<PieChartItem>) {
         if (availabilityList.isEmpty()) {
-            //displayMessage("No se pudieron obtener los datos del lugar, por favor intentalo nuevamente")
-            chart.setViewPortOffsets(40f, 0f, 0f, 40f)
-            //chart.setBackgroundColor(Color.rgb(104, 241, 175))
-
-            // no description text
-            chart.getDescription().setEnabled(false)
-
-            // enable touch gestures
-            chart.setTouchEnabled(false)
-
-            // enable scaling and dragging
-            chart.setDragEnabled(false)
-            chart.setScaleEnabled(false)
-
-            // if disabled, scaling can be done on x- and y-axis separately
-            chart.setPinchZoom(false)
-
-            chart.setDrawGridBackground(false)
-            chart.setMaxHighlightDistance(300f)
-
-            var x = chart.getXAxis()
-            x.position = XAxis.XAxisPosition.BOTTOM
-            x.setDrawGridLines(false)
-            x.setEnabled(true)
-            x.granularity = 1f
-            x.valueFormatter = CustomValueFormatter(arrayOf("10:00", "11:00", "12:00",
-                "13:00", "14:00", "15:00", "16:00", "17:00"))
-
-            var y = chart.getAxisLeft()
-            y.setLabelCount(6, false)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                y.setTextColor(Color.BLACK)
-            } else {
-                y.setTextColor(Color.MAGENTA)
-            }
-            y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-            y.setEnabled(true)
-            y.setDrawGridLines(false)
-            y.setAxisLineColor(Color.WHITE)
-            y.granularity = 1f
-            y.valueFormatter = CustomValueFormatter(arrayOf("Bajo", "Medio", "Alto"))
-
-            chart.getAxisRight().setEnabled(false)
-
-            chart.getLegend().setEnabled(false)
-
-            chart.animateXY(2000, 2000)
-
-            // don't forget to refresh the drawing
-            chart.invalidate()
-
-            setData(20, 50f)
+            displayMessage("No se pudieron obtener los datos del lugar, por favor intentalo nuevamente")
         } else {
-            chart.setViewPortOffsets(40f, 0f, 0f, 40f)
-            //chart.setBackgroundColor(Color.rgb(104, 241, 175))
-
-            // no description text
-            chart.getDescription().setEnabled(false)
-
-            // enable touch gestures
-            chart.setTouchEnabled(false)
-
-            // enable scaling and dragging
-            chart.setDragEnabled(false)
-            chart.setScaleEnabled(false)
-
-            // if disabled, scaling can be done on x- and y-axis separately
-            chart.setPinchZoom(false)
-
-            chart.setDrawGridBackground(false)
-            chart.setMaxHighlightDistance(300f)
-
-            var x = chart.getXAxis()
-            x.position = XAxis.XAxisPosition.BOTTOM
-            x.setDrawGridLines(false)
-            x.setEnabled(true)
-
-            var y = chart.getAxisLeft()
-            y.setLabelCount(6, false)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                y.setTextColor(Color.BLACK)
-            } else {
-                y.setTextColor(Color.MAGENTA)
-            }
-            y.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-            y.setEnabled(true)
-            y.setDrawGridLines(false)
-            y.setAxisLineColor(Color.WHITE)
-
-            chart.getAxisRight().setEnabled(false)
-
-            chart.getLegend().setEnabled(false)
-
-            chart.animateXY(2000, 2000)
-
-            // don't forget to refresh the drawing
-            chart.invalidate()
+            var list = availabilityList as MutableList<PieChartItem>
+            pieChartPagerAdapter = HistoryInformationAdapter(list.asReversed())
+            vpPieChart.adapter = pieChartPagerAdapter
         }
     }
 
@@ -300,7 +210,7 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
         }
 
         //TODO AVAILABILITY - add API results
-        mPresenter!!.getPlaceGlobalAvailability(mPublicPlace.id!!)
+        mPresenter!!.getPlaceGlobalAvailability(mPublicPlace.placeId!!)
 
         mPresenter!!.getPromotions(mPublicPlace.id!!)
 
@@ -321,64 +231,6 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
 
     override fun onDestroy() {
         super.onDestroy()
-    }
-
-    private fun setData(count: Int, range: Float) {
-
-        val values: MutableList<Entry> = mutableListOf()
-        values.add(Entry(1f, 1f))
-        values.add(Entry(2f, 2f))
-        values.add(Entry(3f, 3f))
-        values.add(Entry(4f, 1f))
-        values.add(Entry(5f, 1f))
-        values.add(Entry(6f, 2f))
-        values.add(Entry(7f, 3f))
-        values.add(Entry(8f, 1f))
-
-        /*for (i in 0 until count) {
-            val `val` = (Math.random() * (range + 1)).toFloat() + 20
-            values.add(Entry(i.toFloat(), `val`))
-        }*/
-
-        val set1: LineDataSet
-
-        if (chart.data != null && chart.data.dataSetCount > 0) {
-            set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-            set1.values = values
-            chart.data.notifyDataChanged()
-            chart.notifyDataSetChanged()
-        } else {
-            // create a dataset and give it a type
-            set1 = LineDataSet(values, "DataSet 1")
-
-            set1.mode = LineDataSet.Mode.CUBIC_BEZIER
-            set1.cubicIntensity = 0.2f
-            set1.setDrawFilled(true)
-            set1.setDrawCircles(false)
-            set1.lineWidth = 1.8f
-            set1.circleRadius = 4f
-            set1.setCircleColor(Color.WHITE)
-            set1.highLightColor = Color.CYAN
-            chart.setGridBackgroundColor(Color.WHITE)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                set1.color = resources.getColor(R.color.colorPrimaryDark, null)
-                set1.fillColor = resources.getColor(R.color.colorPrimary, null)
-            } else {
-                set1.color = Color.WHITE
-                set1.fillColor = Color.MAGENTA
-            }
-            set1.fillAlpha = 100
-            set1.setDrawHorizontalHighlightIndicator(true)
-            set1.fillFormatter = IFillFormatter { dataSet, dataProvider -> chart.axisLeft.axisMinimum }
-
-            // create a data object with the data sets
-            val data = LineData(set1)
-            data.setValueTextSize(9f)
-            data.setDrawValues(false)
-
-            // set data
-            chart.data = data
-        }
     }
 
     override fun displayPromotions(promotions: List<Promotion>) {

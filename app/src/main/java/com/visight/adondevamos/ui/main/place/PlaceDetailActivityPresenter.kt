@@ -38,11 +38,15 @@ class PlaceDetailActivityPresenter : PlaceDetailActivityContract.Presenter{
 
     //TODO AVAILABILITY GLOBAL - add API
     override fun getPlaceGlobalAvailability(placeId: String) {
-        mDisposable = AppServices().getClient().getPlaceGlobalAverageAvailability(googlePlaceId = placeId!!)
+        mDisposable = AppServices().getClient().getPlaceGlobalAverageAvailability(/*googlePlaceId = placeId!!*/"ChIJh4-XctO1vJURNxjXNZdcLto")
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
-            .subscribe({ placeAverageAvailabilityList ->
-                mView!!.setAvailabilityGraphic(placeAverageAvailabilityList)
+            .subscribe({ placeGlobalAvailabilityResponseData ->
+                if(placeGlobalAvailabilityResponseData!!.Data.isNullOrEmpty()){
+                    mView!!.setAvailabilityGraphic(listOf())
+                }else {
+                    mView!!.setAvailabilityGraphic(placeGlobalAvailabilityResponseData.Data!!)
+                }
             }, {
                 it.message?.let { mView!!.displayMessage("No se pudo obtener información del lugar, por favor inténtalo nuevamente") }
             })

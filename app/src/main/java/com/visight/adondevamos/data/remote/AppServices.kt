@@ -1,17 +1,14 @@
 package com.visight.adondevamos.data.remote
 
-import com.visight.adondevamos.data.entity.PlaceAverageAvailability
-import com.visight.adondevamos.data.entity.Promotion
+import com.visight.adondevamos.data.remote.responses.PlaceGlobalAvailabilityResponseData
 import com.visight.adondevamos.data.entity.User
 import com.visight.adondevamos.data.remote.requests.RegisterRequest
 import com.visight.adondevamos.data.remote.requests.SendPlacePhotoRequest
 import com.visight.adondevamos.data.remote.responses.*
 import io.reactivex.Observable
-import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.xml.datatype.DatatypeConstants.SECONDS
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.http.Body
@@ -71,7 +68,7 @@ class AppServices {
         @GET("GlobalAverage")
         fun getPlaceGlobalAverageAvailability(@Query("shop_id") shopId: String? = null,
                                         @Query("google_place_id") googlePlaceId: String? = null):
-                Observable<List<PlaceAverageAvailability>>
+                Observable<PlaceGlobalAvailabilityResponseData>
 
         @GET("promotions")
         fun getPromotions(@Query("filterPlace") filterPlace: String? = null,
