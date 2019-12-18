@@ -26,6 +26,24 @@ class PublicPlace() : Parcelable {
     var isFull: Boolean = false
     var promotions: List<Promotion>? = listOf()
 
+    //custom
+    var latitude: String? = null
+    var longitude: String? = null
+    var photoReference: String? = null
+
+    constructor(customPublicPlace: CustomPublicPlace) : this() {
+        id = customPublicPlace.IdDatos_comercio.toString()
+        name = customPublicPlace.placeName
+        icon = customPublicPlace.placeIcon
+        formattedAddress = customPublicPlace.placeFormatted_addres
+        latitude = customPublicPlace.placeLatitude
+        longitude = customPublicPlace.placeLongitude
+        photoReference = customPublicPlace.placePhoto_reference
+        rating = customPublicPlace.placeRating!!.toDouble()
+        placeId = customPublicPlace.placeId
+        vicinity = customPublicPlace.placeVicinity
+    }
+
     constructor(parcel: Parcel) : this() {
         id = parcel.readString()
         name = parcel.readString()

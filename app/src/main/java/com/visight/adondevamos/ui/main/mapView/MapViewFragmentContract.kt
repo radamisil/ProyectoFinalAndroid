@@ -18,6 +18,7 @@ interface MapViewFragmentContract {
 
     interface Presenter: BaseContract.Presenter<MapViewFragmentContract.View> {
         fun getPublicPlaces(location: LatLng, type: String?)
+        fun getCustomPublicPlaces(type: String?)
         fun getSpecificPublicPlace(placeId: String)
         fun getAllPublicPlacesList() : MutableList<PublicPlace>?
         fun getPublicPlaceCurrentAvailability(publicPlace: PublicPlace)

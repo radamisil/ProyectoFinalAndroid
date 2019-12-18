@@ -73,6 +73,9 @@ class AppServices {
         @GET("promotions")
         fun getPromotions(@Query("filterPlace") filterPlace: String? = null,
                           @Query("filterUser") filterUser: String? = null): Observable<PromotionsResponse>
+
+        @GET("tradeType")
+        fun getCustomPublicPlaces(@Query("filter") filter: String? = null): Observable<CustomPublicPlacesResponseData>
     }
 
 }

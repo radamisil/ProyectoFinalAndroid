@@ -189,6 +189,113 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
         }
     }
 
+    override fun getCustomPublicPlaces(type: String?) {
+
+        //type is null; first time I ask for all places
+        if(type == null){
+            disposable = AppServices().getClient().getCustomPublicPlaces(
+                "store"
+            )
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { t ->
+                    if(t.Data.isNullOrEmpty()){
+                        t.Data
+                    }else{
+                        listOf()
+                    }
+                }
+                //.toObservable()  //TODO PREGUNTAR SI ESTO ERA NECESARIO
+                .flatMapIterable { l -> l }
+                .map {
+                    MapItem(it)
+                }
+                .toList()
+                .subscribe { items: List<MapItem>?, throwable: Throwable? ->
+                    run {
+                        if (items != null) {
+                            allPublicPlaces?.clear()
+                            allPlaces?.addAll(items)
+                            for(i in allPlaces!!){
+                                allPublicPlaces!!.add(i.publicPlace!!)
+                                for(t in i.publicPlace!!.types){
+                                    if(t == "store"){
+                                        placesToDisplay?.add(i)
+                                    }
+                                }
+                            }
+
+                            mView!!.displayPlaces(placesToDisplay!!)
+                        }else{
+                            throwable!!.message?.let {
+                                mView!!.displayMessage(it) }
+                        }
+                    }
+                }
+        }else{
+
+            var selectedPlaceType = ""
+            for(t in placeTypesList){
+                if(t.key == type){
+                    selectedPlaceType = t.value
+                    break
+                }
+            }
+
+            disposable = AppServices().getClient().getCustomPublicPlaces(
+                selectedPlaceType.toLowerCase()
+            )
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { t ->
+                    if(t.Data.isNullOrEmpty()){
+                        t.Data
+                    }else{
+                        listOf()
+                    }
+                }
+                .flatMapIterable { l -> l }
+                .map {
+                    MapItem(it)
+                }
+                .toList()
+                .subscribe { items: List<MapItem>?, throwable: Throwable? ->
+                    run {
+                        if (items != null) {
+                            //allPublicPlaces?.clear()
+                            allPlaces?.clear()
+                            //allPlaces?.addAll(items)
+                            /*for(i in allPlaces!!){
+                                allPublicPlaces!!.add(i.publicPlace!!)
+                                *//*for(t in i.publicPlace!!.types){
+                                    if(t == type){
+                                        placesToDisplay?.add(i)
+                                    }
+                                }*//*
+                                placesToDisplay?.add(i)
+                            }*/
+
+                            allPlaces?.addAll(items)
+                            /*for(i in allPlaces){
+                                allPublicPlaces!!.add(i.publicPlace!!)
+                                *//*for(t in i.publicPlace!!.types){
+                                    if(t == type){
+                                        placesToDisplay?.add(i)
+                                    }
+                                }*//*
+                                placesToDisplay?.add(i)
+                            }*/
+
+                            mView!!.displayPlaces(allPlaces!!)
+                        }else{
+                            throwable!!.message?.let {
+                                mView!!.displayMessage(it) }
+                        }
+                    }
+                }
+        }
+    }
+
     override fun getSpecificPublicPlace(placeId: String) {
         disposable = GooglePlacesService().getClient().getSpecificPublicPlace(
             placeId, "AIzaSyBMfHFvJTPHMgD5zBbRbuJdOjIOJ_HdL4o")
@@ -212,19 +319,12 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
             }
     }
 
-    //TODO AVAILABILITY - agregar API
     override fun getPublicPlaceCurrentAvailability(publicPlace: PublicPlace) {
       disposable = AppServices().getClient().getPlaceAverageAvailability(googlePlaceId = publicPlace.placeId!!)
           .observeOn(AndroidSchedulers.mainThread())
           .subscribeOn(Schedulers.newThread())
           .subscribe({
               var pollAverageResponse = if(it.Data!!.isEmpty()) PollAverageResponse() else it.Data!![0]
-              /*pollAverageResponseData: PollAverageResponseData ->
-                    if(pollAverageResponseData.Data!!.isEmpty()){
-                        mView!!.displayPlacePreviewDialog(publicPlace, PollAverageResponse())
-                    }else{
-                        mView!!.displayPlacePreviewDialog(publicPlace, pollAverageResponseData.Data!![0])
-                    }*/
               getPromotions(publicPlace, pollAverageResponse)
           }, {
               it.message?.let { mView!!.displayMessage("No se pudo obtener la información del lugar, por favor inténtalo nuevamente") }
