@@ -53,10 +53,10 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         val view: View = inflater.inflate(R.layout.fragment_map, container, false)
         startPresenter()
 
-        if(arguments != null){
+        if (arguments != null) {
             mCurrentLocation = arguments!!.getParcelable(AppConstants.CURRENT_LOCATION_KEY)
             mCurrentPlace = arguments!!.getParcelable(AppConstants.CURRENT_PLACE_KEY)
-        }else {
+        } else {
             checkPermissions()
         }
 
@@ -94,7 +94,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap!!
 
-        if(mCurrentLocation != null){
+        if (mCurrentLocation != null) {
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, AppConstants.mapZoomIn))
         }
         setUpClusterer()
@@ -133,27 +133,30 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         }
 
         //from Autocomplete
-        if(mCurrentPlace != null){
+        if (mCurrentPlace != null) {
             mClusterManager.clearItems()
             var mapItem = MapItem(mCurrentPlace!!)
             mClusterManager.addItem(mapItem)
 
-            var placePosition = LatLng(mCurrentPlace!!.geometry!!.location!!.lat, mCurrentPlace!!.geometry!!.location!!.lng)
-            mMap.addMarker(MarkerOptions()
+            var placePosition =
+                LatLng(mCurrentPlace!!.geometry!!.location!!.lat, mCurrentPlace!!.geometry!!.location!!.lng)
+            mMap.addMarker(
+                MarkerOptions()
                     .position(placePosition)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.img_marker_available)))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.img_marker_available))
+            )
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(placePosition, AppConstants.mapZoomInSpecificPlace))
-        }else{
+        } else {
             //First time
             mPresenter!!.getPublicPlaces(mCurrentLocation!!, null)
         }
     }
 
-    fun callMethodGetPublicPlaces(type: String){
+    fun callMethodGetPublicPlaces(type: String) {
         mPresenter!!.getPublicPlaces(mCurrentLocation!!, type)
     }
 
-    fun setCameraToCurrentPosition(newPosition: LatLng){
+    fun setCameraToCurrentPosition(newPosition: LatLng) {
         mCurrentLocation = newPosition
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mCurrentLocation, AppConstants.mapZoomIn))
     }
@@ -174,11 +177,14 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
     override fun displayPlaces(placesList: List<MapItem>) {
         mClusterManager.clearItems()
-        if(placesList.isEmpty()){
+        if (placesList.isEmpty()) {
             //displayMessage("No se encontraron lugares cercanos, prueba otra ubicación")
-            activity!!.showMessage("No se encontraron lugares cercanos, por favor prueba otra ubicación", flMapContainer)
-        }else{
-            for(mapItem: MapItem in placesList){
+            activity!!.showMessage(
+                "No se encontraron lugares cercanos, por favor prueba otra ubicación",
+                flMapContainer
+            )
+        } else {
+            for (mapItem: MapItem in placesList) {
                 mClusterManager.addItem(mapItem)
             }
         }
@@ -186,11 +192,14 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     }
 
     override fun displayCustomPlaces(placesList: List<MapItem>) {
-        if(placesList.isEmpty()){
+        if (placesList.isEmpty()) {
             //displayMessage("No se encontraron lugares cercanos, prueba otra ubicación")
-            activity!!.showMessage("No se encontraron lugares cercanos, por favor prueba otra ubicación", flMapContainer)
-        }else{
-            for(mapItem: MapItem in placesList){
+            activity!!.showMessage(
+                "No se encontraron lugares cercanos, por favor prueba otra ubicación",
+                flMapContainer
+            )
+        } else {
+            for (mapItem: MapItem in placesList) {
                 mClusterManager.addItem(mapItem)
             }
         }
@@ -198,14 +207,14 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     }
 
     override fun onClickPlaceSeeMore(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {
-        if(mPlacePreviewDialog!!.isAdded){
+        if (mPlacePreviewDialog!!.isAdded) {
             mPlacePreviewDialog!!.dismiss()
         }
         (activity as MainActivity).redirectToPlaceDetailActivity(publicPlace, pollAverageResponse)
     }
 
     override fun onClickSendReport(publicPlace: PublicPlace) {
-        if(mPlacePreviewDialog!!.isAdded){
+        if (mPlacePreviewDialog!!.isAdded) {
             mPlacePreviewDialog!!.dismiss()
         }
 
@@ -215,8 +224,10 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         startActivityForResult(intent, AppConstants.REQUEST_CODE_REPORT_FROM_DIALOG)
     }
 
-    override fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse,
-                                           promotions: List<Promotion>) {
+    override fun displayPlacePreviewDialog(
+        publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse,
+        promotions: List<Promotion>
+    ) {
         /*if(mPlacePreviewDialog == null){
             mPlacePreviewDialog = PlacePreviewDialog()
             mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
@@ -237,8 +248,8 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
             }else{
                 mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
             }*/
-            mPlacePreviewDialog = PlacePreviewDialog()
-            mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
+        mPlacePreviewDialog = PlacePreviewDialog()
+        mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
 
         var bundle = Bundle()
         bundle.putParcelable(AppConstants.PUBLIC_PLACE, publicPlace)
@@ -246,11 +257,11 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         bundle.putParcelableArrayList(AppConstants.PUBLIC_PLACE_PROMOTIONS, promotions as ArrayList<out Parcelable>)
         mPlacePreviewDialog!!.arguments = bundle
 
-            mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
+        mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
 
     }
 
-    fun getPlacesList() : MutableList<PublicPlace>? {
+    fun getPlacesList(): MutableList<PublicPlace>? {
         return mPresenter!!.getAllPublicPlacesList()
     }
 
@@ -265,7 +276,7 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
 
     override fun onDestroy() {
         super.onDestroy()
-        if(mLocationDisposable != null){
+        if (mLocationDisposable != null) {
             mLocationDisposable!!.dispose()
         }
     }

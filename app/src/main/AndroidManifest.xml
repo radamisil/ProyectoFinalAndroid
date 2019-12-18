@@ -19,24 +19,35 @@
             tools:ignore="GoogleAppIndexingWarning"
             android:usesCleartextTraffic="true">
 
-        <activity android:name=".ui.start.SplashActivity">
+        <activity android:name=".ui.start.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.start.StartActivity" />
-        <activity android:name=".ui.start.login.LoginActivity"/>
-        <activity android:name=".ui.start.register.RegisterActivity"/>
+        <activity android:name=".ui.start.StartActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.start.login.LoginActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.start.register.RegisterActivity"
+                  android:screenOrientation="portrait"/>
         <activity android:name=".ui.main.user.MainActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".ui.main.user.ProfileActivity"/>
-        <activity android:name=".ui.main.place.PlaceDetailActivity"/>
-        <activity android:name=".ui.main.place.report.ReportFromPlaceActivity"/>
-        <activity android:name=".ui.main.user.favourites.FavouritesActivity"/>
-        <activity android:name=".ui.main.user.info.InformationActivity"/>
-        <activity android:name=".ui.main.user.info.TermsPolicyActivity"/>
+            android:launchMode="singleTask"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.user.ProfileActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.place.PlaceDetailActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.place.report.ReportFromPlaceActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.user.favourites.FavouritesActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.user.info.InformationActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.main.user.info.TermsPolicyActivity"
+                  android:screenOrientation="portrait"/>
 
         <meta-data
                 android:name="com.google.android.geo.API_KEY"

@@ -314,7 +314,7 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
             .subscribe({
-                var promotions = if (!it.Data!!.isNullOrEmpty()) listOf<Promotion>() else it.Data!!
+                var promotions = if (it.Data!!.isNullOrEmpty()) listOf<Promotion>() else it.Data!!
                 mView!!.displayPlacePreviewDialog(publicPlace, pollAverageResponse, promotions)
             }, {
                 Log.d("GET PROMOTIONS", it.message)

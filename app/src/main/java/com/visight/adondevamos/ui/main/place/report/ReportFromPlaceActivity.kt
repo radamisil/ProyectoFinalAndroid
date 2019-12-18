@@ -207,12 +207,12 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
             onResponseSendPhoto(IAvalue!!)
             Handler().postDelayed({
                 if(mReportFromDialog!!){
-                    var i = Intent(this, MainActivity::class.java)
+                    /*var i = Intent(this, MainActivity::class.java)
                     i.putExtra(AppConstants.PUBLIC_PLACE, mPublicPlace)
-                    setResult(AppConstants.REQUEST_CODE_REPORT_FROM_DIALOG, i)
+                    setResult(AppConstants.REQUEST_CODE_REPORT_FROM_DIALOG, i)*/
                     finish()
                 }
-            }, 3500)
+            }, 2500)
         }else if (IAvalue == 0){
             displayMessage("No se han detectado personas, por favor intentalo nuevamente")
         }else{
