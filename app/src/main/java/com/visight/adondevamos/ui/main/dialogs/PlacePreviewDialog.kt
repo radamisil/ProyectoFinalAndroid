@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.visight.adondevamos.R
+import com.visight.adondevamos.data.entity.Promotion
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.utils.*
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.layout_dialog_preview.view.tvAvailabilityH
 class PlacePreviewDialog: DialogFragment() {
     var publicPlace: PublicPlace? = null
     var pollAverageResponse: PollAverageResponse? = null
+    var promotions: List<Promotion>? = null
     var onClickPreviewPlaceDialog: OnClickPreviewPlaceDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +27,7 @@ class PlacePreviewDialog: DialogFragment() {
         arguments?.let {
             publicPlace = it.get(AppConstants.PUBLIC_PLACE) as PublicPlace?
             pollAverageResponse = it.get(AppConstants.PUBLIC_PLACE_CURRENT_AVAILABILITY) as PollAverageResponse?
+            promotions = it.get(AppConstants.PUBLIC_PLACE_PROMOTIONS) as List<Promotion>?
         }
     }
 
@@ -53,8 +56,8 @@ class PlacePreviewDialog: DialogFragment() {
         v.tvAddress.text = publicPlace!!.vicinity
 
         //TODO AVAILABILITY - add API results
-        v.tvAvailabilityHumanQuantity.text = "10%"
-        v.tvAvailabilityAIQuantity.text = "60%"
+        /*v.tvAvailabilityHumanQuantity.text = "10%"
+        v.tvAvailabilityAIQuantity.text = "60%"*/
 
         if(pollAverageResponse!!.PromedioIA == null && pollAverageResponse!!.PromedioEncuesta == null){
             v.llContainerAvailability.visibility = View.GONE
@@ -67,38 +70,36 @@ class PlacePreviewDialog: DialogFragment() {
             v.llContainerNoAvailability.visibility = View.GONE
             v.llContainerAvailability.visibility = View.VISIBLE
 
-            when (pollAverageResponse!!.PromedioIA){
-                Availability.LOW.value -> {
-                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
-                }
-                Availability.MEDIUM.value -> {
-                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
-                }
-                Availability.HIGH.value -> {
-                    v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
-                }
-            }
-            v.tvAvailabilityHuman.text = pollAverageResponse!!.PromedioIA
-
             when (pollAverageResponse!!.PromedioEncuesta){
-                Availability.LOW.value -> {
+                Availability.LOW.value.toUpperCase() -> {
                     v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
                 }
-                Availability.MEDIUM.value -> {
+                Availability.MEDIUM.value.toUpperCase() -> {
                     v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
                 }
-                Availability.HIGH.value -> {
+                Availability.HIGH.value.toUpperCase() -> {
                     v.tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
                 }
             }
-            v.tvAvailabilityAI.text = pollAverageResponse!!.PromedioEncuesta
+            v.tvAvailabilityHuman.text = pollAverageResponse!!.PromedioEncuesta
+
+            when (pollAverageResponse!!.PromedioIA){
+                Availability.LOW.value.toUpperCase() -> {
+                    v.tvAvailabilityAI.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+                }
+                Availability.MEDIUM.value.toUpperCase() -> {
+                    v.tvAvailabilityAI.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+                }
+                Availability.HIGH.value.toUpperCase() -> {
+                    v.tvAvailabilityAI.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+                }
+            }
+            v.tvAvailabilityAI.text = pollAverageResponse!!.PromedioIA
         }
 
-        //TODO edit Promotions visibility
-        if(!publicPlace!!.promotions.isNullOrEmpty())
-            v.clContainerPromotion.visibility = View.VISIBLE
+        if(promotions.isNullOrEmpty())
+            v.clContainerPromotion.visibility = View.GONE
         else
-            //v.clContainerPromotion.visibility = View.GONE
             v.clContainerPromotion.visibility = View.VISIBLE
 
         v.btnGoBack.setOnClickListener {

@@ -159,7 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -181,7 +181,7 @@
                                   android:orientation="horizontal"
                                   android:layout_weight="5">
 
-                        <TextView
+                        <!--<TextView
                                 android:id="@+id/tvAvailabilityHumanQuantity"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -191,14 +191,14 @@
                                 android:layout_weight="1"
                                 android:layout_marginEnd="5dp"
                                 android:background="@drawable/bg_rounded_green_border"
-                                style="@style/style_texts_titles"/>
+                                style="@style/style_texts_titles"/>-->
 
                         <TextView
                                 android:id="@+id/tvAvailabilityHuman"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:text="BAJA"
-                                android:background="@drawable/bg_green_rounded"
+                                tools:text="BAJA"
+                                tools:background="@drawable/bg_green_rounded"
                                 android:textColor="@android:color/white"
                                 android:gravity="center"
                                 android:layout_weight="1"
@@ -231,7 +231,7 @@
                                   android:orientation="horizontal"
                                   android:layout_weight="5">
 
-                        <TextView
+                        <!--<TextView
                                 android:id="@+id/tvAvailabilityAIQuantity"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
@@ -241,14 +241,14 @@
                                 android:layout_weight="1"
                                 android:layout_marginEnd="5dp"
                                 android:background="@drawable/bg_rounded_orange_border"
-                                style="@style/style_texts_titles"/>
+                                style="@style/style_texts_titles"/>-->
 
                         <TextView
                                 android:id="@+id/tvAvailabilityAI"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:text="MEDIA"
-                                android:background="@drawable/bg_orange_rounded"
+                                tools:text="MEDIA"
+                                tools:background="@drawable/bg_orange_rounded"
                                 android:textColor="@android:color/white"
                                 android:gravity="center"
                                 android:layout_weight="1"

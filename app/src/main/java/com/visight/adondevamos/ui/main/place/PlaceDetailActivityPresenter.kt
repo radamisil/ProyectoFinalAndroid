@@ -1,6 +1,8 @@
 package com.visight.adondevamos.ui.main.place
 
+import android.util.Log
 import androidx.annotation.NonNull
+import com.visight.adondevamos.data.entity.Promotion
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.remote.AppServices
 import com.visight.adondevamos.data.remote.GooglePlacesService
@@ -22,15 +24,16 @@ class PlaceDetailActivityPresenter : PlaceDetailActivityContract.Presenter{
 
     //TODO PROMOTIONS - add API
     override fun getPromotions(placeId: String) {
-        /*disposable = AppServices().getClient().getPromotions(placeId!!)
+        mDisposable = AppServices().getClient().getPromotions(filterPlace = placeId)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.newThread())
-            .subscribe({ promotions ->
+            .subscribe({
+                var promotions = if (!it.Data!!.isNullOrEmpty()) listOf<Promotion>() else it.Data!!
                 mView!!.displayPromotions(promotions)
             }, {
-                it.message?.let { mView!!.displayMessage("No se pudieron obtener las promociones del lugar, por favor inténtalo nuevamente") }
-            })*/
-        mView!!.displayPromotions(listOf())
+                Log.d("GET PROMOTIONS", it.message)
+                it.message?.let { mView!!.displayMessage("No se pudo obtener información de las promociones, por favor inténtalo nuevamente") }
+            })
     }
 
     //TODO AVAILABILITY GLOBAL - add API

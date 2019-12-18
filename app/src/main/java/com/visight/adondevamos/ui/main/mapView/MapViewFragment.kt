@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.patloew.rxlocation.RxLocation
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.visight.adondevamos.R
+import com.visight.adondevamos.data.entity.Promotion
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.ui.main.user.MainActivity
@@ -35,6 +37,7 @@ import com.visight.adondevamos.utils.showMessage
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.layout_content_main.*
+import java.util.ArrayList
 
 class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.View {
     private var mPresenter: MapViewFragmentContract.Presenter? = null
@@ -183,30 +186,70 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
     }
 
     override fun onClickPlaceSeeMore(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {
+        if(mPlacePreviewDialog!!.isAdded){
+            mPlacePreviewDialog!!.dismiss()
+        }
         (activity as MainActivity).redirectToPlaceDetailActivity(publicPlace, pollAverageResponse)
     }
 
     override fun onClickSendReport(publicPlace: PublicPlace) {
+        if(mPlacePreviewDialog!!.isAdded){
+            mPlacePreviewDialog!!.dismiss()
+        }
+
         val intent = Intent(context, ReportFromPlaceActivity::class.java)
         intent.putExtra(AppConstants.PUBLIC_PLACE, publicPlace)
-        startActivity(intent)
+        intent.putExtra(AppConstants.REPORT_FROM_DIALOG, true)
+        startActivityForResult(intent, AppConstants.REQUEST_CODE_REPORT_FROM_DIALOG)
     }
 
-    override fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {
-        mPlacePreviewDialog = PlacePreviewDialog()
-        mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
+    override fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse,
+                                           promotions: List<Promotion>) {
+        /*if(mPlacePreviewDialog == null){
+            mPlacePreviewDialog = PlacePreviewDialog()
+            mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
+            }
+
+            var bundle = Bundle()
+            bundle.putParcelable(AppConstants.PUBLIC_PLACE, publicPlace)
+            bundle.putParcelable(AppConstants.PUBLIC_PLACE_CURRENT_AVAILABILITY, pollAverageResponse)
+            bundle.putParcelableArrayList(AppConstants.PUBLIC_PLACE_PROMOTIONS, promotions as ArrayList<out Parcelable>)
+            mPlacePreviewDialog!!.arguments = bundle
+
+            if(mPlacePreviewDialog!!.isAdded){
+                val frag = activity!!.supportFragmentManager.findFragmentByTag( AppConstants.PLACE_PREVIEW_DIALOG)
+                val ftran = activity!!.supportFragmentManager.beginTransaction()
+                ftran.detach(frag!!)
+                    .attach(frag)
+                    .commit()
+            }else{
+                mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
+            }*/
+            mPlacePreviewDialog = PlacePreviewDialog()
+            mPlacePreviewDialog!!.onClickPreviewPlaceDialog = this
 
         var bundle = Bundle()
         bundle.putParcelable(AppConstants.PUBLIC_PLACE, publicPlace)
         bundle.putParcelable(AppConstants.PUBLIC_PLACE_CURRENT_AVAILABILITY, pollAverageResponse)
+        bundle.putParcelableArrayList(AppConstants.PUBLIC_PLACE_PROMOTIONS, promotions as ArrayList<out Parcelable>)
         mPlacePreviewDialog!!.arguments = bundle
 
-        mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
+            mPlacePreviewDialog!!.show(childFragmentManager, AppConstants.PLACE_PREVIEW_DIALOG)
+
     }
 
     fun getPlacesList() : MutableList<PublicPlace>? {
         return mPresenter!!.getAllPublicPlacesList()
     }
+
+    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == AppConstants.REQUEST_CODE_REPORT_FROM_DIALOG){
+                mPresenter!!.getPublicPlaceCurrentAvailability(data!!.getParcelableExtra(AppConstants.PUBLIC_PLACE))
+            }
+        }
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()

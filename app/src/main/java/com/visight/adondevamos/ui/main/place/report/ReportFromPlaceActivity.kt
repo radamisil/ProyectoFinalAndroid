@@ -17,6 +17,7 @@ import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.ui.base.BaseActivity
 import com.visight.adondevamos.ui.main.dialogs.PlaceCapacityDialog
 import com.visight.adondevamos.ui.main.place.PlaceDetailActivity
+import com.visight.adondevamos.ui.main.user.MainActivity
 import com.visight.adondevamos.utils.*
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_place_detail.*
@@ -28,6 +29,7 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
     var mPresenter: ReportFromPlaceActivityContract.Presenter? = null
     var mPermissionsDisposable: Disposable? = null
     var mPublicPlace: PublicPlace? = null
+    var mReportFromDialog: Boolean? = false
     var sendCapacityDialog: PlaceCapacityDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +39,7 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
         startPresenter()
 
         mPublicPlace = intent.getParcelableExtra(AppConstants.PUBLIC_PLACE)
+        mReportFromDialog = intent.getBooleanExtra(AppConstants.REPORT_FROM_DIALOG, false)
         sendCapacityDialog = PlaceCapacityDialog()
         sendCapacityDialog!!.onClickSendPlaceCapacity = this
 
@@ -200,13 +203,20 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
 
     override fun onResponseReport(message: String?, IAvalue: Int?) {
         progressBarReport.visibility = View.GONE
-        if(message == null){
+        if(message == null && IAvalue != 0){
             onResponseSendPhoto(IAvalue!!)
             Handler().postDelayed({
-                finish()
+                if(mReportFromDialog!!){
+                    var i = Intent(this, MainActivity::class.java)
+                    i.putExtra(AppConstants.PUBLIC_PLACE, mPublicPlace)
+                    setResult(AppConstants.REQUEST_CODE_REPORT_FROM_DIALOG, i)
+                    finish()
+                }
             }, 3500)
+        }else if (IAvalue == 0){
+            displayMessage("No se han detectado personas, por favor intentalo nuevamente")
         }else{
-            displayMessage(message)
+            displayMessage(message!!)
         }
     }
 

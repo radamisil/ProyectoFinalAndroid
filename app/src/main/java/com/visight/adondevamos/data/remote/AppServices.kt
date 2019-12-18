@@ -5,10 +5,7 @@ import com.visight.adondevamos.data.entity.Promotion
 import com.visight.adondevamos.data.entity.User
 import com.visight.adondevamos.data.remote.requests.RegisterRequest
 import com.visight.adondevamos.data.remote.requests.SendPlacePhotoRequest
-import com.visight.adondevamos.data.remote.responses.AnalizedPhotoResponse
-import com.visight.adondevamos.data.remote.responses.PollAverageResponse
-import com.visight.adondevamos.data.remote.responses.PollAverageResponseData
-import com.visight.adondevamos.data.remote.responses.UserResponse
+import com.visight.adondevamos.data.remote.responses.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.Retrofit
@@ -77,7 +74,8 @@ class AppServices {
                 Observable<List<PlaceAverageAvailability>>
 
         @GET("promotions")
-        fun getPromotions(@Query("shop_id") shopId: String): Observable<List<Promotion>>
+        fun getPromotions(@Query("filterPlace") filterPlace: String? = null,
+                          @Query("filterUser") filterUser: String? = null): Observable<PromotionsResponse>
     }
 
 }

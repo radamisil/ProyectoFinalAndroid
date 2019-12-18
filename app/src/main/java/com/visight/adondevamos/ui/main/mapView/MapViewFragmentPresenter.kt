@@ -1,8 +1,10 @@
 package com.visight.adondevamos.ui.main.mapView
 
+import android.util.Log
 import com.facebook.internal.Mutable
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.internal.p
+import com.visight.adondevamos.data.entity.Promotion
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.remote.AppServices
 import com.visight.adondevamos.data.remote.GooglePlacesService
@@ -216,16 +218,30 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
           .observeOn(AndroidSchedulers.mainThread())
           .subscribeOn(Schedulers.newThread())
           .subscribe({
-              pollAverageResponseData: PollAverageResponseData ->
+              var pollAverageResponse = if(it.Data!!.isEmpty()) PollAverageResponse() else it.Data!![0]
+              /*pollAverageResponseData: PollAverageResponseData ->
                     if(pollAverageResponseData.Data!!.isEmpty()){
                         mView!!.displayPlacePreviewDialog(publicPlace, PollAverageResponse())
                     }else{
                         mView!!.displayPlacePreviewDialog(publicPlace, pollAverageResponseData.Data!![0])
-                    }
-
+                    }*/
+              getPromotions(publicPlace, pollAverageResponse)
           }, {
               it.message?.let { mView!!.displayMessage("No se pudo obtener la información del lugar, por favor inténtalo nuevamente") }
           })
+    }
+
+    override fun getPromotions(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {
+        disposable = AppServices().getClient().getPromotions(filterPlace = publicPlace.placeId)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.newThread())
+            .subscribe({
+                var promotions = if (!it.Data!!.isNullOrEmpty()) listOf<Promotion>() else it.Data!!
+                mView!!.displayPlacePreviewDialog(publicPlace, pollAverageResponse, promotions)
+            }, {
+                Log.d("GET PROMOTIONS", it.message)
+                it.message?.let { mView!!.displayMessage("No se pudo obtener la información del lugar, por favor inténtalo nuevamente") }
+            })
     }
 
     override fun getAllPublicPlacesList(): MutableList<PublicPlace>? {

@@ -36,6 +36,7 @@ import com.visight.adondevamos.data.entity.*
 import com.visight.adondevamos.data.local.SharedPreferencesManager
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.utils.*
+import kotlinx.android.synthetic.main.layout_dialog_preview.view.*
 
 
 class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
@@ -74,12 +75,6 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
                 .load(mPublicPlace!!.icon)
                 .into(ivHeader)*/
             ivHeader.loadTintedIcon(mPublicPlace!!)
-        }
-
-        btnGoToReport.setOnClickListener {
-            val intent = Intent(this@PlaceDetailActivity, ReportFromPlaceActivity::class.java)
-            intent.putExtra(AppConstants.PUBLIC_PLACE, mPublicPlace)
-            startActivity(intent)
         }
 
         if(SharedPreferencesManager().getFavourites(this) != null){
@@ -254,15 +249,59 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
         tvPlaceAddress.text = mPublicPlace.vicinity
 
         //TODO AVAILABILITY - add API results
-        tvAvailabilityHumanQuantity.text = mPublicPlaceCurrentAvailability!!.PromedioIA.toString() + "%"
-        tvAvailabilityAIQuantity.text = mPublicPlaceCurrentAvailability!!.PromedioEncuesta.toString() + "%"
-        tvAvailabilityHuman.text = "Baja"
-        tvAvailabilityAI.text = "Media"
+        /*tvAvailabilityHumanQuantity.text = mPublicPlaceCurrentAvailability!!.PromedioIA.toString() + "%"
+        tvAvailabilityAIQuantity.text = mPublicPlaceCurrentAvailability!!.PromedioEncuesta.toString() + "%"*/
+
+        if(mPublicPlaceCurrentAvailability!!.PromedioIA == null
+            && mPublicPlaceCurrentAvailability!!.PromedioEncuesta == null){
+            llContainerAvailability.visibility = View.GONE
+            llContainerNoAvailability.visibility = View.VISIBLE
+
+            btnAddReport.setOnClickListener {
+                val intent = Intent(this@PlaceDetailActivity, ReportFromPlaceActivity::class.java)
+                intent.putExtra(AppConstants.PUBLIC_PLACE, mPublicPlace)
+                startActivity(intent)
+            }
+        }else {
+            llContainerNoAvailability.visibility = View.GONE
+            llContainerAvailability.visibility = View.VISIBLE
+
+            when (mPublicPlaceCurrentAvailability!!.PromedioIA){
+                Availability.LOW.value.toUpperCase() -> {
+                    tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+                }
+                Availability.MEDIUM.value.toUpperCase() -> {
+                    tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+                }
+                Availability.HIGH.value.toUpperCase() -> {
+                    tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+                }
+            }
+            tvAvailabilityAI.text = mPublicPlaceCurrentAvailability!!.PromedioIA
+
+            when (mPublicPlaceCurrentAvailability!!.PromedioEncuesta){
+                Availability.LOW.value.toUpperCase() -> {
+                    tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+                }
+                Availability.MEDIUM.value.toUpperCase() -> {
+                    tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+                }
+                Availability.HIGH.value.toUpperCase() -> {
+                    tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+                }
+            }
+            tvAvailabilityHuman.text = mPublicPlaceCurrentAvailability!!.PromedioEncuesta
+
+            btnGoToReport.setOnClickListener {
+                val intent = Intent(this@PlaceDetailActivity, ReportFromPlaceActivity::class.java)
+                intent.putExtra(AppConstants.PUBLIC_PLACE, mPublicPlace)
+                startActivity(intent)
+            }
+        }
 
         //TODO AVAILABILITY - add API results
-        mPresenter!!.getPlaceAvailability(mPublicPlace.id!!)
+        mPresenter!!.getPlaceGlobalAvailability(mPublicPlace.id!!)
 
-        //TODO PROMOTIONS - add API
         mPresenter!!.getPromotions(mPublicPlace.id!!)
 
     }
@@ -358,9 +397,32 @@ class PlaceDetailActivity : BaseActivity(), PlaceDetailActivityContract.View {
     }
 
     override fun setAvailability(availability: PollAverageResponse) {
-        tvAvailabilityHumanQuantity.text = "10%"
-        tvAvailabilityAIQuantity.text = "60%"
+        /*tvAvailabilityHumanQuantity.text = "10%"
+        tvAvailabilityAIQuantity.text = "60%"*/
+        when (mPublicPlaceCurrentAvailability!!.PromedioEncuesta){
+            Availability.LOW.value.toUpperCase() -> {
+                tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+            }
+            Availability.MEDIUM.value.toUpperCase() -> {
+                tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+            }
+            Availability.HIGH.value.toUpperCase() -> {
+                tvAvailabilityHuman.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+            }
+        }
         tvAvailabilityHuman.text = availability.PromedioEncuesta
+
+        when (mPublicPlaceCurrentAvailability!!.PromedioIA){
+            Availability.LOW.value.toUpperCase() -> {
+                tvAvailabilityAI.background = resources.getDrawable(R.drawable.bg_green_rounded, null)
+            }
+            Availability.MEDIUM.value.toUpperCase() -> {
+                tvAvailabilityAI.background = resources.getDrawable(R.drawable.bg_orange_rounded, null)
+            }
+            Availability.HIGH.value.toUpperCase() -> {
+                tvAvailabilityAI.background = resources.getDrawable(R.drawable.bg_red_rounded, null)
+            }
+        }
         tvAvailabilityAI.text = availability.PromedioIA
     }
 

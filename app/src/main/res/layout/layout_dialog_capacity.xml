@@ -26,17 +26,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="¿Qué capacidad tiene el lugar?"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    style="@style/TitlesStyles"
+                    android:gravity="center"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary"/>
+
+            <!--<TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="¿Qué capacidad tiene el lugar?"
                     android:background="@color/colorPrimary"
                     android:textColor="@android:color/white"
                     android:gravity="center"
                     android:padding="8dp"
                     android:fontFamily="@font/opensans_regular"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"/>-->
 
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Oops, parece que este sitio no tiene registrada la capacidad del lugar."
+                    android:text="Ups, parece que este sitio no tiene un registro de la capacidad del lugar."
                     android:textColor="@color/colorGreyDark"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
@@ -62,7 +76,9 @@
                     android:layout_margin="10dp"
                     android:hint="Cantidad"
                     android:textColorHint="@color/colorLighterDarkGrey"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:textColor="@color/colorGreyDark"
+                    android:inputType="number"/>
 
             <!--<LinearLayout
                     android:layout_width="match_parent"

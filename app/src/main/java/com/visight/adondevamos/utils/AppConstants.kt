@@ -12,6 +12,7 @@ object AppConstants {
     @JvmField val CURRENT_PLACE_KEY = "currentPlace"
     @JvmField val PUBLIC_PLACE = "publicPlace"
     @JvmField val PUBLIC_PLACE_CURRENT_AVAILABILITY = "currentAvailability"
+    @JvmField val PUBLIC_PLACE_PROMOTIONS = "promotions"
     @JvmField val PLACE_AUTOCOMPLETE_REQUEST_CODE = 600
     @JvmField val REQUEST_IMAGE_CAPTURE = 183
     @JvmField val PREFS_NAME = "ADondeVamosPreferences"
@@ -25,8 +26,10 @@ object AppConstants {
     @JvmField val TERMS_KEY = "Términos y condiciones"
     @JvmField val PRIVACY_POLICY_KEY = "Política de privacidad"
     @JvmField val REQUEST_CHOOSE_IMAGE_FROM_GALLERY = 201
+    @JvmField val REQUEST_CODE_REPORT_FROM_DIALOG = 202
 
     @JvmField val PLACE_PREVIEW_DIALOG = "placePreviewDialog"
+    @JvmField val REPORT_FROM_DIALOG = "reportFromDialog"
 
     //Fields validation
     @JvmField val FIELD_NAME = "name"

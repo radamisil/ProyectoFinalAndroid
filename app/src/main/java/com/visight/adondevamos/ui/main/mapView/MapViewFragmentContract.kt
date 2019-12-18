@@ -1,6 +1,7 @@
 package com.visight.adondevamos.ui.main.mapView
 
 import com.google.android.gms.maps.model.LatLng
+import com.visight.adondevamos.data.entity.Promotion
 import com.visight.adondevamos.data.entity.PublicPlace
 import com.visight.adondevamos.data.remote.responses.PollAverageResponse
 import com.visight.adondevamos.ui.base.BaseContract
@@ -11,7 +12,8 @@ interface MapViewFragmentContract {
     interface View: BaseContract.View, PlacePreviewDialog.OnClickPreviewPlaceDialog {
         fun displayPlaces(placesList: List<MapItem>)
         fun displayMessage(message: String)
-        fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse)
+        fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse,
+                                      promotions: List<Promotion>)
     }
 
     interface Presenter: BaseContract.Presenter<MapViewFragmentContract.View> {
@@ -19,5 +21,6 @@ interface MapViewFragmentContract {
         fun getSpecificPublicPlace(placeId: String)
         fun getAllPublicPlacesList() : MutableList<PublicPlace>?
         fun getPublicPlaceCurrentAvailability(publicPlace: PublicPlace)
+        fun getPromotions(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse)
     }
 }
