@@ -11,6 +11,7 @@ import com.visight.adondevamos.ui.main.dialogs.PlacePreviewDialog
 interface MapViewFragmentContract {
     interface View: BaseContract.View, PlacePreviewDialog.OnClickPreviewPlaceDialog {
         fun displayPlaces(placesList: List<MapItem>)
+        fun displayCustomPlaces(placesList: List<MapItem>)
         fun displayMessage(message: String)
         fun displayPlacePreviewDialog(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse,
                                       promotions: List<Promotion>)

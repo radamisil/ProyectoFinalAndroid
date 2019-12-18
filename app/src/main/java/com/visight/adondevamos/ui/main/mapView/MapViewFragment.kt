@@ -185,6 +185,18 @@ class MapViewFragment : Fragment(), OnMapReadyCallback, MapViewFragmentContract.
         mClusterManager.cluster()
     }
 
+    override fun displayCustomPlaces(placesList: List<MapItem>) {
+        if(placesList.isEmpty()){
+            //displayMessage("No se encontraron lugares cercanos, prueba otra ubicación")
+            activity!!.showMessage("No se encontraron lugares cercanos, por favor prueba otra ubicación", flMapContainer)
+        }else{
+            for(mapItem: MapItem in placesList){
+                mClusterManager.addItem(mapItem)
+            }
+        }
+        mClusterManager.cluster()
+    }
+
     override fun onClickPlaceSeeMore(publicPlace: PublicPlace, pollAverageResponse: PollAverageResponse) {
         if(mPlacePreviewDialog!!.isAdded){
             mPlacePreviewDialog!!.dismiss()

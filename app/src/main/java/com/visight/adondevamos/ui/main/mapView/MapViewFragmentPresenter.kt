@@ -88,6 +88,9 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
                         MapItem(it)
                     }
                     .toList()
+                    .doFinally {
+                        getCustomPublicPlaces("store")
+                    }
                     .subscribe { items: List<MapItem>?, throwable: Throwable? ->
                         run {
                             if (items != null) {
@@ -152,6 +155,9 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
                     MapItem(it)
                 }
                 .toList()
+                .doFinally {
+                    getCustomPublicPlaces(type)
+                }
                 .subscribe { items: List<MapItem>?, throwable: Throwable? ->
                     run {
                         if (items != null) {
@@ -190,7 +196,6 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
     }
 
     override fun getCustomPublicPlaces(type: String?) {
-
         //type is null; first time I ask for all places
         if(type == null){
             disposable = AppServices().getClient().getCustomPublicPlaces(
@@ -213,7 +218,7 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
                 .toList()
                 .subscribe { items: List<MapItem>?, throwable: Throwable? ->
                     run {
-                        if (items != null) {
+                        /*if (items != null) {
                             allPublicPlaces?.clear()
                             allPlaces?.addAll(items)
                             for(i in allPlaces!!){
@@ -225,13 +230,10 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
                                 }
                             }
 
-                            mView!!.displayPlaces(placesToDisplay!!)
-                        }else{
-                            throwable!!.message?.let {
-                                mView!!.displayMessage(it) }
+                            mView!!.displayPlaces(placesToDisplay!!)*/
+                            mView!!.displayCustomPlaces(items!!)
                         }
                     }
-                }
         }else{
 
             var selectedPlaceType = ""
@@ -262,31 +264,7 @@ class MapViewFragmentPresenter : MapViewFragmentContract.Presenter {
                 .subscribe { items: List<MapItem>?, throwable: Throwable? ->
                     run {
                         if (items != null) {
-                            //allPublicPlaces?.clear()
-                            allPlaces?.clear()
-                            //allPlaces?.addAll(items)
-                            /*for(i in allPlaces!!){
-                                allPublicPlaces!!.add(i.publicPlace!!)
-                                *//*for(t in i.publicPlace!!.types){
-                                    if(t == type){
-                                        placesToDisplay?.add(i)
-                                    }
-                                }*//*
-                                placesToDisplay?.add(i)
-                            }*/
-
-                            allPlaces?.addAll(items)
-                            /*for(i in allPlaces){
-                                allPublicPlaces!!.add(i.publicPlace!!)
-                                *//*for(t in i.publicPlace!!.types){
-                                    if(t == type){
-                                        placesToDisplay?.add(i)
-                                    }
-                                }*//*
-                                placesToDisplay?.add(i)
-                            }*/
-
-                            mView!!.displayPlaces(allPlaces!!)
+                            mView!!.displayCustomPlaces(items)
                         }else{
                             throwable!!.message?.let {
                                 mView!!.displayMessage(it) }
