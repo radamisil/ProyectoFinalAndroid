@@ -8,6 +8,7 @@ interface ReportFromPlaceActivityContract {
     interface View: BaseContract.View, PlaceCapacityDialog.OnClickSendPlaceCapacity {
         fun displayMessage(message: String)
         fun takePhotoIntent(intent: Intent)
+        fun choosePhotoIntent(intent: Intent)
         fun displayImage(photoPath: String)
         fun onResponseSendPhoto(peopleNumber: Int)
         fun onResponseReport(message: String?, IAvalue: Int? = 0)
@@ -16,6 +17,8 @@ interface ReportFromPlaceActivityContract {
     interface Presenter: BaseContract.Presenter<ReportFromPlaceActivityContract.View> {
         fun takePhoto()
         fun takePhotoResult()
+        fun choosePhoto()
+        fun choosePhotoResult(data: Intent?)
         fun sendReport(placeId: String, shouldSendSurveySelectedOption: Boolean, capacity: Int)
         fun setSurveySelectedOption(selectedOption: String)
         fun getSurveySelectedOption(): String?

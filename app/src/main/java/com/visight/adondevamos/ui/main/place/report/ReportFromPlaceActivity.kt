@@ -44,6 +44,10 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
             requestPermissionAndStartCameraActivity()
         }
 
+        fabChoosePhoto.setOnClickListener {
+            requestPermissionAndStartGalleryActivity()
+        }
+
         /*btnSendPhoto.setOnClickListener {
             progressBarReport.visibility = View.VISIBLE
             mPresenter!!.sendReport(mPublicPlace!!.placeId!!, false)
@@ -135,12 +139,29 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
                 }
     }
 
+    private fun requestPermissionAndStartGalleryActivity() {
+        var rxPermissions = RxPermissions(this)
+        mPermissionsDisposable = rxPermissions
+            .request(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .subscribe { granted ->
+                if (granted) { // Always true pre-M
+                    mPresenter!!.choosePhoto()
+                } else {
+                    rxPermissions.request(Manifest.permission.CAMERA)
+                }
+            }
+    }
+
     override fun displayMessage(message: String) {
         DisplayMessage().displayMessage(message, llContainer)
     }
 
     override fun takePhotoIntent(intent: Intent) {
         startActivityForResult(intent, AppConstants.REQUEST_IMAGE_CAPTURE)
+    }
+
+    override fun choosePhotoIntent(intent: Intent) {
+        startActivityForResult(intent, AppConstants.REQUEST_CHOOSE_IMAGE_FROM_GALLERY)
     }
 
     override fun displayImage(photoPath: String) {
@@ -163,9 +184,16 @@ class ReportFromPlaceActivity : BaseActivity(), ReportFromPlaceActivityContract.
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == AppConstants.REQUEST_IMAGE_CAPTURE) {
+        /*if (requestCode == AppConstants.REQUEST_IMAGE_CAPTURE) {
             if (resultCode == Activity.RESULT_OK) {
                 mPresenter!!.takePhotoResult()
+            }
+        }*/
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == AppConstants.REQUEST_IMAGE_CAPTURE) {
+                mPresenter!!.takePhotoResult()
+            }else if(requestCode == AppConstants.REQUEST_CHOOSE_IMAGE_FROM_GALLERY){
+                mPresenter!!.choosePhotoResult(data)
             }
         }
     }

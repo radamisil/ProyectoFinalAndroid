@@ -8,8 +8,6 @@ import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import io.reactivex.disposables.CompositeDisposable
-import java.io.ByteArrayOutputStream
-import java.io.File
 import java.util.*
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -22,6 +20,12 @@ import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import android.util.Base64InputStream
+import android.R.attr.bitmap
+import android.util.Base64OutputStream
+import com.google.android.gms.common.util.IOUtils.copyStream
+import com.visight.adondevamos.utils.AppConstants
+import java.io.*
 
 
 class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presenter {
@@ -55,8 +59,40 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
         }
     }
 
+    override fun choosePhoto() {
+        var galleryIntent = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        galleryIntent.type = "image/*"
+        mView!!.choosePhotoIntent(galleryIntent)
+    }
+
     override fun takePhotoResult() {
         mView!!.displayImage(absolutePath)
+    }
+
+    override fun choosePhotoResult(data: Intent?) {
+        //var inputStream = mView!!.getContext().getContentResolver().openInputStream(data.getData())
+        //mView!!.displayImage(absolutePath)
+        if(data != null){
+            try {
+                val imageUri = data.data
+                val inputImageStream = mView!!.getContext().applicationContext
+                        .contentResolver.openInputStream(imageUri!!)
+                val photoFile = createImageFile()
+                val fileOutputStream = FileOutputStream(photoFile)
+                // Copying
+                try {
+                    inputImageStream!!.copyTo(fileOutputStream)
+                    fileOutputStream.close()
+                    inputImageStream.close()
+                }catch (e: IOException) {
+                    e.printStackTrace()
+                }
+
+                mView!!.displayImage(absolutePath)
+            } catch (e: FileNotFoundException ) {
+                e.printStackTrace()
+            }
+        }
     }
 
     override fun setSurveySelectedOption(selectedOption: String) {
@@ -68,9 +104,9 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
     }
 
     override fun sendReport(placeId: String, shouldSendSurveySelectedOption: Boolean, capacity: Int) {
-        var base64Image = setBase64ImageFromPath(absolutePath)
+        val base64Image = setBase64ImageFromPath(absolutePath)
 
-        var request: SendPlacePhotoRequest
+        val request: SendPlacePhotoRequest
         if(base64Image != null){
             if(!shouldSendSurveySelectedOption){
                 //request = SendPlacePhotoRequest(placeId = placeId, imagenbase64 = base64Image, encuesta = null)
@@ -134,22 +170,37 @@ class ReportFromPlaceActivityPresenter: ReportFromPlaceActivityContract.Presente
     // Create the File where the photo should go
     fun createImageFile(): File? {
         val root = File(mView!!.getContext().filesDir, "photos")
-        if (!(root.mkdirs() || root.isDirectory())) {
+        if (!(root.mkdirs() || root.isDirectory)) {
             mView!!.displayMessage("Unable to save file")
             return null
         }
 
-        val fname = "TMP_" + Calendar.getInstance().getTimeInMillis() + ".jpeg"
+        val fname = "TMP_" + Calendar.getInstance().timeInMillis + ".jpeg"
         val storageDirectory = File(root, fname)
-        absolutePath = storageDirectory.getAbsolutePath()
+        absolutePath = storageDirectory.absolutePath
         return storageDirectory
     }
 
 
     fun toBase64(image: Bitmap): String {
-        val output = ByteArrayOutputStream()
+        /*val output = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.JPEG, 65, output)
         val bytes = output.toByteArray()
-        return android.util.Base64.encodeToString(bytes, android.util.Base64.NO_WRAP)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Base64.getEncoder().encodeToString(bytes)
+        } else {
+            return android.util.Base64.encodeToString(bytes, android.util.Base64.DEFAULT)
+        }*/
+        //return android.util.Base64.encodeToString(bytes, android.util.Base64.DEFAULT)
+
+        return FileInputStream(absolutePath).use { inputStream ->
+            ByteArrayOutputStream().use { outputStream ->
+                Base64OutputStream(outputStream, android.util.Base64.NO_WRAP).use { base64FilterStream ->
+                    inputStream.copyTo(base64FilterStream)
+                    base64FilterStream.close()
+                    outputStream.toString()
+                }
+            }
+        }
     }
 }

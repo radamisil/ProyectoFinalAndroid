@@ -24,6 +24,7 @@ object AppConstants {
     @JvmField val PLACES_LIST_KEY = "placesList"
     @JvmField val TERMS_KEY = "Términos y condiciones"
     @JvmField val PRIVACY_POLICY_KEY = "Política de privacidad"
+    @JvmField val REQUEST_CHOOSE_IMAGE_FROM_GALLERY = 201
 
     @JvmField val PLACE_PREVIEW_DIALOG = "placePreviewDialog"
 
