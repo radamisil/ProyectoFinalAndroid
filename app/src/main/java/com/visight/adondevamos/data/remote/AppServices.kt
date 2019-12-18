@@ -21,7 +21,8 @@ import java.util.concurrent.TimeUnit
 class AppServices {
     var sRestAdapter: Retrofit? = null
     //var sAPI_URL = "http://40.84.190.225/api/"
-    var sAPI_URL = "http://adondevamos.ddns.net/api/"
+    //var sAPI_URL = "http://adondevamos.ddns.net/api/"
+    var sAPI_URL = "http://201.178.60.34/api/"
     var sApiClientInterface: ApiClientInterface? = null
 
     fun <S> createService(serviceClass: Class<S>): S {
